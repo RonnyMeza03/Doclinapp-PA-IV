@@ -1,0 +1,7 @@
+-- Tabla de usuarios
+CREATE TABLE usuarios (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(20) NOT NULL,
+    apellido VARCHAR(20) NOT NULL,
+    createAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
