@@ -7,6 +7,7 @@ import Medicamentos from "./Medicamentos";
 import Tratamientos from "./Tratamientos";
 import Balance from "./balance";
 import Ajustes from "./Ajustes";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const App = () => {
   const [selectedOption, setSelectedOption] = useState("Inicio");
