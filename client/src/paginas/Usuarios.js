@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { Form as BootstrapForm } from "react-bootstrap";
@@ -80,3 +81,10 @@ const Usuarios = () => {
 };
 
 export default Usuarios;
+=======
+const Usuarios = ( ) => {
+    return <div>Usuarios</div>
+}
+
+export default Usuarios
+>>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab

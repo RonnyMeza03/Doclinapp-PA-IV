@@ -10,6 +10,7 @@ root.render(
   </React.StrictMode>
 );
 
+<<<<<<< HEAD
 /*
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -22,3 +23,5 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById('root')
 );*/
+=======
+>>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab
