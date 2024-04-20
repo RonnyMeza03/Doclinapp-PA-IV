@@ -2,9 +2,14 @@ import React from "react";
 import Button from "react-bootstrap/Button";
 import { Form as BootstrapForm } from "react-bootstrap";
 import { Formik } from "formik";
-import {crearUsuarioRequest} from './api/usuarios.api.js';
+import {crearUsuarioRequest} from '../api/usuarios.api.js';
 
-const Usuarios = ({ toggleSidebar }) => {
+const handleChange =  (evento) => {
+  console.log(evento)
+  console.log(evento.target.value)
+}
+
+const Usuarios = () => {
   return (
     <div className="content">
       <h1>Contenido de Usuarios</h1>
@@ -51,15 +56,25 @@ const Usuarios = ({ toggleSidebar }) => {
                 value={values.apellido}
               />
             </BootstrapForm.Group>
-            <BootstrapForm.Group className="mb-3" controlId="formBasicCheckbox">
-              <BootstrapForm.Check type="checkbox" label="Check me out" />
-            </BootstrapForm.Group>
+           
             <Button variant="primary" type="submit" disabled = {isSubmitting}>
               {isSubmitting ? "Guardando..." : "Guardar"}
             </Button>
           </BootstrapForm>
         )}
       </Formik>
+      <div>
+        <BootstrapForm.Label>Escriba la url del servidor donde importara los pacientes</BootstrapForm.Label>
+        <BootstrapForm.Group className="mb-3" controlId="server">
+              <BootstrapForm.Label>servidor:</BootstrapForm.Label>
+              <BootstrapForm.Control
+                type="text"
+                name="server"
+                placeholder="URL"
+                onChange={handleChange}
+              />
+            </BootstrapForm.Group>
+      </div>
     </div>
   );
 };

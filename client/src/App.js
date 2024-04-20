@@ -1,37 +1,31 @@
-import React, { useState } from "react";
-import Sidebar from "./sidebar";
-import "./App.css";
-import Inicio from "./inicio";
-import Usuarios from "./Usuarios";
-import Medicamentos from "./Medicamentos";
-import Tratamientos from "./Tratamientos";
-import Balance from "./balance";
-import Ajustes from "./Ajustes";
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { useState } from 'react';
+import Navbar from './componentes/Navbar';
+import Inicio from './inicio';
+import Usuarios from './paginas/Usuarios';
+import Informes from './paginas/Informes';
+import Balance from './paginas/balance';
+import Ajustes from './paginas/Ajustes';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { FaBars } from 'react-icons/fa';
+import './App.css';
 
-const App = () => {
-  const [selectedOption, setSelectedOption] = useState("Inicio");
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+function App() {
+  const [selectedOption, setSelectedOption] = useState('Inicio');
+  const [showNav, setShowNav] = useState(false);
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
-
   const renderContent = () => {
     switch (selectedOption) {
-      case "Usuarios":
+      case 'Usuarios':
         return <Usuarios />;
-      case "Medicamentos":
-        return <Medicamentos />;
-      case "Tratamientos":
-        return <Tratamientos />;
-      case "Balance":
+      case 'Informes':
+        return <Informes />;
+      case 'Balance':
         return <Balance />;
-      case "Ajustes":
+      case 'Ajustes':
         return <Ajustes />;
       default:
         return <Inicio />;
@@ -39,16 +33,29 @@ const App = () => {
   };
 
   return (
-    <div className="App">
-    <div
-      className={`menu-icon ${sidebarOpen ? "open" : ""}`}
-      onClick={toggleSidebar}
-    >
-    </div>
-    <Sidebar isOpen={sidebarOpen} onOptionSelect={handleOptionSelect} />
-    <div className="content">{renderContent()}</div>
-  </div>
+    <Router>
+      <header>
+        <div>
+          <FaBars onClick={() => setShowNav(!showNav)} />
+        </div>
+      </header>
+
+      <Navbar show={showNav} handleOptionSelect={handleOptionSelect} />
+
+      <div className="main">
+        <Routes>
+          <Route path="/"/>
+          <Route path="/Informes" element={<Informes />} />
+          <Route path="/Usuarios" element={<Usuarios />} />
+          <Route path="/Balance" element={<Balance />} />
+          <Route path="/Ajustes" element={<Ajustes />} />
+        </Routes>
+      </div>
+
+      {renderContent()}
+    </Router>
   );
-};
+}
 
 export default App;
+
