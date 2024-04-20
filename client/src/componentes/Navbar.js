@@ -3,10 +3,7 @@ import { GoHome } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
 import { RiHealthBookLine } from "react-icons/ri";
 import {Link} from 'react-router-dom'
-<<<<<<< HEAD
 import Inicio from '../inicio';
-=======
->>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab
 
 
 const Navbar = ({show} )=> {
@@ -18,10 +15,6 @@ const Navbar = ({show} )=> {
                 <li>
                     <Link to="/">
                         <GoHome />
-<<<<<<< HEAD
-=======
-                        
->>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab
                         <p>Inicio</p>
                     </Link>
                 </li>
@@ -44,8 +37,4 @@ const Navbar = ({show} )=> {
     )
 }
 
-<<<<<<< HEAD
 export default Navbar;
-=======
-export default Navbar;
->>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab

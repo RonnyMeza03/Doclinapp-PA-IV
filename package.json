@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "doclinapp-pa-iv",
   "version": "1.0.0",
   "main": "app.js",
@@ -17,9 +16,5 @@
     "morgan": "^1.10.0",
     "mysql2": "^3.9.2",
     "nodemon": "^3.1.0"
-=======
-  "dependencies": {
-    "create-react-app": "^5.0.1"
->>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab
   }
 }
