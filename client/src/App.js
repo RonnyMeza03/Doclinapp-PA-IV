@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useState } from 'react';
 import Navbar from './componentes/Navbar';
 import Inicio from './inicio';
@@ -55,46 +54,7 @@ function App() {
 
       {renderContent()}
     </Router>
-=======
-import { useState } from 'react'
-import Navbar from './componentes/Navbar'
-import Inicio from './paginas/Inicio'
-import Usuarios from './paginas/Usuarios'
-import Informes from './paginas/Informes'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import { FaBars } from "react-icons/fa";
-import './App.css'
-
-function App() {
-  const [ showNav, setShowNav] = useState
-  (false)
-  return (
-      <Router>
-      <header>
-        <div>
-          <FaBars onClick ={()=> setShowNav(!showNav)}/>
-        </div>
-      </header>
-
-      <Navbar show={showNav} />
-
-      <div classname="main">
-        <Routes>
-        <Route path="/" exact={true} component={Inicio}/>
-        <Route path="/informes" exact={true} component={Informes}/>
-        <Route path="/usuarios" exact={true} component={Usuarios}/>
-        </Routes>
-      </div>
-      
-      </Router>
-
-    
->>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab
   );
 }
 
 export default App;
-<<<<<<< HEAD
-
-=======
->>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab

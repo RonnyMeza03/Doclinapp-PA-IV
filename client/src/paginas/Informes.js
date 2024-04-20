@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { useEffect, useState } from "react";
 import { obtenerTareas } from "../api/usuarios.api";
 import TarjetaUsuario from "../componentes/TarjetaUsuario.js";
@@ -45,10 +44,3 @@ const Informes = () => {
 };
 
 export default Informes;
-=======
-const Informes = ( ) => {
-    return <div>Informes</div>
-}
-
-export default Informes
->>>>>>> 82532b8c7325f0aaacc0f481499c2ef612709aab
