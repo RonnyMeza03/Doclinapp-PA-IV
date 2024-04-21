@@ -1,59 +1,37 @@
-import { useState } from 'react';
-import Navbar from './componentes/Navbar';
-import Inicio from './inicio';
-import Usuarios from './paginas/Usuarios';
-import Informes from './paginas/Informes';
-import Balance from './paginas/balance';
-import Ajustes from './paginas/Ajustes';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { FaBars } from 'react-icons/fa';
-import './App.css';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { useState } from 'react'
+import Navbar from './componentes/Navbar'
+import Inicio from './componentes/paginas/Inicio'
+import Usuarios from './componentes/paginas/Usuarios'
+import Informes from './componentes/paginas/Informes'
+import Estadisticas from './componentes/paginas/Estadisticas'
+import Ajustes from './componentes/paginas/Ajustes'
+import { FaBars } from "react-icons/fa";
+import './App.css'
 
 function App() {
-  const [selectedOption, setSelectedOption] = useState('Inicio');
-  const [showNav, setShowNav] = useState(false);
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-  };
-
-  const renderContent = () => {
-    switch (selectedOption) {
-      case 'Usuarios':
-        return <Usuarios />;
-      case 'Informes':
-        return <Informes />;
-      case 'Balance':
-        return <Balance />;
-      case 'Ajustes':
-        return <Ajustes />;
-      default:
-        return <Inicio />;
-    }
-  };
-
+  const [ showNav, setShowNav] = useState(false)
   return (
-    <Router>
+      <Router>
       <header>
-        <div>
-          <FaBars onClick={() => setShowNav(!showNav)} />
+        <div className='header-content'>
+            <FaBars onClick ={()=> setShowNav(!showNav)}/>
         </div>
       </header>
 
-      <Navbar show={showNav} handleOptionSelect={handleOptionSelect} />
+      <Navbar show={showNav} />
 
       <div className="main">
         <Routes>
-          <Route path="/"/>
-          <Route path="/Informes" element={<Informes />} />
-          <Route path="/Usuarios" element={<Usuarios />} />
-          <Route path="/Balance" element={<Balance />} />
-          <Route path="/Ajustes" element={<Ajustes />} />
+        <Route path="/" element={<Inicio />} />
+        <Route path="/informes" element={<Informes />} />
+        <Route path="/usuarios" element={<Usuarios />} />
+        <Route path="/estadisticas" element={<Estadisticas />} />
+        <Route path="/ajustes" element={<Ajustes />} />
+  
         </Routes>
-      </div>
-
-      {renderContent()}
-    </Router>
+      </div>      
+      </Router>
   );
 }
 
