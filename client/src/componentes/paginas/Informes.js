@@ -13,6 +13,11 @@ const Informes = () => {
     { id: 2, nombre: 'Gabriel Elías Valdelamar Caldera', edad: 20, direccion: 'Torices', telefono: '3024224758', email: 'gabriel@gmail.com' },
     { id: 3, nombre: 'Diego Andrés Seña Torres', edad: 20, direccion: 'No sé', telefono: '123123123', email: 'diego@gmail.com' },
     { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
+    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
+    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
+    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
+    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
+
   ];
 
   const abrirDialogo = (id) => {
