@@ -55,8 +55,32 @@ body{
 
 .dialogo-container {
 
+    width: 95%;
+
+    h2 {
+        font-size: 40px;
+    }
+
+    b {
+        font-size: 25px;
+    }
+
     p {
         display: block;
+        font-size: 15px;
+    }
+
+    .separation {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 100px;
+    }
+
+    .border {
+        border: 2px solid #011627;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
     }
 }
 
