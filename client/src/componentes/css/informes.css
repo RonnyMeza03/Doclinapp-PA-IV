@@ -1,0 +1,88 @@
+body{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    color:black;
+}
+
+
+/* informes.js */
+.informes-container {
+    position: absolute;
+    margin: 0 10px 0 220px;
+    top: 70px;
+    width: 1129px;
+    height: 90%;
+    padding-left: 8px;
+    resize: vertical;
+    overflow-y: auto;
+
+    h1 {
+        font-size: 30px;
+        text-align: center;
+    }
+
+    p {
+        font-size: 20px;
+    }
+}
+
+/* persona.js */
+
+.info-people {
+    /* margin-left: 30px; */
+    padding-left: 10px;
+    width: 90%;
+    cursor: pointer;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    border: 2px solid #011627;
+    border-radius: 5px;
+
+    .age {
+        display: block;
+        margin: 0;
+    }
+}
+
+.info-people li b{
+    font-size: 20px;
+}
+
+
+/* dialogo.js */
+
+.dialogo-container {
+
+    width: 95%;
+
+    h2 {
+        font-size: 40px;
+    }
+
+    b {
+        font-size: 25px;
+    }
+
+    p {
+        display: block;
+        font-size: 15px;
+    }
+
+    .separation {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 100px;
+    }
+
+    .border {
+        border: 2px solid #011627;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+}
+
+
+
