@@ -32,20 +32,21 @@ const Usuarios = ( ) => {
 
       <div className='medical-history border'>
         <b>Antecedentes Médicos:</b>
-        <div className='separation'>
-          <p><strong>Presión Arterial Sistólica:</strong> </p>
-          <p><strong>Presión Arterial Diastólica:</strong> </p>
-        </div>
-        <p><strong>Niveles de Colesterol Total:</strong> </p>
-        <div className='separation'>
+          <div className="input">
+            <p><strong>Presión Arterial Sistólica:</strong> </p>
+            <input type="text" />
+          </div>
+
+          <div className="input">
+            <p><strong>Presión Arterial Diastólica:</strong> </p>
+            <input type="text" />
+          </div>
+          <p><strong>Niveles de Colesterol Total:</strong> </p>
           <p><strong>Niveles de LDL (Colesterol Malo):</strong> </p>
           <p><strong>Niveles de HDL (Colesterol Bueno):</strong> </p>
-        </div>
-        <div className='separation'>
-        <p><strong>Niveles de Triglicéridos:</strong> </p>
-        <p><strong>Historial Familiar de Enfermedades Cardiacas:</strong> </p>
-        </div>
-        <p><strong>Historial de Enfermedades Crónicas (ej: diabetes):</strong> </p>
+          <p><strong>Niveles de Triglicéridos:</strong> </p>
+          <p><strong>Historial Familiar de Enfermedades Cardiacas:</strong> </p>
+          <p><strong>Historial de Enfermedades Crónicas (ej: diabetes):</strong> </p>
       </div>
 
       <div className="life-style border">
