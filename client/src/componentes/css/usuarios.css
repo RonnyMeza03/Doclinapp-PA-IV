@@ -1,90 +1,55 @@
-h1 {
-    font-size: 30px;
-    text-align: center;
-  }
-  
-  .button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
+.usuario-container {
+ position: absolute;
+ margin: 0 10px 0 220px;
+ top: 70px;
+ width: 1129px;
+ height: 90%;
+ padding-left: 8px;
+ resize: vertical;
+ overflow-y: auto;
 
-  .dialogo-container {
+ h1 {
+     font-size: 30px;
+     text-align: center;
+ }
 
-    width: 95%;
-    overflow-y:auto;
+ p {
+     font-size: 20px;
+ }
 
-    h2 {
-        font-size: 40px;
-    }
+ h2 {
+     font-size: 40px;
+ }
 
-    b {
-        font-size: 25px;
-    }
+ b {
+     font-size: 25px;
+ }
 
-    p {
-        display: block;
-        font-size: 15px;
-    }
-    
-}
+ p {
+     display: block;
+     font-size: 15px;
+ }
 
+ .input {
+  display: flex;
+ }
 
-    .border {
-        border: 2px solid #011627;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-    }
-  
-  .personal-info,
-  .medical-history,
-  .life-style,
-  .risk-evaluation {
-    border: 2px solid #011627;
-    padding: 10px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-  }
-  
-  .separation {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    margin-bottom: 10px;
-}
+ input {
+  margin-top: 13px;
+  margin-left: 10px;
+  height: 15px;
+ }
 
-.separation p {
-    margin-right: 10px;
-    flex-shrink: 0; 
-}
+ .separation {
+     display: flex;
+     justify-content: space-between;
+ }
 
-.separation input[type="text"] {
-    flex: 1;
-    padding: 5px;
-    margin-right: 10px;
-    max-width: 150px; 
-}
+ .border {
+     border: 2px solid #011627;
+     padding: 10px;
+     margin-bottom: 10px;
+     border-radius: 5px;
+ }
 
-
-  .field-container {
-
-  margin-bottom: 10px; 
-}
-
-.field-container p {
-  margin-right: 5px;
-}
-
-.field-container input[type="text"] {
-    margin-right: 10px;
-  width: 150px; 
 }
