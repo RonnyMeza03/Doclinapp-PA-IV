@@ -1,27 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import Persona from '../paginas/function-informes/Persona';
 import Dialogo from '../paginas/function-informes/Dialogo';
 import '../css/informes.css';
+import {obtenerTareas} from "../../api/usuarios.api";
 
 const Informes = () => {
   const [dialogoVisible, setDialogoVisible] = useState(false);
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(true); // Nuevo estado
+  const [usuarios, setUsuarios] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const personas = [
-    { id: 1, nombre: 'Ronny Meza', edad: 20, direccion: 'No sé', telefono: '2382137123', email: 'ronny@gmail.com' },
-    { id: 2, nombre: 'Gabriel Elías Valdelamar Caldera', edad: 20, direccion: 'Torices', telefono: '3024224758', email: 'gabriel@gmail.com' },
-    { id: 3, nombre: 'Diego Andrés Seña Torres', edad: 20, direccion: 'No sé', telefono: '123123123', email: 'diego@gmail.com' },
-    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
-    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
-    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
-    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
-    { id: 4, nombre: 'Oscar David Cantillo', edad: 24, direccion: 'Zaragocilla', telefono: '213123123123', email: 'oscar@gmail.com' },
+  useEffect(() => {
+    async function cargarUsuarios() {
+      try {
+        const respuesta = await obtenerTareas();
+        setUsuarios(respuesta.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    }
+    cargarUsuarios();
+  }, []);
 
-  ];
+  if (loading) {
+    return <div>Cargando usuarios...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  console.log("Usuarios:", usuarios); // Agregado para verificar los datos de usuario
+
 
   const abrirDialogo = (id) => {
-    const persona = personas.find(p => p.id === id);
+    const persona = usuarios.find(p => p.id === id);
     setPersonaSeleccionada(persona);
     setDialogoVisible(true);
     setMostrarLista(false); // Ocultar la lista al abrir el diálogo
@@ -38,8 +55,8 @@ const Informes = () => {
       <h1>Informes</h1>
       {mostrarLista && ( // Renderizar la lista solo si mostrarLista es true
         <ul>
-          {personas.map((persona) => (
-            <Persona key={persona.id} nombre={persona.nombre} edad={persona.edad} onClick={() => abrirDialogo(persona.id)} />
+          {usuarios.map((usuarios) => (
+            <Persona key={usuarios.id} nombre={usuarios.nombre} apellido={usuarios.apellido} edad={"20"} onClick={() => abrirDialogo(usuarios.id)} />
           ))}
         </ul>
       )}
