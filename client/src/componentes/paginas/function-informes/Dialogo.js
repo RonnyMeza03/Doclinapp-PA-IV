@@ -4,7 +4,7 @@ import '../../css/informes.css';
 const Dialogo = ({ personaSeleccionada, onClose }) => {
   return (
     <div className="dialogo-container">
-      <h2>{personaSeleccionada.nombre}</h2>
+      <h2>{personaSeleccionada.nombre} {personaSeleccionada.apellido}</h2>
       
       <div className="personal-info border">
         <b>Información Personal:</b>
