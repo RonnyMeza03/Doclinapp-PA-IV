@@ -15,7 +15,9 @@ const Login = ({  }) => {
                 </div>
                 <a href="#">¿Olvidaste tu Contraseña?</a>
                 <div>
+                    <Link to="/inicio">
                     <input type="button" value="INICIAR SESIÓN" className="button"/>
+                    </Link>
                 </div>
             </div>
             <div className="img">
