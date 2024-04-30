@@ -1,5 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { useState } from 'react'
+import Login from './componentes/paginas/login/Login'
 import Navbar from './componentes/Navbar'
 import Inicio from './componentes/paginas/Inicio'
 import Usuarios from './componentes/paginas/Usuarios'
@@ -23,9 +24,10 @@ function App() {
 
       <div className="main">
         <Routes>
-        <Route path="/" element={<Inicio />} />
-        <Route path="/informes" element={<Informes />} />
+        <Route path ="/" element={<Login/>}/>
+        <Route path="/inicio" element={<Inicio />} />
         <Route path="/usuarios" element={<Usuarios />} />
+        <Route path="/informes" element={<Informes/>} />
         <Route path="/estadisticas" element={<Estadisticas />} />
         <Route path="/ajustes" element={<Ajustes />} />
   
