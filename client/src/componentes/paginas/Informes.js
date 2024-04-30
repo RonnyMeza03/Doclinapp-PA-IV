@@ -56,7 +56,7 @@ const Informes = () => {
       {mostrarLista && ( // Renderizar la lista solo si mostrarLista es true
         <ul>
           {usuarios.map((usuarios) => (
-            <Persona key={usuarios.id} nombre={usuarios.nombre} apellido={usuarios.apellido} edad={"20"} onClick={() => abrirDialogo(usuarios.id)} />
+            <Persona key={usuarios.id} nombre={usuarios.nombre} apellido={usuarios.apellido} edad={usuarios.edad} onClick={() => abrirDialogo(usuarios.id)} />
           ))}
         </ul>
       )}

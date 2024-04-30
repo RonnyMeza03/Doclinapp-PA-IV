@@ -28,16 +28,68 @@ export const getUsuario = async (req, res) => {
 export const crearUsuario = async (req, res) => {
   try {
     console.log(req.body);
-    const { nombre, apellido } = req.body;
+    const { nombre, 
+      apellido ,
+      sexo,
+      edad,
+      sistolica,
+      ldl,
+      hdl,
+      trigriceridos,
+      familiares,
+      enfermedades,
+      fumar,
+      alcohol,
+      dieta,
+      actividad,
+      masa,
+      glucosa,
+      colesterol,
+      diastolica
+    } = req.body;
     const [resultado] = await pool.query(
-      "INSERT INTO usuarios(nombre, apellido) VALUES (? , ?)",
-      [nombre, apellido]
+      "INSERT INTO usuarios(nombre, apellido, sexo, edad, sistolica, ldl, hdl, trigriceridos, familiares, enfermedades, fumar, alcohol, dieta, actividad, masa, glucosa, colesterol, diastolica) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ? )",
+      [nombre, 
+        apellido,
+        sexo,
+        edad,
+        sistolica,
+        ldl,
+        hdl,
+        trigriceridos,
+        familiares,
+        enfermedades,
+        fumar,
+        alcohol,
+        dieta,
+        actividad,
+        masa,
+        glucosa,
+        colesterol,
+        diastolica
+      ]
     );
     console.log(resultado);
     res.json({
       id: resultado.insertId,
       nombre,
       apellido,
+      sexo,
+      edad,
+      sistolica,
+      ldl,
+      hdl,
+      trigriceridos,
+      familiares,
+      enfermedades,
+      fumar,
+      alcohol,
+      dieta,
+      actividad,
+      masa,
+      glucosa,
+      colesterol,
+      diastolica
     });
   } catch (error) {
     return res.status(500).json({ message: error.message });
