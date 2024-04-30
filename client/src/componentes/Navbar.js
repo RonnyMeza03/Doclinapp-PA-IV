@@ -14,7 +14,7 @@ const Navbar = ({show} )=> {
             className="logo"/>
             <ul>
                 <li>
-                    <Link to="/">
+                    <Link to="/Inicio">
                         <GoHome />
                         <p>Inicio</p>
                     </Link>
