@@ -1,13 +1,11 @@
 .login-container {
     background: #011627;
-    margin: 10px;
-    width: 98.5%;
-    height: 100vh;
+    height: 200vh;
     border-radius: 20px;
     color: white;
     text-align: center;
-    display: flex; /* Usar flexbox */
-    align-items: center; /* Centrar verticalmente */
+    display: flex; 
+    align-items: center; 
     
 
     .login {
