@@ -3,6 +3,7 @@ import Persona from '../paginas/function-informes/Persona';
 import Dialogo from '../paginas/function-informes/Dialogo';
 import '../css/informes.css';
 import {obtenerTareas} from "../../api/usuarios.api";
+import { useNavigate } from 'react-router-dom';
 
 const Informes = () => {
   const [dialogoVisible, setDialogoVisible] = useState(false);
@@ -11,6 +12,8 @@ const Informes = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function cargarUsuarios() {
@@ -36,12 +39,17 @@ const Informes = () => {
 
   console.log("Usuarios:", usuarios); // Agregado para verificar los datos de usuario
 
+  const handleClick = (id) => {
+    navigate(`/informes/${id}`)
+  }
+
 
   const abrirDialogo = (id) => {
     const persona = usuarios.find(p => p.id === id);
     setPersonaSeleccionada(persona);
     setDialogoVisible(true);
     setMostrarLista(false); // Ocultar la lista al abrir el diálogo
+    handleClick(id)
   };
 
   const cerrarDialogo = () => {
@@ -56,7 +64,7 @@ const Informes = () => {
       {mostrarLista && ( // Renderizar la lista solo si mostrarLista es true
         <ul>
           {usuarios.map((usuarios) => (
-            <Persona key={usuarios.id} nombre={usuarios.nombre} apellido={usuarios.apellido} edad={usuarios.edad} onClick={() => abrirDialogo(usuarios.id)} />
+            <Persona key={usuarios.id} id= {usuarios.id} nombre={usuarios.nombre} apellido={usuarios.apellido} edad={usuarios.edad} onClick={() => abrirDialogo(usuarios.id)} />
           ))}
         </ul>
       )}

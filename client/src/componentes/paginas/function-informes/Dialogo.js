@@ -1,7 +1,43 @@
 import React from 'react';
 import '../../css/informes.css';
+import { obtenerAnalisis } from '../../../api/informes.api.js';
+import { useState, useEffect } from 'react';
+import {useParams} from "react-router-dom"
+
 
 const Dialogo = ({ personaSeleccionada, onClose }) => {
+
+  const [analisis, setAnalisis] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const params = useParams()
+  
+
+  useEffect(() => {
+    const cargarAnalisis = async () => {
+      
+      try {
+        const respuesta = await obtenerAnalisis(params.id);
+        setAnalisis(respuesta.data);
+        console.log(respuesta.data)
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    }
+    cargarAnalisis();
+  }, []);
+
+  if (loading) {
+    return <div>Cargando analisis...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div className="dialogo-container">
       <h2>{personaSeleccionada.nombre} {personaSeleccionada.apellido}</h2>
@@ -52,6 +88,18 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
         <p><strong>Índice de Masa Corporal (IMC):</strong> {personaSeleccionada.masa} </p>
         <p><strong>Niveles de Glucosa en Sangre:</strong> {personaSeleccionada.glucosa} </p>
         </div>
+      </div>
+
+      <div>
+        <ul>
+          <p>Probabilidad Coronaria: {analisis.coronaria}%</p>
+        </ul>
+        <ul>
+          <p>Probabilidad Hiperlipidemia: {analisis.hiperlipidemia}%</p>
+        </ul>
+        <ul>
+          <p>Probabilidad Hipertension: {analisis.hipertension}%</p>
+        </ul>
       </div>
 
       <button onClick={onClose}>Cerrar</button>

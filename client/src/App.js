@@ -8,6 +8,7 @@ import Estadisticas from './componentes/paginas/Estadisticas'
 import Ajustes from './componentes/paginas/Ajustes'
 import { FaBars } from "react-icons/fa";
 import './App.css'
+import Dialogo from './componentes/paginas/function-informes/Dialogo'
 
 function App() {
   const [ showNav, setShowNav] = useState(false)
@@ -25,6 +26,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Inicio />} />
         <Route path="/informes" element={<Informes />} />
+        <Route path="/informes/:id" element={<Informes/>} />
         <Route path="/usuarios" element={<Usuarios />} />
         <Route path="/estadisticas" element={<Estadisticas />} />
         <Route path="/ajustes" element={<Ajustes />} />
