@@ -8,7 +8,10 @@ import { useNavigate } from 'react-router-dom';
 const Informes = () => {
   const [dialogoVisible, setDialogoVisible] = useState(false);
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
-  const [mostrarLista, setMostrarLista] = useState(true); // Nuevo estado
+  const [mostrarLista, setMostrarLista] = useState(true);
+  const [busqueda, setBusqueda] = useState(''); 
+  const [ordenEdad, setOrdenEdad] = useState('ascendente'); 
+  const [sexo, setSexo] = useState('todos'); 
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,7 +40,7 @@ const Informes = () => {
     return <div>Error: {error}</div>;
   }
 
-  console.log("Usuarios:", usuarios); // Agregado para verificar los datos de usuario
+  console.log("Usuarios:", usuarios); 
 
   const handleClick = (id) => {
     navigate(`/informes/${id}`)
@@ -48,7 +51,7 @@ const Informes = () => {
     const persona = usuarios.find(p => p.id === id);
     setPersonaSeleccionada(persona);
     setDialogoVisible(true);
-    setMostrarLista(false); // Ocultar la lista al abrir el diálogo
+    setMostrarLista(false); 
     handleClick(id)
   };
 
@@ -58,15 +61,52 @@ const Informes = () => {
     setMostrarLista(true); // Mostrar la lista al cerrar el diálogo
   };
 
+  const filtrarPorNombre = () => {
+    return usuarios.filter(usuario => usuario.nombre.toLowerCase().includes(busqueda.toLowerCase()));
+  };
+  
+  const ordenarPorEdad = (usuarios) => {
+    return usuarios.sort((a, b) => {
+      if (ordenEdad === 'ascendente') {
+        return a.edad - b.edad;
+      } else {
+        return b.edad - a.edad;
+      }
+    });
+  };
+  
+  const filtrarPorSexo = (usuarios) => {
+    if (sexo === 'todos') {
+      return usuarios;
+    } else {
+      return usuarios.filter(usuario => usuario.sexo === sexo);
+    }
+  };
+
   return (
     <div className='informes-container'>
       <h1>Informes</h1>
-      {mostrarLista && ( // Renderizar la lista solo si mostrarLista es true
+      <label htmlFor="busqueda" className='label-small'>Buscar por nombre:</label>
+      <input id="busqueda" type="text" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}/>
+      
+      <label htmlFor="ordenEdad" className='label-small'> Ordenar por edad:</label>
+      <select id="ordenEdad" value={ordenEdad} onChange={(e) => setOrdenEdad(e.target.value)}>
+        <option value="ascendente">Ascendente</option>
+        <option value="descendente">Descendente</option>
+      </select>
+      
+      <label htmlFor="sexo" className='label-small'> Filtrar por sexo:</label>
+      <select id="sexo" value={sexo} onChange={(e) => setSexo(e.target.value)}>
+        <option value="todos">Todos</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+      </select>
+      {mostrarLista && ( 
         <ul>
-          {usuarios.map((usuarios) => (
-            <Persona key={usuarios.id} id= {usuarios.id} nombre={usuarios.nombre} apellido={usuarios.apellido} edad={usuarios.edad} onClick={() => abrirDialogo(usuarios.id)} />
-          ))}
-        </ul>
+        {filtrarPorSexo(ordenarPorEdad(filtrarPorNombre())).map((usuario) => (
+          <Persona key={usuario.id} nombre={usuario.nombre} apellido={usuario.apellido} edad={usuario.edad} onClick={() => abrirDialogo(usuario.id)} />
+        ))}
+      </ul>
       )}
       {dialogoVisible && (
         <Dialogo personaSeleccionada={personaSeleccionada} onClose={cerrarDialogo} />
