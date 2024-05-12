@@ -26,6 +26,11 @@ body{
     p {
         font-size: 20px;
     }
+    
+    .label-small {
+        font-size: 14px;
+      }
+    
 }
 
 /* persona.js */
