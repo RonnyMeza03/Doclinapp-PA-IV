@@ -185,26 +185,29 @@ class Paciente {
     this._diastolica = diastolica;
   }
 
-  analizarHipertension = function(){
-    let resultadoAnalisis = {resultado : 0}
-      const x = (140 - this._sistolica) * 100 / 140
-      const xy = 100 - x.toFixed(2)
-      switch (this._fumar) {
+  analizarHipertension = function () {
+    const resultadoAnalisis = { resultado: 0 };
+    const x = (140 - this._sistolica) * 100 / 140;
+    const xy = 100 - x.toFixed(2);
+    switch (this._fumar) {
         case "Activo":
-          const probFumarA = 100 * 0.30
-            resultadoAnalisis.resultado = xy * 0.70 + probFumarA, 2
-          break;
+            const probFumarA = 100 * 0.30;
+            resultadoAnalisis.resultado = (xy * 0.70) + probFumarA;
+            break;
         case "Medio":
-          const probFumarM = 50 * 0.30
-          resultadoAnalisis.resultado = xy * 0.70 + probFumarM, 2
+            const probFumarM = 50 * 0.30;
+            resultadoAnalisis.resultado = (xy * 0.70) + probFumarM;
+            break;
         case "Nada":
-          const probFumarN = 0 * 0.30
-          resultadoAnalisis.resultado = xy * 0.70 + probFumarN
+            const probFumarN = 0 * 0.30;
+            resultadoAnalisis.resultado = (xy * 0.70) + probFumarN;
+            break;
         default:
-          break;
-      }
-      return resultadoAnalisis.resultado.toFixed(2)
+            break;
     }
+    return resultadoAnalisis.resultado.toFixed(2);
+}
+
 
     analizarHiperlipidemia = function(){
       const x = (200 - this._colesterol) * 100 / 200
@@ -215,7 +218,7 @@ class Paciente {
       const porTrigliceridos = 100 - y.toFixed(2)
       const h = (40 - this._hdl) * 100 / 40
       const resultado = porColesterol * 0.50 + porLdl * 0.20 + porTrigliceridos * 0.20 + h * 0.10
-      return resultado
+      return resultado.toFixed(2)
     }
 
     analizarCoronaria = function(){
@@ -244,9 +247,9 @@ class Paciente {
     }
 
   analisarPaciente = function(){
-    const resultadoAnalisis = {hipertension: this.analizarHipertension(), 
-      hiperlipidemia : this.analizarHiperlipidemia(),
-      coronaria : this.analizarCoronaria()
+    const resultadoAnalisis = {hipertension: parseFloat(this.analizarHipertension()), 
+      hiperlipidemia : parseFloat(this.analizarHiperlipidemia()),
+      coronaria : parseFloat(this.analizarCoronaria())
     }
     return resultadoAnalisis ;
   }
