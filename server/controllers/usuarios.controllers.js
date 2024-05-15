@@ -46,19 +46,21 @@ export const crearUsuario = async (req, res) => {
       masa,
       glucosa,
       colesterol,
-      diastolica
+      diastolica,
+      altura
     } = req.body;
 
     const paciente = new Paciente(nombre,apellido,edad,sexo,sistolica,ldl,hdl,trigriceridos,familiares,enfermedades,fumar,
-      alcohol,dieta,actividad,masa,glucosa,colesterol,diastolica
+      alcohol,dieta,actividad,masa,glucosa,colesterol,diastolica,altura
     )
+    console.log(paciente)
 
     const hipertension = paciente.analisarPaciente().hipertension
     const hiperlipidemia = paciente.analisarPaciente().hiperlipidemia
     const coronaria = paciente.analisarPaciente().coronaria
 
     const [resultado] = await pool.query(
-      "INSERT INTO usuarios(nombre, apellido, sexo, edad, sistolica, ldl, hdl, trigriceridos, familiares, enfermedades, fumar, alcohol, dieta, actividad, masa, glucosa, colesterol, diastolica) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ? )",
+      "INSERT INTO usuarios(nombre, apellido, sexo, edad, sistolica, ldl, hdl, trigriceridos, familiares, enfermedades, fumar, alcohol, dieta, actividad, masa, glucosa, colesterol, diastolica,altura) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?,? )",
       [nombre, 
         apellido,
         sexo,
@@ -76,7 +78,8 @@ export const crearUsuario = async (req, res) => {
         masa,
         glucosa,
         colesterol,
-        diastolica
+        diastolica,
+        altura
       ]
     );
 

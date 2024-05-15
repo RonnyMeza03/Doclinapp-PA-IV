@@ -28,7 +28,8 @@ export const getUsuarioAnalisis = async (req, res) => {
       resultado[0].masa,
       resultado[0].glucosa,
       resultado[0].colesterol,
-      resultado[0].diastolica
+      resultado[0].diastolica,
+      resultado[0].altura
     );
     console.log(pacienteEncontrado);
     res.json(pacienteEncontrado.analisarPaciente());

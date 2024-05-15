@@ -85,6 +85,7 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
       <div className="risk-evaluation border">
         <b>Evaluación de Riesgo:</b>
         <div className="separation">
+        <p><strong>Altura:</strong> {personaSeleccionada.altura} cm</p>
         <p><strong>Índice de Masa Corporal (IMC):</strong> {personaSeleccionada.masa} </p>
         <p><strong>Niveles de Glucosa en Sangre:</strong> {personaSeleccionada.glucosa} </p>
         </div>
@@ -99,6 +100,18 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
         </ul>
         <ul>
           <p>Probabilidad Hipertension: {analisis.hipertension}%</p>
+        </ul>
+        <ul>
+          <p>Probabilidad de Transmitir enfermedad congenita: {analisis.congenita}%</p>
+        </ul>
+        <ul>
+          <p>Probabilidad de enfermedad de cerebrovascular: {analisis.cerebrovascular}%</p>
+        </ul>
+        <ul>
+          <p>Probabilidad de Diabetes tipo 2: {analisis.diabetes}%</p>
+        </ul>
+        <ul>
+          <p>Probabilidad de Enfermedad arterial Periferica: {analisis.arterial}%</p>
         </ul>
       </div>
 

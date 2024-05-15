@@ -24,10 +24,6 @@ ALTER TABLE usuarios
     masa DECIMAL(10, 2) NOT NULL, 
     glucosa INT NOT NULL ;
 
-INSERT INTO usuarios (nombre, apellido, sexo, edad, sistolica, ldl, hdl, trigriceridos, familiares, enfermedades, fumar, alcohol, dieta, actividad, masa, glucosa) 
-VALUES 
-('Juan', 'Pérez', 'M', 35, 120, 100, 40, 150, 'Padres', 'Ninguna', 'No', 'Ocasionalmente', 'Equilibrada', '02:15:00', 75.5, 90),
-('María', 'Gómez', 'F', 40, 130, 110, 50, 170, 'Abuelos', 'Diabetes', 'Sí', 'No', 'Baja', '01:30:00', 65.2, 100);
 
 CREATE TABLE analisis (
     id_analisis INT PRIMARY KEY,

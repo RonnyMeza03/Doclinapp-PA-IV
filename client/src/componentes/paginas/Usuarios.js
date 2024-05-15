@@ -31,7 +31,8 @@ const Usuarios = () => {
           masa:"",
           glucosa:"",
           colesterol:"",
-          diastolica:""
+          diastolica:"",
+          altura: ""
         }}
         onSubmit={async (values, actions) => {
           console.log(values);
@@ -209,7 +210,7 @@ const Usuarios = () => {
                     type="text"
                     id="familiares"
                     name="familiares"
-                    placeholder="F/M"
+                    placeholder="Abuelos/Padres/Tios/Hermanos"
                     onChange={handleChange}
                     value={values.familiares}
                   />
@@ -305,10 +306,10 @@ const Usuarios = () => {
                     </strong>{" "}
                   </p>
                   <input  
-                    type="text"
+                    type="number"
                     id="actividad"
                     name="actividad"
-                    placeholder="H:MM"
+                    placeholder="Introduzca Nuemero de Horas a la semana"
                     onChange={handleChange}
                     value={values.actividad}
                   />
@@ -345,6 +346,19 @@ const Usuarios = () => {
                     placeholder="mg/dL"
                     onChange={handleChange}
                     value={values.glucosa}
+                  />
+                </div>
+                <div className="input">
+                  <p>
+                    <strong>Altura:</strong>{" "}
+                  </p>
+                  <input 
+                    type="number"
+                    id="altura"
+                    name="alura"
+                    placeholder="cm"
+                    onChange={handleChange}
+                    value={values.altura}
                   />
                 </div>
               </div>
