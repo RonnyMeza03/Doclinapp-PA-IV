@@ -40,6 +40,12 @@
   height: 15px;
  }
 
+ select {
+    margin-top: 13px;
+    margin-left: 10px;
+    height: 25px;
+ }
+
  .separation {
      display: flex;
      justify-content: space-between;
@@ -51,5 +57,5 @@
      margin-bottom: 10px;
      border-radius: 5px;
  }
-
 }
+
