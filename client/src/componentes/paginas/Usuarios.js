@@ -96,10 +96,10 @@ const Usuarios = () => {
                   <p>
                     <strong>Sexo:</strong>
                   </p>
-                  <select name="sexo" id="sexo">
-                    <option value="null"></option>
-                    <option value="masculino">Masculino</option>
-                    <option value="femenino">Femenino</option>
+                  <select name="sexo" id="sexo" required>
+                    <option value="" disabled selected hidden>Seleccione una opcion</option>
+                    <option value="masculino">M</option>
+                    <option value="femenino">F</option>
                   </select>
                 </div>
               </div>
@@ -202,8 +202,8 @@ const Usuarios = () => {
                       Historial Familiar de Enfermedades Cardiacas:
                     </strong>{" "}
                   </p>
-                  <select name="historial" id="historial">
-                    <option value="null"></option>
+                  <select name="historial" id="historial" required>
+                    <option value="" disabled selected hidden >Seleccione una opcion</option>
                     <option value="abuelos">Abuelos</option>
                     <option value="padres">Padres</option>
                     <option value="tios">Tios</option>
@@ -252,8 +252,8 @@ const Usuarios = () => {
                   <p>
                     <strong>Hábito de Fumar (Si/No):</strong>{" "}
                   </p>
-                  <select name="fumar" id="fumar">
-                    <option value="null"></option>
+                  <select name="fumar" id="fumar" onChange={handleChange} value={values.fumar} required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
                     <option value="activo">Activo</option>
                     <option value="medio">Medio</option>
                     <option value="nada">Nada</option>
@@ -264,8 +264,8 @@ const Usuarios = () => {
                   <p>
                     <strong>Frecuencia de Consumo de Alcohol:</strong>{" "}
                   </p>
-                  <select name="alcohol" id="alcohol">
-                    <option value="null"></option>
+                  <select name="alcohol" id="alcohol"  onChange={handleChange} value={values.alcohol} required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
                     <option value="ninguna">Ninguna</option>
                     <option value="baja">Baja</option>
                     <option value="moderada">Moderada</option>
