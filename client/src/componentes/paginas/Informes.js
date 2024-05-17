@@ -86,21 +86,41 @@ const Informes = () => {
   return (
     <div className='informes-container'>
       <h1>Informes</h1>
-      <label htmlFor="busqueda" className='label-small'>Buscar por nombre:</label>
-      <input id="busqueda" type="text" value={busqueda} onChange={(e) => setBusqueda(e.target.value)}/>
-      
-      <label htmlFor="ordenEdad" className='label-small'> Ordenar por edad:</label>
-      <select id="ordenEdad" value={ordenEdad} onChange={(e) => setOrdenEdad(e.target.value)}>
-        <option value="ascendente">Ascendente</option>
-        <option value="descendente">Descendente</option>
-      </select>
-      
-      <label htmlFor="sexo" className='label-small'> Filtrar por sexo:</label>
-      <select id="sexo" value={sexo} onChange={(e) => setSexo(e.target.value)}>
-        <option value="todos">Todos</option>
-        <option value="masculino">Masculino</option>
-        <option value="femenino">Femenino</option>
-      </select>
+      <div className="filtro">
+        <h4>Filtrador</h4>
+        <label htmlFor='busqueda' className='label-small'>
+          Buscar por nombre:
+        </label>
+        <input
+          id='busqueda'
+          type='text'
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+
+        <label htmlFor='ordenEdad' className='label-small'>
+          {' '}
+          Ordenar por edad:
+        </label>
+        <select
+          id='ordenEdad'
+          value={ordenEdad}
+          onChange={(e) => setOrdenEdad(e.target.value)}
+        >
+          <option value='ascendente'>Ascendente</option>
+          <option value='descendente'>Descendente</option>
+        </select>
+
+        <label htmlFor='sexo' className='label-small'>
+          {' '}
+          Filtrar por sexo:
+        </label>
+        <select id='sexo' value={sexo} onChange={(e) => setSexo(e.target.value)}>
+          <option value='todos'>Todos</option>
+          <option value='masculino'>Masculino</option>
+          <option value='femenino'>Femenino</option>
+        </select>
+      </div>
       {mostrarLista && ( 
         <ul>
         {filtrarPorSexo(ordenarPorEdad(filtrarPorNombre())).map((usuario) => (

@@ -26,10 +26,30 @@ body{
     p {
         font-size: 20px;
     }
-    
-    .label-small {
-        font-size: 14px;
-      }
+
+    .filtro {
+
+        h4 {
+            font-size: 25px;
+            margin: 0;
+            margin-left: 20px;
+        }
+
+        label {
+            margin-left: 20px;
+            font-size: 15px;
+        } 
+
+        input {
+            margin-left: 10px;
+            padding: 5px;
+        }
+
+        select {
+            margin-left: 10px;
+            padding: 5px;
+        }
+    }
     
 }
 
@@ -49,6 +69,7 @@ body{
         display: block;
         margin: 0;
     }
+
 }
 
 .info-people li b{
@@ -86,8 +107,48 @@ body{
         padding: 10px;
         margin-bottom: 10px;
         border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .statics {
+        b {
+            font-size: 15px;
+        }
+    }
+
+    .info {
+        position: absolute; 
+        margin-top: 8px;
+        right: 100px;
+        background-color: #011627;
+        color: white;
+        padding: 7px;
+        width: 60px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .info:hover {
+        background-color: #02325a;
+    }
+
+    .cerrar {
+        border-radius: 200px;
+        height: 30px;
+        width: 30px;
+        margin-top: 50px;
+        margin-right: 50px;
+        background-color: red;
+        font-size: 20px;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .name {
+        display: flex;
+        justify-content: space-between;
     }
 }
-
 
 

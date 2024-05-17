@@ -22,7 +22,7 @@ const Usuarios = () => {
           ldl:"",
           hdl:"",
           trigriceridos: "",
-          familiares: "",
+          familiares:"",
           enfermedades: "",
           fumar:"",
           alcohol:"",
@@ -33,6 +33,7 @@ const Usuarios = () => {
           colesterol:"",
           diastolica:"",
           altura: ""
+
         }}
         onSubmit={async (values, actions) => {
           console.log(values);
@@ -67,13 +68,13 @@ const Usuarios = () => {
 
                 <div className="input">
                   <p>
-                    <strong>apellido:</strong>
+                    <strong>Apellido:</strong>
                   </p>
                   <input
                     type="text"
                     id="apellido"
                     name="apellido"
-                    placeholder="apellido"
+                    placeholder="Apellido"
                     onChange={handleChange}
                     value={values.apellido}
                   />
@@ -87,7 +88,7 @@ const Usuarios = () => {
                     type="number"
                     id="edad"
                     name="edad"
-                    placeholder="introduzca edad"
+                    placeholder="Edad"
                     onChange={handleChange}
                     value={values.edad}
                      />
@@ -97,14 +98,11 @@ const Usuarios = () => {
                   <p>
                     <strong>Sexo:</strong>
                   </p>
-                  <input 
-                    type="text"
-                    id="sexo"
-                    name="sexo"
-                    placeholder="F/M"
-                    onChange={handleChange}
-                    value={values.sexo}
-                  />
+                  <select name="sexo" id="sexo" onChange={handleChange} value={values.sexo} required>
+                    <option value="" disabled selected hidden>Seleccione una opcion</option>
+                    <option value="masculino">M</option>
+                    <option value="femenino">F</option>
+                  </select>
                 </div>
               </div>
 
@@ -204,16 +202,15 @@ const Usuarios = () => {
                   <p>
                     <strong>
                       Historial Familiar de Enfermedades Cardiacas:
-                    </strong>{" "}
+                    </strong>
                   </p>
-                  <input 
-                    type="text"
-                    id="familiares"
-                    name="familiares"
-                    placeholder="Abuelos/Padres/Tios/Hermanos"
-                    onChange={handleChange}
-                    value={values.familiares}
-                  />
+                  <select name="familiares" id="familiares" onChange={handleChange} value={values.familiares}  required>
+                    <option value="" disabled selected hidden>Seleccione una opcion</option>
+                    <option value="Abuelos">Abuelos</option>
+                    <option value="Padres">Padres</option>
+                    <option value="Tios">Tios</option>
+                    <option value="Hermanos">Hermanos</option>
+                  </select>
                 </div>
               </div>
 
@@ -257,28 +254,25 @@ const Usuarios = () => {
                   <p>
                     <strong>Hábito de Fumar (Si/No):</strong>{" "}
                   </p>
-                  <input 
-                    type="text"
-                    id="fumar"
-                    name="fumar"
-                    placeholder="Activo/Medio/Nada"
-                    onChange={handleChange}
-                    value={values.fumar}
-                  />
+                  <select name="fumar" id="fumar" onChange={handleChange} value={values.fumar} required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="Activo">Activo</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Nada">Nada</option>
+                  </select>
                 </div>
 
                 <div className="input">
                   <p>
                     <strong>Frecuencia de Consumo de Alcohol:</strong>{" "}
                   </p>
-                  <input 
-                    type="text"
-                    id="alcohol"
-                    name="alcohol"
-                    placeholder="Alta/Moderada/Baja/Ninguna"
-                    onChange={handleChange}
-                    value={values.alcohol}
-                  />
+                  <select name="alcohol" id="alcohol"  onChange={handleChange} value={values.alcohol} required>
+                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                    <option value="Ninguna">Ninguna</option>
+                    <option value="Baja">Baja</option>
+                    <option value="Moderada">Moderada</option>
+                    <option value="Alta">Alta</option>
+                  </select>
                 </div>
               </div>
 
@@ -355,7 +349,7 @@ const Usuarios = () => {
                   <input 
                     type="number"
                     id="altura"
-                    name="alura"
+                    name="altura"
                     placeholder="cm"
                     onChange={handleChange}
                     value={values.altura}

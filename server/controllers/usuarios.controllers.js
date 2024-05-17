@@ -55,9 +55,7 @@ export const crearUsuario = async (req, res) => {
     )
     console.log(paciente)
 
-    const hipertension = paciente.analisarPaciente().hipertension
-    const hiperlipidemia = paciente.analisarPaciente().hiperlipidemia
-    const coronaria = paciente.analisarPaciente().coronaria
+   
 
     const [resultado] = await pool.query(
       "INSERT INTO usuarios(nombre, apellido, sexo, edad, sistolica, ldl, hdl, trigriceridos, familiares, enfermedades, fumar, alcohol, dieta, actividad, masa, glucosa, colesterol, diastolica,altura) VALUES (? , ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?, ?, ?, ?, ?, ?,? )",
@@ -87,15 +85,27 @@ export const crearUsuario = async (req, res) => {
       "SELECT id FROM usuarios ORDER BY createAt DESC LIMIT 1;"
     )
 
+    const hipertension = paciente.analisarPaciente().hipertension
+    const hiperlipidemia = paciente.analisarPaciente().hiperlipidemia
+    const coronaria = paciente.analisarPaciente().coronaria
+    const congenita = paciente.analisarPaciente().congenita
+    const cerebrovascular = paciente.analisarPaciente().cerebrovascular
+    const diabetes = paciente.analisarPaciente().diabetes
+    const arterial = paciente.analisarPaciente().arterial
+
     const valoresValidos = [
       usuarioId[0].id,
       isNaN(hipertension) ? 0 : hipertension,
       isNaN(hiperlipidemia) ? 0 : hiperlipidemia,
-      isNaN(coronaria) ? 0 : coronaria
+      isNaN(coronaria) ? 0 : coronaria,
+      isNaN(congenita) ? 0 : congenita,
+      isNaN(cerebrovascular) ? 0 : cerebrovascular,
+      isNaN(diabetes) ? 0 : diabetes,
+      isNaN(arterial) ? 0 : arterial
   ];
 
     const [analisis] = await pool.query(
-      "INSERT INTO analisis(id_usuario, hipertension, hiperlipidemia,coronaria) VALUES(?,?,?,?)", valoresValidos
+      "INSERT INTO analisis(id_usuario, hipertension, hiperlipidemia,coronaria,congenita,cerebrovascular,diabetes,arterial) VALUES(?,?,?,?,?,?,?,?)", valoresValidos
     )
     console.log(analisis)
     console.log(resultado);
