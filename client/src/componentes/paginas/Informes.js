@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Informes = () => {
   const [dialogoVisible, setDialogoVisible] = useState(false);
+  const [filtradorVisible, setFiltradorVisible] = useState(true);
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(true);
   const [busqueda, setBusqueda] = useState(''); 
@@ -48,21 +49,31 @@ const Informes = () => {
 
 
   const abrirDialogo = (id) => {
-    const persona = usuarios.find(p => p.id === id);
+    const persona = usuarios.find((p) => p.id === id);
     setPersonaSeleccionada(persona);
     setDialogoVisible(true);
-    setMostrarLista(false); 
-    handleClick(id)
+    setMostrarLista(false);
+    setFiltradorVisible(false);
   };
 
   const cerrarDialogo = () => {
     setDialogoVisible(false);
     setPersonaSeleccionada(null);
-    setMostrarLista(true); // Mostrar la lista al cerrar el diálogo
+    setMostrarLista(true);
+    setFiltradorVisible(true);
   };
 
   const filtrarPorNombre = () => {
-    return usuarios.filter(usuario => usuario.nombre.toLowerCase().includes(busqueda.toLowerCase()));
+    const busquedaSinEspacios = busqueda.trim();
+    if (busquedaSinEspacios === "") {
+      return usuarios;
+    } else {
+      return usuarios.filter((usuario) => {
+        const nombreCompleto =
+          `${usuario.nombre} ${usuario.apellido}`.toLowerCase();
+        return nombreCompleto.includes(busquedaSinEspacios.toLowerCase());
+      });
+    }
   };
   
   const ordenarPorEdad = (usuarios) => {
@@ -84,52 +95,67 @@ const Informes = () => {
   };
 
   return (
-    <div className='informes-container'>
-      <h1>Informes</h1>
-      <div className="filtro">
-        <h4>Filtrador</h4>
-        <label htmlFor='busqueda' className='label-small'>
-          Buscar por nombre:
-        </label>
-        <input
-          id='busqueda'
-          type='text'
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
-
-        <label htmlFor='ordenEdad' className='label-small'>
-          {' '}
-          Ordenar por edad:
-        </label>
-        <select
-          id='ordenEdad'
-          value={ordenEdad}
-          onChange={(e) => setOrdenEdad(e.target.value)}
-        >
-          <option value='ascendente'>Ascendente</option>
-          <option value='descendente'>Descendente</option>
-        </select>
-
-        <label htmlFor='sexo' className='label-small'>
-          {' '}
-          Filtrar por sexo:
-        </label>
-        <select id='sexo' value={sexo} onChange={(e) => setSexo(e.target.value)}>
-          <option value='todos'>Todos</option>
-          <option value='masculino'>Masculino</option>
-          <option value='femenino'>Femenino</option>
-        </select>
-      </div>
-      {mostrarLista && ( 
-        <ul>
-        {filtrarPorSexo(ordenarPorEdad(filtrarPorNombre())).map((usuario) => (
-          <Persona key={usuario.id} nombre={usuario.nombre} apellido={usuario.apellido} edad={usuario.edad} onClick={() => abrirDialogo(usuario.id)} />
-        ))}
-      </ul>
+    <div className="informes-container">
+      {filtradorVisible && (
+        <>
+          {" "}
+          <h1>Informes</h1>
+          <label htmlFor="busqueda" className="label-small">
+            Buscar por nombre:
+          </label>
+          <input
+            id="busqueda"
+            type="text"
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
+          <label htmlFor="ordenEdad" className="label-small">
+            {" "}
+            Ordenar por edad:
+          </label>
+          <select
+            id="ordenEdad"
+            value={ordenEdad}
+            onChange={(e) => setOrdenEdad(e.target.value)}
+          >
+            <option value="ascendente">Ascendente</option>
+            <option value="descendente">Descendente</option>
+          </select>
+          <label htmlFor="sexo" className="label-small">
+            {" "}
+            Filtrar por sexo:
+          </label>
+          <select
+            id="sexo"
+            value={sexo}
+            onChange={(e) => setSexo(e.target.value)}
+          >
+            <option value="todos">Todos</option>
+            <option value="masculino">Masculino</option>
+            <option value="femenino">Femenino</option>
+          </select>
+          {mostrarLista && (
+            <ul>
+              {filtrarPorSexo(ordenarPorEdad(filtrarPorNombre())).map(
+                (usuario) => (
+                  <Persona
+                    key={usuario.id}
+                    nombre={usuario.nombre}
+                    apellido={usuario.apellido}
+                    edad={usuario.edad}
+                    onClick={() => abrirDialogo(usuario.id)}
+                  />
+                )
+              )}
+            </ul>
+          )}
+        </>
       )}
       {dialogoVisible && (
-        <Dialogo personaSeleccionada={personaSeleccionada} onClose={cerrarDialogo} />
+        <Dialogo
+          personaSeleccionada={personaSeleccionada}
+          onClose={cerrarDialogo}
+        />
       )}
     </div>
   );
