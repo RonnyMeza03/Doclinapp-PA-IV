@@ -54,6 +54,7 @@ const Informes = () => {
     setDialogoVisible(true);
     setMostrarLista(false);
     setFiltradorVisible(false);
+    handleClick(id)
   };
 
   const cerrarDialogo = () => {
