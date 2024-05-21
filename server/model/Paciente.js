@@ -196,68 +196,141 @@ class Paciente {
   }
 
   analizarHipertension = function () {
-    const resultadoAnalisis = { resultado: 0 };
-    const x = ((140 - this._sistolica) * 100) / 140;
-    const xy = 100 - x.toFixed(2);
-    switch (this._fumar) {
-      case "Activo":
-        const probFumarA = 100 * 0.3;
-        resultadoAnalisis.resultado = xy * 0.7 + probFumarA;
+    const resultadoFumar = { resultado: 0 };
+    const sistolica = { resultado: 0 };
+    const alcohol = { resultado: 0 };
+    const diabetes = this.analizarDiabetes2();
+    if (this._sistolica < 140) {
+      const x = ((140 - this._sistolica) * 100) / 140;
+      sistolica.resultado = 100 - x.toFixed(2);
+    } else {
+      sistolica.resultado = 100;
+    }
+
+    switch (this._alcohol) {
+      case "Alta":
+        alcohol.resultado = 100;
         break;
-      case "Medio":
-        const probFumarM = 50 * 0.3;
-        resultadoAnalisis.resultado = xy * 0.7 + probFumarM;
+      case "Moderada":
+        alcohol.resultado = 60;
         break;
-      case "Nada":
-        const probFumarN = 0 * 0.3;
-        resultadoAnalisis.resultado = xy * 0.7 + probFumarN;
+      case "Baja":
+        alcohol.resultado = 30;
+        break;
+      case "Ninguna":
+        alcohol.resultado = 0;
         break;
       default:
         break;
     }
-    return resultadoAnalisis.resultado.toFixed(2);
+
+    switch (this._fumar) {
+      case "Activo":
+        resultadoFumar.resultado = 100;
+        break;
+      case "Medio":
+        resultadoFumar.resultado = 50;
+        break;
+      case "Nada":
+        resultadoFumar.resultado = 0;
+        break;
+      default:
+        break;
+    }
+    const resultado =
+      diabetes * 0.2 +
+      sistolica.resultado * 0.3 +
+      alcohol.resultado * 0.3 +
+      resultadoFumar.resultado * 0.2;
+    return resultado.toFixed(2);
   };
 
   analizarHiperlipidemia = function () {
-    const x = ((200 - this._colesterol) * 100) / 200;
-    const porColesterol = 100 - x.toFixed(2);
-    const y = ((130 - this._ldl) * 100) / 200;
-    const porLdl = 100 - y.toFixed(2);
-    const z = ((150 - this._trigliceridos) * 100) / 150;
-    const porTrigliceridos = 100 - y.toFixed(2);
-    const h = ((40 - this._hdl) * 100) / 40;
+    const colesterol = { resultado: 0 };
+    const ldl = { resultado: 0 };
+    const trigliceridos = { resultado: 0 };
+    if (this._colesterol < 200) {
+      const x = ((200 - this._colesterol) * 100) / 200;
+      colesterol.resultado = 100 - x.toFixed(2);
+    } else {
+      colesterol.resultado = 100;
+    }
+    if (this._ldl < 130) {
+      const y = ((130 - this._ldl) * 100) / 200;
+      ldl.resultado = 100 - y.toFixed(2);
+    } else {
+      ldl.resultado = 100;
+    }
+    if (this._trigliceridos < 150) {
+      const z = ((150 - this._trigliceridos) * 100) / 150;
+      trigliceridos.resultado = 100 - z.toFixed(2);
+    } else {
+      trigliceridos.resultado = 100;
+    }
+    const hdl = ((40 - this._hdl) * 100) / 40;
     const resultado =
-      porColesterol * 0.5 + porLdl * 0.2 + porTrigliceridos * 0.2 + h * 0.1;
+      colesterol.resultado * 0.5 +
+      ldl.resultado * 0.2 +
+      trigliceridos.resultado * 0.2 +
+      hdl * 0.1;
     console.log("hiperlipidemia: " + resultado);
     return resultado.toFixed(2);
   };
 
   analizarCoronaria = function () {
-    const valorEquitativo = 8 / 100;
-    let tabaquismo = { porcentaje: 0 };
-    const x = ((200 - this._colesterol) * 100) / 200;
-    const porColesterol = 100 - x.toFixed(2);
-    const y = ((130 - this._ldl) * 100) / 200;
-    const porLdl = 100 - y.toFixed(2);
-    const z = ((140 - this._sistolica) * 100) / 140;
-    const porSistolica = 100 - z.toFixed(2);
-    const p = ((80 - this._diastolica) * 100) / 80;
-    const porDiatolica = 100 - p.toFixed(2);
-    const porPresionArterial = porSistolica * 0.5 + porDiatolica * 0.5;
+    const colesterol = { resultado: 0 };
+    const ldl = { resultado: 0 };
+    const sistolica = { resultado: 0 };
+    const diastolica = { resultado: 0 };
+    const tabaquismo = { porcentaje: 0 };
+    const probActividad = { resultado: 0 };
+    const familiares = this.analizarCongenita();
+    if (this._colesterol < 200) {
+      const x = ((200 - this._colesterol) * 100) / 200;
+      colesterol.resultado = 100 - x.toFixed(2);
+    } else {
+      colesterol.resultado = 100;
+    }
+    if (this._ldl < 130) {
+      const y = ((130 - this._ldl) * 100) / 200;
+      ldl.resultado = 100 - y.toFixed(2);
+    } else {
+      ldl.resultado = 100;
+    }
+    if (this._sistolica < 140) {
+      const z = ((140 - this._sistolica) * 100) / 140;
+      sistolica.resultado = 100 - z.toFixed(2);
+    } else {
+      sistolica.resultado = 100;
+    }
+    if (this._diastolica < 80) {
+      const p = ((80 - this._diastolica) * 100) / 80;
+      diastolica.resultado = 100 - p.toFixed(2);
+    } else {
+      diastolica.resultado = 100;
+    }
+    if (this._actividad < 7) {
+      probActividad.calculo = ((7 - this._actividad) * 100) / 7;
+    }
+
+    const porPresionArterial =
+      sistolica.resultado * 0.5 + diastolica.resultado * 0.5;
     switch (this._fumar) {
       case "Activo":
-        tabaquismo.porcentaje = 100 * valorEquitativo;
+        tabaquismo.porcentaje = 100;
         break;
       case "Medio":
-        tabaquismo.porcentaje = 50 * valorEquitativo;
+        tabaquismo.porcentaje = 50;
       case "Nada":
-        tabaquismo.porcentaje = 0 * valorEquitativo;
+        tabaquismo.porcentaje = 0;
     }
     const resultadoAnalisis =
-      porPresionArterial * valorEquitativo +
-      tabaquismo.porcentaje +
-      porColesterol * valorEquitativo +
-      porLdl * valorEquitativo;
+      porPresionArterial * 0.2 +
+      familiares * 0.1 +
+      tabaquismo.porcentaje * 0.1 +
+      colesterol.resultado * 0.4 +
+      ldl.resultado * 0.1;
+    probActividad.resultado * 0.1;
     return resultadoAnalisis.toFixed(2);
   };
 
@@ -410,16 +483,16 @@ class Paciente {
   };
 
   analzarArterial = function () {
-    const diabetes = this.analizarDiabetes2()
-    const edad = {calculo : 0}
-    if (this._edad < 65){
-      const x = (65 - this._edad) * 100 / 65
-      edad.calculo = 100 - x.toFixed(2)
+    const diabetes = this.analizarDiabetes2();
+    const edad = { calculo: 0 };
+    if (this._edad < 65) {
+      const x = ((65 - this._edad) * 100) / 65;
+      edad.calculo = 100 - x.toFixed(2);
     } else {
-      edad.calculo = 100
+      edad.calculo = 100;
     }
-    const resultado = diabetes * 0.40 + edad.calculo * 0.60
-    return resultado.toFixed(2)
+    const resultado = diabetes * 0.4 + edad.calculo * 0.6;
+    return resultado.toFixed(2);
   };
 
   analisarPaciente = function () {
@@ -430,7 +503,7 @@ class Paciente {
       congenita: parseFloat(this.analizarCongenita()),
       cerebrovascular: parseFloat(this.analizarCerebrovascular()),
       diabetes: parseFloat(this.analizarDiabetes2()),
-      arterial:parseFloat(this.analzarArterial())
+      arterial: parseFloat(this.analzarArterial()),
     };
     return resultadoAnalisis;
   };

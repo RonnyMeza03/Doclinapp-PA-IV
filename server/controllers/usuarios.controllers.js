@@ -87,7 +87,7 @@ export const crearUsuario = async (req, res) => {
 
     const hipertension = paciente.analisarPaciente().hipertension
     const hiperlipidemia = paciente.analisarPaciente().hiperlipidemia
-    const coronaria = paciente.analisarPaciente().coronaria
+    //const coronaria = paciente.analisarPaciente().coronaria
     const congenita = paciente.analisarPaciente().congenita
     const cerebrovascular = paciente.analisarPaciente().cerebrovascular
     const diabetes = paciente.analisarPaciente().diabetes
@@ -97,7 +97,7 @@ export const crearUsuario = async (req, res) => {
       usuarioId[0].id,
       isNaN(hipertension) ? 0 : hipertension,
       isNaN(hiperlipidemia) ? 0 : hiperlipidemia,
-      isNaN(coronaria) ? 0 : coronaria,
+      //isNaN(coronaria) ? 0 : coronaria,
       isNaN(congenita) ? 0 : congenita,
       isNaN(cerebrovascular) ? 0 : cerebrovascular,
       isNaN(diabetes) ? 0 : diabetes,

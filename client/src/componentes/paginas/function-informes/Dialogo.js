@@ -24,6 +24,7 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
       
       try {
         const respuesta = await obtenerAnalisis(params.id);
+        console.log(respuesta)
         setAnalisis(respuesta.data);
         console.log(respuesta.data)
         setLoading(false);
