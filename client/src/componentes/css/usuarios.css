@@ -1,61 +1,156 @@
 .usuario-container {
-    position: absolute;
-    margin: 0 10px 0 220px;
-    top: 70px;
-    width: 1129px;
-    height: 90%;
-    padding-left: 8px;
-    resize: vertical;
+    gap: .5rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
     overflow-y: auto;
+    overflow-x: hidden;
+    align-items: center;
    
     h1 {
-        font-size: 30px;
-        text-align: center;
+        width: 100%;
+        color: #9ca3af;
+        overflow: hidden;
+        font-weight: 600;
+        font-size: 1.15rem;
+        white-space: nowrap;
+        line-height: 1.75rem;
+        text-overflow: ellipsis;
+        text-transform: uppercase;
     }
-   
-    p {
-        font-size: 20px;
-    }
-   
-    h2 {
-        font-size: 40px;
-    }
-   
-    b {
-        font-size: 25px;
-    }
-   
-    p {
-        display: block;
-        font-size: 15px;
-    }
-   
-    .input {
-     display: flex;
-    }
-   
-    input {
-     margin-top: 13px;
-     margin-left: 10px;
-     height: 15px;
-    }
-   
-    select {
-       margin-top: 13px;
-       margin-left: 10px;
-       height: 25px;
-    }
-   
-    .separation {
+
+    .title {
+        width: 100%;
+        gap: .5rem;
         display: flex;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: start;
     }
-   
-    .border {
-        border: 2px solid #011627;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
+
+    .title b {
+        max-width: calc(100% - 2rem);
+        font-size: 1.25rem;
+        color: #6b7280;
+        overflow: hidden;
+        line-height: 2rem;
+        font-weight: 500;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
-   }
-   
+
+    .title svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+}
+
+.usuario-container form {
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: visible;
+    align-items: center;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.usuario-container form div.container-form {
+    gap: 1rem;
+    width: 100%;
+    display: flex;
+    padding: .5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    border-radius: .5rem;
+    flex-direction: row;
+    justify-content: start;
+    background-color: white;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.usuario-container form .input {
+    gap: .5rem;
+    width: 100%;
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.usuario-container form .input p strong {
+    width: 100%;
+    overflow: hidden;
+    font-size: .875rem;
+    white-space: nowrap;
+    line-height: 1.25rem;
+    color: var(--gray-950);
+    text-overflow: ellipsis;
+}
+
+.usuario-container form .input .relative {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+
+.usuario-container form .input input, .usuario-container form .input select {
+    width: 100%;
+    outline: none;
+    color: #111827;
+    font-size: .875rem;
+    padding: .5rem 1rem;
+    line-height: 1.25rem;
+    border-radius: .25rem;
+    padding-inline-start: 2.5rem;
+    background-color: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.usuario-container form .input .relative svg {
+    top: 0;
+    left: 0;
+    width: 1.4rem;
+    height: 1.4rem;
+    color: #9ca3af;
+    position: absolute;
+    margin: .375rem .5rem;
+}
+
+.button-blue-rounded {
+    opacity: .9;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    padding: .65rem 1rem;
+    border-radius: .25rem;
+    background-color: #1d4ed8;
+    border: 0px solid transparent;
+    transition: all ease-in-out .2s;
+}
+
+.button-blue-rounded:hover {
+    opacity: 1;
+    background-color: #1e40af;
+}
+
+.usuario-container form .button-blue-rounded {
+    width: 10rem;
+}
+
+@media (min-width: 768px) {
+    .usuario-container form .input {
+        width: calc(50% - .5rem);
+    }
+}
+
+@media (min-width: 1024px) {
+    .usuario-container form .input {
+        width: calc(33% - .5rem);
+    }
+}

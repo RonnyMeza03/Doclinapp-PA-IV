@@ -3,15 +3,17 @@ import { GoHome } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
 import { RiHealthBookLine } from "react-icons/ri";
 import { IoAnalytics } from "react-icons/io5";
-import { GrConfigure } from "react-icons/gr";
+import { CiLogout } from "react-icons/ci";
 import {Link} from 'react-router-dom'
 
 
 const Navbar = ({show} )=> {
     return (
         <div className={show ?  'sidenav active' : 'sidenav'}>
-            <img src={logo} alt="" 
-            className="logo"/>
+            <article className='header-nav'>
+                <h3 className='title-logo'>DoclinApp</h3>
+                <img src={logo} alt="Logo de la app" className="logo"/>
+            </article>
             <ul>
                 <li>
                     <Link to="/Inicio">
@@ -37,10 +39,10 @@ const Navbar = ({show} )=> {
                         <p>Estadisticas</p>
                     </Link>
                 </li>
-                <li>
-                    <Link to="/Ajustes">
-                        <GrConfigure />
-                        <p>Ajustes</p>
+                <li className='logout'>
+                    <Link to="/">
+                        <CiLogout />
+                        <p>Cerrar Sesión</p>
                     </Link>
                 </li>
             </ul>

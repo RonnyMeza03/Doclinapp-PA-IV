@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, useLocation} from 'react-router-dom'
 import { useState } from 'react'
 import Navbar from './componentes/Navbar'
 import Inicio from './componentes/paginas/Inicio'
@@ -11,29 +11,32 @@ import './App.css'
 import Dialogo from './componentes/paginas/function-informes/Dialogo'
 
 function App() {
-  const [ showNav, setShowNav] = useState(false)
   return (
       <Router>
-      <header>
-        <div className='header-content'>
-            <FaBars onClick ={()=> setShowNav(!showNav)}/>
-        </div>
-      </header>
-
-      <Navbar show={showNav} />
-
-      <div className="main">
         <Routes>
-        <Route path="/Inicio" element={<Inicio />} />
-        <Route path="/informes" element={<Informes />} />
-        <Route path="/informes/:id" element={<Informes/>} />
-        <Route path="/usuarios" element={<Usuarios />} />
-        <Route path="/estadisticas" element={<Estadisticas />} />
-        <Route path="/ajustes" element={<Ajustes />} />
-  
-        </Routes>
-      </div>      
+          <Route path="/" />
+          <Route path="/Inicio" element={<><Information/><main><Inicio /></main></>} />
+          <Route path="/informes" element={<><Information/><main><Informes /></main></>} />
+          <Route path="/informes/:id" element={<><Information/><main><Informes/></main></>} />
+          <Route path="/usuarios" element={<><Information/><main><Usuarios /></main></>} />
+          <Route path="/estadisticas" element={<><Information/><main><Estadisticas /></main></>} />
+          <Route path="/ajustes" element={<><Information/><main><Ajustes /></main></>} />
+        </Routes>   
       </Router>
+  );
+}
+
+function Information() {
+  const [showNav, setShowNav] = useState(false);
+  return (
+    <>
+    <header>
+    <div className='header-content'>
+      <FaBars onClick = {()=> setShowNav(!showNav)}/>
+    </div>
+    </header>
+    <Navbar show={showNav} />
+    </>
   );
 }
 
