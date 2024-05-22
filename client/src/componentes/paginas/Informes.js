@@ -2,6 +2,7 @@ import React, { useEffect,useState } from 'react';
 import Persona from '../paginas/function-informes/Persona';
 import Dialogo from '../paginas/function-informes/Dialogo';
 import '../css/informes.css';
+
 import {obtenerTareas} from "../../api/usuarios.api";
 import { useNavigate } from 'react-router-dom';
 
@@ -46,7 +47,6 @@ const Informes = () => {
   const handleClick = (id) => {
     navigate(`/informes/${id}`)
   }
-
 
   const abrirDialogo = (id) => {
     const persona = usuarios.find((p) => p.id === id);
@@ -100,42 +100,44 @@ const Informes = () => {
       {filtradorVisible && (
         <>
           {" "}
-          <h1>Informes</h1>
-          <div className="filtro">
-        <h4>Filtrador</h4>
-        <label htmlFor='busqueda' className='label-small'>
-          Buscar por nombre:
-        </label>
-        <input
-          id='busqueda'
-          type='text'
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
+          <section className='main-header-content'>
+            <h1 className='title'>Informes</h1>
+            <div className="filtro">
+              <input
+                id='busqueda'
+                type='text'
+                placeholder='Buscar por nombre'
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
 
-        <label htmlFor='ordenEdad' className='label-small'>
-          {' '}
-          Ordenar por edad:
-        </label>
-        <select
-          id='ordenEdad'
-          value={ordenEdad}
-          onChange={(e) => setOrdenEdad(e.target.value)}
-        >
-          <option value='ascendente'>Ascendente</option>
-          <option value='descendente'>Descendente</option>
-        </select>
-
-        <label htmlFor='sexo' className='label-small'>
-          {' '}
-          Filtrar por sexo:
-        </label>
-        <select id='sexo' value={sexo} onChange={(e) => setSexo(e.target.value)}>
-          <option value='todos'>Todos</option>
-          <option value='masculino'>Masculino</option>
-          <option value='femenino'>Femenino</option>
-        </select>
-      </div>
+              <div className='input'>
+                <label htmlFor='ordenEdad' className='label-small'>
+                  {' '}
+                  Ordenar por edad:
+                </label>
+                <select
+                  id='ordenEdad'
+                  value={ordenEdad}
+                  onChange={(e) => setOrdenEdad(e.target.value)}
+                >
+                  <option value='ascendente'>Ascendente</option>
+                  <option value='descendente'>Descendente</option>
+                </select>
+              </div>
+              <div className='input'>
+                <label htmlFor='sexo' className='label-small'>
+                  {' '}
+                  Filtrar por genero:
+                </label>
+                <select id='sexo' value={sexo} onChange={(e) => setSexo(e.target.value)}>
+                  <option value='todos'>Todos</option>
+                  <option value='masculino'>Masculino</option>
+                  <option value='femenino'>Femenino</option>
+                </select>
+              </div>
+            </div>
+          </section>
           {mostrarLista && (
             <ul>
               {filtrarPorSexo(ordenarPorEdad(filtrarPorNombre())).map(
@@ -145,6 +147,7 @@ const Informes = () => {
                     nombre={usuario.nombre}
                     apellido={usuario.apellido}
                     edad={usuario.edad}
+                    creado={new Date(usuario.createAt).toLocaleString()}
                     onClick={() => abrirDialogo(usuario.id)}
                   />
                 )

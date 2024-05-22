@@ -9,12 +9,13 @@ import Ajustes from './componentes/paginas/Ajustes'
 import { FaBars } from "react-icons/fa";
 import './App.css'
 import Dialogo from './componentes/paginas/function-informes/Dialogo'
+import Login from './componentes/paginas/Login'
 
 function App() {
   return (
       <Router>
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<main><Login /></main>}/>
           <Route path="/Inicio" element={<><Information/><main><Inicio /></main></>} />
           <Route path="/informes" element={<><Information/><main><Informes /></main></>} />
           <Route path="/informes/:id" element={<><Information/><main><Informes/></main></>} />
