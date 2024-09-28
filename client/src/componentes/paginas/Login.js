@@ -15,6 +15,10 @@ const Login = ({  }) => {
                     <input type="password" placeholder="Contraseña" />
                 </div>
                 <a href="#">¿Olvidaste tu Contraseña?</a>
+                <p>
+                    ¿No tienes una cuenta? 
+                    <Link to="/registro" className="link"> ¡Crea una Aquí! </Link>
+                </p>
                 <div>
                     <Link to="/inicio">
                     <input type="button" value="INICIAR SESIÓN" className="button"/>

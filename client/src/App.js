@@ -8,14 +8,18 @@ import Estadisticas from './componentes/paginas/Estadisticas'
 import Ajustes from './componentes/paginas/Ajustes'
 import { FaBars } from "react-icons/fa";
 import './App.css'
-import Dialogo from './componentes/paginas/function-informes/Dialogo'
 import Login from './componentes/paginas/Login'
+import Principal from './componentes/paginas/Principal'
+import Registro from './componentes/paginas/Registro'
+
 
 function App() {
   return (
       <Router>
         <Routes>
-          <Route path="/" element={<main><Login /></main>}/>
+          <Route path="/" element={<main><></><Principal/></main>}/>
+          <Route path="/Registro" element={<main><></><Registro/></main>}/>
+          <Route path="/login" element={<><Login /></>} />
           <Route path="/Inicio" element={<><Information/><main><Inicio /></main></>} />
           <Route path="/informes" element={<><Information/><main><Informes /></main></>} />
           <Route path="/informes/:id" element={<><Information/><main><Informes/></main></>} />
