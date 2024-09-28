@@ -3,8 +3,10 @@ import { GoHome } from "react-icons/go";
 import { FaRegUser } from "react-icons/fa6";
 import { RiHealthBookLine } from "react-icons/ri";
 import { IoAnalytics } from "react-icons/io5";
+import { CiSettings } from "react-icons/ci";
 import { CiLogout } from "react-icons/ci";
 import {Link} from 'react-router-dom'
+
 
 
 const Navbar = ({show} )=> {
@@ -22,9 +24,9 @@ const Navbar = ({show} )=> {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/Usuarios">
+                    <Link to="/Pacientes">
                         <FaRegUser />
-                        <p>Usuarios</p>
+                        <p>Pacientes</p>
                     </Link>
                 </li>
                 <li>
@@ -37,6 +39,12 @@ const Navbar = ({show} )=> {
                     <Link to="/Estadisticas">
                         <IoAnalytics />
                         <p>Estadisticas</p>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/Configuracion">
+                        <CiSettings />
+                        <p>Configuracion</p>
                     </Link>
                 </li>
                 <li className='logout'>

@@ -1,4 +1,4 @@
-import "../css/usuarios.css";
+import "../css/Pacientes.css";
 import React from "react";
 import {Formik} from "formik";
 import { crearUsuarioRequest } from "../../api/usuarios.api";
@@ -27,7 +27,7 @@ import { IoBody } from "react-icons/io5";
 import { MdBloodtype } from "react-icons/md";
 import { GiBodyHeight } from "react-icons/gi";
 
-const Usuarios = () => {
+const Pacientes = () => {
   return (
     <div className="usuario-container">
       <h1>REGISTRO DE DATOS</h1>
@@ -414,4 +414,4 @@ const Usuarios = () => {
   );
 };
 
-export default Usuarios;
+export default Pacientes;
