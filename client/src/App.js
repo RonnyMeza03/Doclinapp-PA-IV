@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route, useLocation} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { useState } from 'react'
 import Navbar from './componentes/Navbar'
 import Inicio from './componentes/paginas/Inicio'
@@ -13,6 +13,7 @@ import Principal from './componentes/paginas/Principal'
 import Registro from './componentes/paginas/Registro'
 import Pacientes from './componentes/paginas/Pacientes'
 import PacienteDetalles from './componentes/paginas/funtion-pacientes/PacienteDetalles'
+import FormularioAnalisis from './componentes/paginas/funtion-pacientes/FormularioAnalisis'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/informes/:id" element={<><Information/><main><Informes/></main></>} />
           <Route path="/Pacientes" element={<><Information/><main><Pacientes/></main></>} />
           <Route path="/Pacientes/:id" element={<><Information/><main><PacienteDetalles/></main></>} />
+          <Route path="/Pacientes/:id/crearAnalisis" element={<><Information/><main><FormularioAnalisis/></main></>} />
           <Route path="/Pacientes/crear" element={<><Information/><main><FormualrioPacientes/></main></>} />
           <Route path="/estadisticas" element={<><Information/><main><Estadisticas /></main></>} />
           <Route path="/Configuracion" element={<><Information/><main><Configuracion /></main></>} />

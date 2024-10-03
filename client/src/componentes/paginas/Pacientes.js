@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { obtenerTareas } from '../../api/usuarios.api';
 import { IoPersonAddOutline } from "react-icons/io5";
+
+function formatearFecha(fechaISO) {
+  const fecha = new Date(fechaISO);
+
+  const dia = String(fecha.getDate()).padStart(2, '0'); // Asegura que el día tenga 2 dígitos
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses comienzan desde 0, por lo que sumamos 1
+  const anio = fecha.getFullYear(); // Obtiene el año completo
+
+  return `${dia}/${mes}/${anio}`;
+}
 
 const Pacientes = () => {
   const [loading, setLoading] = useState(true);
@@ -10,9 +20,9 @@ const Pacientes = () => {
  
   // Datos simulados para pruebas cuando no se tenga base de datos
   const pacientesMock = [
-    { id: 1, nombre: 'Juan', apellido: 'Pérez', edad: 45 },
-    { id: 2, nombre: 'María', apellido: 'García', edad: 32 },
-    { id: 3, nombre: 'Carlos', apellido: 'Lopez', edad: 60 },
+    { id: 1, nombre: 'Juan', apellido: 'Pérez', createdAt: "12/07/2024" },
+    { id: 2, nombre: 'María', apellido: 'García', createdAt: "12/07/2024" },
+    { id: 3, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
   ];
 
   useEffect(() => {
@@ -40,7 +50,7 @@ const Pacientes = () => {
       {listaPacientes.map((paciente) => (
         <li key={paciente.id}>
           <Link to={`/Pacientes/${paciente.id}`}>
-            {paciente.nombre} {paciente.apellido} - {paciente.edad} años
+            {paciente.nombre} {paciente.apellido} - Fecha de creacion: {formatearFecha(paciente.createdAt)}
           </Link>
         </li>
       ))}

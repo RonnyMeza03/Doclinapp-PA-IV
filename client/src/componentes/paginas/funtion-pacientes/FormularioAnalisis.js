@@ -1,35 +1,56 @@
-import "../css/Pacientes.css";
+import "../../css/Pacientes.css";
 import React from "react";
 import {Formik} from "formik";
-import { RiFileUserLine } from "react-icons/ri";
-import { FaUserCheck } from "react-icons/fa6";
-import { FaUserPlus } from "react-icons/fa6";
-import { MdDateRange, MdEmail } from "react-icons/md";
-import { BsGenderAmbiguous } from "react-icons/bs";
-import { FaAddressBook } from "react-icons/fa";
-import { BsFillTelephoneFill } from "react-icons/bs";
-import { crearPacienteRequest } from "../../api/paciente.api";
+import { generarAnalisisRequest } from "../../../api/informes.api";
+import { BsJournalMedical } from "react-icons/bs";
+import { GiLifeInTheBalance } from "react-icons/gi";
+import { PiHeartHalf } from "react-icons/pi";
+import { FaHandHoldingMedical } from "react-icons/fa6";
+import { GiMedicalDrip } from "react-icons/gi";
+import { FaNotesMedical } from "react-icons/fa";
+import { MdFamilyRestroom } from "react-icons/md";
+import { MdHistory } from "react-icons/md";
+import { GiMedicalThermometer } from "react-icons/gi";
+import { MdOutlineMedicalServices } from "react-icons/md";
+import { MdOutlineSmokeFree } from "react-icons/md";
+import { MdLocalDrink } from "react-icons/md";
+import { IoNutrition } from "react-icons/io5";
+import { BsCalendar2WeekFill } from "react-icons/bs";
+import { IoBody } from "react-icons/io5";
+import { MdBloodtype } from "react-icons/md";
+import { GiBodyHeight } from "react-icons/gi";
+import { useParams } from "react-router-dom";
 
-const FormularioPacientes = () => {
+
+const FormularioAnalisis = () => {
+    const {id} = useParams()
+    console.log(id)
   return (
     <div className="usuario-container">
-      <h1>REGISTRO DE DATOS</h1>
+      <h1>REGISTRO DE DATOS PARA ANALISIS </h1>
       <Formik
         initialValues={{
-          nombre: "",
-          apellido: "",
-          fechaNacimiento: "",
-          sexo: "",
-          direccion: "",
-          telefono: "",
-          correo: "",
-          aplicacionID: 1,
-          usuarioID: 1
+             sistolica: "",
+             ldl: "",
+             hdl: "",
+             triglicerios: "" ,
+             familiar: "",
+             enfermedades: [""],
+             habitoFumar: "",
+             habitoAlcohol: "",
+             habitoDieta: "",
+             horasActividadSemanal: "", 
+             masaCorporalKg: "",
+             glucosa: "",
+             colesterol: "",
+             diastolica: "",
+             cmAltura: "",
+             pacienteID: id
         }}
         onSubmit={async (values, actions) => {
           console.log(values);
           try {
-            const respuesta = await crearPacienteRequest(values);
+            const respuesta = await generarAnalisisRequest(values);
             console.log(respuesta);
             actions.resetForm();
           } catch (error) {
@@ -39,114 +60,7 @@ const FormularioPacientes = () => {
       >
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <form onSubmit={handleSubmit}>
-            <div className="container-form personal-info">
-              <h5 className="title"><b>Información Personal</b><RiFileUserLine /></h5>
-              <div className="input">
-                  <p><strong>Nombres</strong></p>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="nombre"
-                      name="nombre"
-                      onChange={handleChange}
-                      value={values.nombre}
-                      required
-                    />
-                    <FaUserCheck />
-                  </div>
-              </div>
-              <div className="input">
-                  <p>
-                    <strong>Apellidos</strong>
-                  </p>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      id="apellido"
-                      name="apellido"
-                      onChange={handleChange}
-                      value={values.apellido}
-                      required
-                    />
-                    <FaUserPlus />
-                  </div>
-              </div>
-              <div className="input">
-                  <p>
-                    <strong>Fecha de Nacimiento</strong>
-                  </p>
-                  <div className="relative">
-                    <input 
-                      type="date"
-                      placeholder="aaaa/mm/dd"
-                      id="fechaNacimiento"
-                      name="fechaNacimiento"
-                      onChange={handleChange}
-                      value={values.fechaNacimiento}
-                      required
-                    />
-                    <MdDateRange />
-                  </div>
-              </div>
-              <div className="input">
-                  <p>
-                    <strong>Sexo</strong>
-                  </p>
-                  <div className="relative">
-                    <select name="sexo" id="sexo" onChange={handleChange} value={values.sexo} required>
-                      <option value="" disabled selected hidden>Seleccione una opcion</option>
-                      <option value="masculino">M</option>
-                      <option value="femenino">F</option>
-                    </select>
-                    <BsGenderAmbiguous />
-                  </div>
-              </div>
-              <div className="input">
-                  <p>
-                    <strong>Dirección</strong>
-                  </p>
-                  <div className="relative">
-                    <input type="text"
-                      id="direccion"
-                      name="direccion"
-                      onChange={handleChange}
-                      value={values.direccion}
-                      required
-                    />
-                    <FaAddressBook />
-                  </div>
-                  
-              </div>
-              <div className="input">
-                <p>
-                  <strong>Teléfono</strong>
-                </p>
-                <div className="relative">
-                  <input type="text"
-                    id="telefono"
-                    name="telefono"
-                    onChange={handleChange}
-                    value={values.telefono}
-                  />
-                  <BsFillTelephoneFill />
-                </div>
-              </div>
-              <div className="input">
-                <p>
-                  <strong>Correo</strong>
-                </p>
-                <div className="relative">
-                  <input type="email"
-                    id="correo"
-                    name="correo"
-                    onChange={handleChange}
-                    value={values.correo}
-                  />
-                  <MdEmail/>
-                </div>
-              </div>
-            </div>
-          {/*
+            
             <div className="container-form medical-history">
               <h5 className="title"><b>Antecedentes Médicos</b><BsJournalMedical /></h5>
               <div className="input">
@@ -220,11 +134,11 @@ const FormularioPacientes = () => {
                   <div className="relative">
                     <input 
                       type="number"
-                      id="trigriceridos"
-                      name="trigriceridos"
+                      id="triglicerios"
+                      name="triglicerios"
                       placeholder="mg/dL"
                       onChange={handleChange}
-                      value={values.trigriceridos}
+                      value={values.triglicerios}
                     />
                     <FaNotesMedical />
                   </div>
@@ -236,7 +150,7 @@ const FormularioPacientes = () => {
                   </strong>
                 </p>
                 <div className="relative">
-                  <select name="familiares" id="familiares" onChange={handleChange} value={values.familiares}  required>
+                  <select name="familiar" id="familiar" onChange={handleChange} value={values.familiar}  required>
                     <option value="" disabled selected hidden>Seleccione una opcion</option>
                     <option value="Abuelos">Abuelos</option>
                     <option value="Padres">Padres</option>
@@ -289,7 +203,7 @@ const FormularioPacientes = () => {
                     <strong>Hábito de Fumar (Si/No):</strong>{" "}
                   </p>
                   <div className="relative">
-                    <select name="fumar" id="fumar" onChange={handleChange} value={values.fumar} required>
+                    <select name="habitoFumar" id="habitoFumar" onChange={handleChange} value={values.habitoFumar} required>
                       <option value="" disabled selected hidden>Selecciona una opción</option>
                       <option value="Activo">Activo</option>
                       <option value="Medio">Medio</option>
@@ -303,7 +217,7 @@ const FormularioPacientes = () => {
                   <strong>Frecuencia de Consumo de Alcohol:</strong>{" "}
                 </p>
                 <div className="relative">
-                  <select name="alcohol" id="alcohol"  onChange={handleChange} value={values.alcohol} required>
+                  <select name="habitoAlcohol" id="habitoAlcohol"  onChange={handleChange} value={values.habitoAlcohol} required>
                     <option value="" disabled selected hidden>Selecciona una opción</option>
                     <option value="Ninguna">Ninguna</option>
                     <option value="Baja">Baja</option>
@@ -322,10 +236,10 @@ const FormularioPacientes = () => {
                   <div className="relative">
                     <input 
                       type="text"
-                      id="dieta"
-                      name="dieta"
+                      id="habitoDieta"
+                      name="habitoDieta"
                       onChange={handleChange}
-                      value={values.dieta}
+                      value={values.habitoDieta}
                     />
                     <IoNutrition />
                   </div>
@@ -339,11 +253,11 @@ const FormularioPacientes = () => {
                 <div className="relative">
                   <input  
                     type="number"
-                    id="actividad"
-                    name="actividad"
+                    id="horasActividadSemanal"
+                    name="horasActividadSemanal"
                     placeholder="Introduzca Numero de Horas a la semana"
                     onChange={handleChange}
-                    value={values.actividad}
+                    value={values.horasActividadSemanal}
                   />
                   <BsCalendar2WeekFill />
                 </div>
@@ -359,11 +273,11 @@ const FormularioPacientes = () => {
                   <div className="relative">
                     <input 
                       type="number"
-                      id="masa"
-                      name="masa"
+                      id="masaCorporalKg"
+                      name="masaCorporalKg"
                       placeholder="Kg"
                       onChange={handleChange}
-                      value={values.masa}
+                      value={values.masaCorporalKg}
                     />
                     <IoBody />
                   </div>
@@ -392,16 +306,16 @@ const FormularioPacientes = () => {
                 <div className="relative">
                   <input 
                     type="number"
-                    id="altura"
-                    name="altura"
+                    id="cmAltura"
+                    name="cmAltura"
                     placeholder="cm"
                     onChange={handleChange}
-                    value={values.altura}
+                    value={values.cmAltura}
                   />
                   <GiBodyHeight />
                 </div>
               </div>
-            </div>*/}
+            </div>
             <button className="button-blue-rounded" type="submit" disabled={isSubmitting}>
               {isSubmitting ? "Registrando..." : "Registrar"}
             </button>
@@ -412,4 +326,4 @@ const FormularioPacientes = () => {
   );
 };
 
-export default FormularioPacientes;
+export default FormularioAnalisis;

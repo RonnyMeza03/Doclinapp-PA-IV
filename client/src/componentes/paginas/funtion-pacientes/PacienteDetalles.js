@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { obtenerPacientePorId } from '../../../api/paciente.api';
+import { MdAddChart } from 'react-icons/md';
+
+function formatearFecha(fechaISO) {
+  const fecha = new Date(fechaISO);
+
+  const dia = String(fecha.getDate()).padStart(2, '0'); // Asegura que el día tenga 2 dígitos
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses comienzan desde 0, por lo que sumamos 1
+  const anio = fecha.getFullYear(); // Obtiene el año completo
+
+  return `${dia}/${mes}/${anio}`;
+}
 
 const PacienteDetalles = () => {
   const { id } = useParams(); // Obtén el id del paciente desde los parámetros de la URL
@@ -38,7 +49,7 @@ const PacienteDetalles = () => {
         <div>
           <p>Nombre: {paciente.nombre}</p>
           <p>Apellido: {paciente.apellido}</p>
-          <p>Edad: {paciente.edad}</p>
+          <p>Fecha de Nacimiento: {formatearFecha(paciente.fechaNacimiento)}</p>
           <p>correo: {paciente.correo}</p>
           <p>direccion: {paciente.direccion}</p>
           <p>sexo: {paciente.sexo}</p>
@@ -47,6 +58,10 @@ const PacienteDetalles = () => {
       ) : (
         <p>No se encontraron detalles para este paciente.</p>
       )}
+      <Link to={`/Pacientes/${paciente.id}/crearAnalisis`}>
+      {/*<FormularioAnalisis pacienteID = {paciente.id}/>*/}
+        <MdAddChart></MdAddChart>
+      </Link>
     </div>
   );
 };

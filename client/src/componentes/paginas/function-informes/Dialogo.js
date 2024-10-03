@@ -4,12 +4,9 @@ import { obtenerAnalisis } from '../../../api/informes.api.js';
 import { useState, useEffect } from 'react';
 import {useParams} from "react-router-dom"
 import { IoChevronBack } from "react-icons/io5";
-import { RiFileUserLine } from "react-icons/ri";
 import { BsJournalMedical } from "react-icons/bs";
 import { GiLifeInTheBalance } from "react-icons/gi";
 import { PiHeartHalf } from "react-icons/pi";
-import { FaUserCheck } from "react-icons/fa6";
-import { FaUserPlus } from "react-icons/fa6";
 import { MdDateRange } from "react-icons/md";
 import { BsGenderAmbiguous } from "react-icons/bs";
 import { FaAddressBook } from "react-icons/fa";
@@ -41,6 +38,7 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
     riskEvaluation: false
   });
 
+  const [sinInformes, setSinInformes] = useState(false);
   const params = useParams()
   
 
@@ -49,8 +47,12 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
       
       try {
         const respuesta = await obtenerAnalisis(params.id);
+        if (respuesta.data.lenght === 0){
+          setSinInformes(true); // Marca que no hay informes
+        } else {
+          setAnalisis(respuesta.data);
+        }
         console.log(respuesta)
-        setAnalisis(respuesta.data);
         console.log(respuesta.data)
         setLoading(false);
       } catch (error) {
@@ -59,7 +61,7 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
       }
     }
     cargarAnalisis();
-  }, []);
+  }, [params.id]);
 
   const toggleInfo = (key) => {
     setShowInfo(prevState => ({
@@ -76,6 +78,14 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
     return <div>Error: {error}</div>;
   }
 
+  if (sinInformes) {
+    return <div>No hay informes disponibles para este paciente.</div>;
+  }
+
+  if (analisis.length === 0 || !analisis[0]) {
+    return <div>No se encontraron datos del análisis.</div>;
+  }
+
   return (
     <div className="dialogo-container">
       <div className='name'>
@@ -85,7 +95,7 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
       
       <div className="dialogo-container-child personal-info">
         <b className='title-child'>Información Personal:</b>
-        <p className='input-child'><MdDateRange/> <strong>Edad:</strong> {personaSeleccionada.edad}</p>
+        <p className='input-child'><MdDateRange/> <strong>Edad:</strong> {analisis[0].edad}</p>
         <p className='input-child'><BsGenderAmbiguous/> <strong>Sexo:</strong> {personaSeleccionada.sexo} </p>
         <p className='input-child'><FaAddressBook/> <strong>Dirección:</strong> {personaSeleccionada.direccion}</p>
         <p className='input-child'><BsFillTelephoneFill/> <strong>Teléfono:</strong> {personaSeleccionada.telefono}</p>
