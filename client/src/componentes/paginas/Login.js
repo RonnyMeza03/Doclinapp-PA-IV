@@ -1,9 +1,25 @@
 import '../css/login.css';
+import { useEffect } from 'react';
 import logo from '../imagenes/login.png'; 
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
+import {useAuth0} from '@auth0/auth0-react'
 
-const Login = ({  }) => {
+const Login = () => {
+
+    const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/inicio');
+    }
+  }, [isAuthenticated, navigate]);
+
+  if (isLoading) return <h1>Cargando.....</h1>
+
     return (
+        <button onClick={() => loginWithRedirect()}>Login</button>
+        /*
         <div className="login-container">
             <div className="login">
                 <h1>DoclinAPP</h1>
@@ -26,9 +42,9 @@ const Login = ({  }) => {
                 </div>
             </div>
             <div className="img">
-                <img src={logo} alt="Logo" /> {/* Mostrar la imagen */}
+                <img src={logo} alt="Logo" />  Mostrar la imagen 
             </div>
-        </div>
+        </div>*/
     );
 };
 

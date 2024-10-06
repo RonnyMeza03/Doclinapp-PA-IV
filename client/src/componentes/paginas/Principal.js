@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Principal.css'; 
 import { Link } from 'react-router-dom';
+import Login from './Login';
 
 const Principal = () => {
     return (
@@ -10,7 +11,7 @@ const Principal = () => {
                 <nav className="navbar">
                     <ul>
                         <li>
-                            <Link to="/login" className="nav-link">Login</Link>
+                            <Login/>{/*<Link to="/login" className="nav-link">Login</Link>*/}
                            
                         </li>
                     </ul>

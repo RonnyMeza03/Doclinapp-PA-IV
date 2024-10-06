@@ -139,7 +139,7 @@ header {
     list-style-type: none;
 }
 
-.sidenav ul li a {
+.sidenav ul li a, .sidenav ul li button {
     gap: .5rem;
     width: 100%;
     opacity: .75;
@@ -157,6 +157,13 @@ header {
     transition: all ease-out .2s;
 }
 
+.sidenav ul li button {
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+
+}
+
 .sidenav ul li:not(.logout) a:hover, 
 .sidenav ul li:not(.logout) a.active {
     opacity: 1;
@@ -164,7 +171,7 @@ header {
     background-color: var(--blue-50);
 }
 
-.sidenav ul li.logout a:hover {
+.sidenav ul li.logout button:hover {
     opacity: 1;
     color: var(--white);
     background-color: rgb(251 113 133);
