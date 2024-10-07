@@ -9,8 +9,12 @@ import { BsGenderAmbiguous } from "react-icons/bs";
 import { FaAddressBook } from "react-icons/fa";
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { crearPacienteRequest } from "../../api/paciente.api";
+import {useAuth0} from '@auth0/auth0-react'
 
 const FormularioPacientes = () => {
+
+  const { user } = useAuth0();
+
   return (
     <div className="usuario-container">
       <h1>REGISTRO DE DATOS</h1>
@@ -24,7 +28,8 @@ const FormularioPacientes = () => {
           telefono: "",
           correo: "",
           aplicacionID: 1,
-          usuarioID: 1
+          idAuth0: user.sub,
+          usuarioID: 0
         }}
         onSubmit={async (values, actions) => {
           console.log(values);
