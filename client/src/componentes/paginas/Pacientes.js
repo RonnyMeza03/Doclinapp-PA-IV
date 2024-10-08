@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { IoPersonAddOutline } from "react-icons/io5";
 import {obtenerUsuarioPacientes} from '../../api/usuarios.api';
 import {useAuth0} from '@auth0/auth0-react';
+import { IoPersonCircleOutline } from "react-icons/io5"; // Ícono para el logotipo de cada paciente
 
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
@@ -54,15 +55,17 @@ const Pacientes = () => {
   }
 
   const renderPacientesList = (listaPacientes) => (
-    <ul>
+    <div className="lista-pacientes">
       {listaPacientes.map((paciente) => (
-        <li key={paciente.id}>
-          <Link to={`/Pacientes/${paciente.id}`}>
-            {paciente.nombre} {paciente.apellido} - Fecha de creacion: {formatearFecha(paciente.createdAt)}
+        <section className="paciente-section" key={paciente.id}>
+          <IoPersonCircleOutline className="paciente-logotipo" />
+          <Link to={`/Pacientes/${paciente.id}`} className="paciente-info">
+            <h2>{paciente.nombre} {paciente.apellido}</h2>
+            <p>Fecha de creación: {formatearFecha(paciente.createdAt)}</p>
           </Link>
-        </li>
+        </section>
       ))}
-    </ul>
+    </div>
   );
 
   return (
