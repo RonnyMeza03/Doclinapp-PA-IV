@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { obtenerTareas } from '../../api/usuarios.api';
 import { IoPersonAddOutline } from "react-icons/io5";
+import {obtenerUsuarioPacientes} from '../../api/usuarios.api';
+import {useAuth0} from '@auth0/auth0-react';
 
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
@@ -14,6 +15,7 @@ function formatearFecha(fechaISO) {
 }
 
 const Pacientes = () => {
+  const {user, isAuthenticated, isLoading} = useAuth0()
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [pacientes, setPacientes] = useState([]);
@@ -27,8 +29,14 @@ const Pacientes = () => {
 
   useEffect(() => {
     async function cargarPacientes() {
+
+      if (!isAuthenticated || isLoading || !user){
+        return
+      }
+
       try {
-        const respuesta = await obtenerTareas();
+        console.log(user.sub)
+        const respuesta = await obtenerUsuarioPacientes(user.sub);
         setPacientes(respuesta.data);
         setLoading(false);
       } catch (error) {
@@ -39,7 +47,7 @@ const Pacientes = () => {
       }
     }
     cargarPacientes();
-  }, []);
+  }, [user.sub, isAuthenticated, user]);
 
   if (loading) {
     return <div>Cargando pacientes...</div>;

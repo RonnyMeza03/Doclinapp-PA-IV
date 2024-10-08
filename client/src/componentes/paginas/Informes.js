@@ -1,29 +1,35 @@
-import React, { useEffect,useState } from 'react';
-import Persona from '../paginas/function-informes/Persona';
-import Dialogo from '../paginas/function-informes/Dialogo';
-import '../css/informes.css';
+import React, { useEffect, useState } from "react";
+import Persona from "../paginas/function-informes/Persona";
+import Dialogo from "../paginas/function-informes/Dialogo";
+import { useAuth0 } from "@auth0/auth0-react";
+import "../css/informes.css";
 
-import {obtenerTareas} from "../../api/usuarios.api";
-import { useNavigate } from 'react-router-dom';
+import { obtenerUsuarioPacientes } from "../../api/usuarios.api";
+import { useNavigate } from "react-router-dom";
 
 const Informes = () => {
   const [dialogoVisible, setDialogoVisible] = useState(false);
   const [filtradorVisible, setFiltradorVisible] = useState(true);
   const [personaSeleccionada, setPersonaSeleccionada] = useState(null);
   const [mostrarLista, setMostrarLista] = useState(true);
-  const [busqueda, setBusqueda] = useState(''); 
-  const [ordenEdad, setOrdenEdad] = useState('ascendente'); 
-  const [sexo, setSexo] = useState('todos'); 
+  const [busqueda, setBusqueda] = useState("");
+  const [ordenEdad, setOrdenEdad] = useState("ascendente");
+  const [sexo, setSexo] = useState("todos");
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
-  const navigate = useNavigate()
+  const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function cargarUsuarios() {
+      if (!isAuthenticated || !user || isLoading) {
+        return <h1>cargando...</h1>;
+      }
+
       try {
-        const respuesta = await obtenerTareas();
+        const respuesta = await obtenerUsuarioPacientes(user.sub);
         setUsuarios(respuesta.data);
         setLoading(false);
       } catch (error) {
@@ -32,7 +38,7 @@ const Informes = () => {
       }
     }
     cargarUsuarios();
-  }, []);
+  }, [user.sub, isAuthenticated, isLoading]);
 
   if (loading) {
     return <div>Cargando usuarios...</div>;
@@ -42,11 +48,11 @@ const Informes = () => {
     return <div>Error: {error}</div>;
   }
 
-  console.log("Usuarios:", usuarios); 
+  console.log("Usuarios:", usuarios);
 
   const handleClick = (id) => {
-    navigate(`/informes/${id}`)
-  }
+    navigate(`/informes/${id}`);
+  };
 
   const abrirDialogo = (id) => {
     const persona = usuarios.find((p) => p.id === id);
@@ -54,7 +60,7 @@ const Informes = () => {
     setDialogoVisible(true);
     setMostrarLista(false);
     setFiltradorVisible(false);
-    handleClick(id)
+    handleClick(id);
   };
 
   const cerrarDialogo = () => {
@@ -76,22 +82,22 @@ const Informes = () => {
       });
     }
   };
-  
+
   const ordenarPorEdad = (usuarios) => {
     return usuarios.sort((a, b) => {
-      if (ordenEdad === 'ascendente') {
+      if (ordenEdad === "ascendente") {
         return a.edad - b.edad;
       } else {
         return b.edad - a.edad;
       }
     });
   };
-  
+
   const filtrarPorSexo = (usuarios) => {
-    if (sexo === 'todos') {
+    if (sexo === "todos") {
       return usuarios;
     } else {
-      return usuarios.filter(usuario => usuario.sexo === sexo);
+      return usuarios.filter((usuario) => usuario.sexo === sexo);
     }
   };
 
@@ -100,40 +106,44 @@ const Informes = () => {
       {filtradorVisible && (
         <>
           {" "}
-          <section className='main-header-content'>
-            <h1 className='title'>Informes</h1>
+          <section className="main-header-content">
+            <h1 className="title">Informes</h1>
             <div className="filtro">
               <input
-                id='busqueda'
-                type='text'
-                placeholder='Buscar por nombre'
+                id="busqueda"
+                type="text"
+                placeholder="Buscar por nombre"
                 value={busqueda}
                 onChange={(e) => setBusqueda(e.target.value)}
               />
 
-              <div className='input'>
-                <label htmlFor='ordenEdad' className='label-small'>
-                  {' '}
+              <div className="input">
+                <label htmlFor="ordenEdad" className="label-small">
+                  {" "}
                   Ordenar por edad:
                 </label>
                 <select
-                  id='ordenEdad'
+                  id="ordenEdad"
                   value={ordenEdad}
                   onChange={(e) => setOrdenEdad(e.target.value)}
                 >
-                  <option value='ascendente'>Ascendente</option>
-                  <option value='descendente'>Descendente</option>
+                  <option value="ascendente">Ascendente</option>
+                  <option value="descendente">Descendente</option>
                 </select>
               </div>
-              <div className='input'>
-                <label htmlFor='sexo' className='label-small'>
-                  {' '}
+              <div className="input">
+                <label htmlFor="sexo" className="label-small">
+                  {" "}
                   Filtrar por genero:
                 </label>
-                <select id='sexo' value={sexo} onChange={(e) => setSexo(e.target.value)}>
-                  <option value='todos'>Todos</option>
-                  <option value='masculino'>Masculino</option>
-                  <option value='femenino'>Femenino</option>
+                <select
+                  id="sexo"
+                  value={sexo}
+                  onChange={(e) => setSexo(e.target.value)}
+                >
+                  <option value="todos">Todos</option>
+                  <option value="masculino">Masculino</option>
+                  <option value="femenino">Femenino</option>
                 </select>
               </div>
             </div>
