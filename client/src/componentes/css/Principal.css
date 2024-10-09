@@ -8,7 +8,7 @@
 
 body {
   font-family: 'Arial', sans-serif;
-    background: linear-gradient(to bottom right, #69afe9, #85cc87); /* Gradiente de azul a verde menta */
+    background: linear-gradient(to bottom right, #97bad6, #b8d6b9); /* Gradiente de azul a verde menta */
     color: #333;
     min-height: 100vh; /* Asegúrate de que el cuerpo ocupe toda la altura */
     margin: 0; /* Elimina márgenes por defecto */
@@ -132,4 +132,5 @@ body {
 
 
 }
+
 

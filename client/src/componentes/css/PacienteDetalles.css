@@ -1,0 +1,63 @@
+.detalles-paciente-container {
+    background-color: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 200%;
+    max-width: 1000px; /* Ajustar al tamaño deseado */
+    margin: 0 auto;
+}
+
+.info-paciente {
+    display: flex;
+    flex-direction: row; /* Cambio importante: disposición horizontal */
+    gap: 1rem;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten en filas si hay poco espacio */
+}
+
+.detalle-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 18px;
+    color: #4a4a4a;
+    flex: 1 1 30%; /* Esto permite que cada item ocupe el 30% del contenedor */
+    min-width: 200px; /* Un ancho mínimo para que los items no sean muy pequeños */
+}
+
+.icono {
+    font-size: 24px;
+    color: #2274e0;
+}
+
+
+
+.boton-crear-container {
+    
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    padding: 17rem;
+   position: absolute;
+   
+ 
+  
+}
+
+.link {
+    /* Estilos del botón */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #4a90e2;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.link:hover {
+    background-color: #357ABD;
+}

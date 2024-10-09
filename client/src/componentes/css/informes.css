@@ -20,8 +20,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    align-items: start;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 }
 
 .informes-container .main-header-content .title {

@@ -54,6 +54,8 @@ const Pacientes = () => {
     return <div>Cargando pacientes...</div>;
   }
 
+
+
   const renderPacientesList = (listaPacientes) => (
     <div className="lista-pacientes">
       {listaPacientes.map((paciente) => (

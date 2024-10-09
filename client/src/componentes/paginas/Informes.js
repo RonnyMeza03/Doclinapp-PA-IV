@@ -29,10 +29,12 @@ const Informes = () => {
       }
 
       try {
+
         const respuesta = await obtenerUsuarioPacientes(user.sub);
         setUsuarios(respuesta.data);
         setLoading(false);
       } catch (error) {
+        setUsuarios([]); return
         setError(error.message);
         setLoading(false);
       }
@@ -84,6 +86,11 @@ const Informes = () => {
   };
 
   const ordenarPorEdad = (usuarios) => {
+    if (!Array.isArray(usuarios)) {
+      console.error("El valor de 'usuarios' no es un array:", usuarios);
+      return []; // Retornar un array vacío si no es un array
+    }
+  
     return usuarios.sort((a, b) => {
       if (ordenEdad === "ascendente") {
         return a.edad - b.edad;
