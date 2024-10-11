@@ -14,6 +14,7 @@ import Registro from './componentes/paginas/Registro'
 import Pacientes from './componentes/paginas/Pacientes'
 import PacienteDetalles from './componentes/paginas/funtion-pacientes/PacienteDetalles'
 import FormularioAnalisis from './componentes/paginas/funtion-pacientes/FormularioAnalisis'
+import CargarPacienteExcel from './componentes/paginas/funtion-pacientes/cargarPacienteExcel'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/Pacientes/:id" element={<><Information/><main><PacienteDetalles/></main></>} />
           <Route path="/Pacientes/:id/crearAnalisis" element={<><Information/><main><FormularioAnalisis/></main></>} />
           <Route path="/Pacientes/crear" element={<><Information/><main><FormualrioPacientes/></main></>} />
+          <Route path="/Pacientes/excel" element={<><Information/><main><CargarPacienteExcel/></main></>} />
           <Route path="/estadisticas" element={<><Information/><main><Estadisticas /></main></>} />
           <Route path="/Configuracion" element={<><Information/><main><Configuracion /></main></>} />
         </Routes>   
