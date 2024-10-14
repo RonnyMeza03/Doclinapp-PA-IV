@@ -5,6 +5,7 @@ export const obtenerPacientePorId = async (id) => {
 }
 
 export const crearPacienteRequest = async (paciente) => {
+  console.log(paciente)
   await axios.post("http://localhost:4000/paciente", paciente)
 
 }

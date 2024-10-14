@@ -20,7 +20,6 @@ const Inicio = () => {
             console.log(usuarioExiste)
 
             if (!usuarioExiste) {
-              // Si no existe, guardarlo en la base de datos
               await crearUsuarioRequest({
                 name: user.name,
                 given_name: user.given_name,

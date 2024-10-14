@@ -1,10 +1,11 @@
-import  ExcelUploader  from './funtion-excel/ExcelUploader.js'
+import Perfil from "./Perfil.js";
+
 
 const Configuracion = ( ) => {
     return (
         <div>
-            <h1>Esta es la sección de configuraciones</h1>
-            <ExcelUploader />
+            <h3>Configuracion</h3>
+            <Perfil></Perfil>
         </div>
         
     )

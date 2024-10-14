@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { IoPersonAddOutline } from "react-icons/io5";
 import {obtenerUsuarioPacientes} from '../../api/usuarios.api';
 import {useAuth0} from '@auth0/auth0-react';
-import { IoPersonCircleOutline } from "react-icons/io5"; // Ícono para el logotipo de cada paciente
+import { IoPersonCircleOutline } from "react-icons/io5";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { FaSave } from 'react-icons/fa';
+import { crearPacienteRequest } from '../../api/paciente.api';
 
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
@@ -31,37 +32,88 @@ const Pacientes = () => {
     { id: 3, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
   ];
 
-  useEffect(() => {
-    async function cargarPacientes() {
-
-      if (!isAuthenticated || isLoading || !user){
-        return
-      }
-
-      try {
-        console.log(user.sub)
-        const storedData = localStorage.getItem('jsonData');
-        if (storedData){
-          setData(JSON.parse(storedData))
-        }
-        const respuesta = await obtenerUsuarioPacientes(user.sub);
-        setPacientes(respuesta.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error al cargar pacientes:", error);
-        setError(error.message);
-        setPacientes(pacientesMock);
-        setLoading(false);
-      }
+  const actualizarLocalStorage = useCallback((pacienteGuardado) => {
+    const storedData = localStorage.getItem('jsonData');
+    if (storedData) {
+      let parsedData = JSON.parse(storedData);
+      // Filtramos el paciente que acabamos de guardar
+      parsedData = parsedData.filter(p => 
+        p.Nombre.toLowerCase() !== pacienteGuardado.nombre.toLowerCase() || 
+        p.Apellido.toLowerCase() !== pacienteGuardado.apellido.toLowerCase()
+      );
+      localStorage.setItem('jsonData', JSON.stringify(parsedData));
+      setData(parsedData);
     }
+  }, []);
+
+  const cargarPacientes = useCallback(async () => {
+    if (!isAuthenticated || isLoading || !user) {
+      return;
+    }
+
+    try {
+      console.log(user.sub);
+      const storedData = localStorage.getItem('jsonData');
+      if (storedData) {
+        setData(JSON.parse(storedData));
+      }
+      const respuesta = await obtenerUsuarioPacientes(user.sub);
+      setPacientes(respuesta.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al cargar pacientes:", error);
+      setError(error.message);
+      setPacientes(pacientesMock);
+      setLoading(false);
+    }
+  }, [user, isAuthenticated, isLoading]);
+
+  useEffect(() => {
     cargarPacientes();
-  }, [user.sub, isAuthenticated, user]);
+  }, [cargarPacientes]);
 
   if (loading) {
     return <div>Cargando pacientes...</div>;
   }
 
   console.log(data)
+
+  function limpiarClavesJson(json) {
+    const nuevoJson = {};
+
+    for (const clave in json) {
+      const claveLimpia = clave
+        .toLowerCase()
+        .replace(/\s+/g, '')
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+      nuevoJson[claveLimpia] = json[clave];
+    }
+    return nuevoJson;
+  }
+
+
+  async function guardarPacienteExcel(paciente) {
+    const pacienteJson = limpiarClavesJson(paciente)
+    try {
+      await crearPacienteRequest({
+        nombre: pacienteJson.nombre,
+        apellido: pacienteJson.apellido,
+        correo: pacienteJson.correo,
+        fechaNacimiento: "07/12/2000",
+        sexo: pacienteJson.sexo,
+        direccion: pacienteJson.direccion,
+        telefono: pacienteJson.telefono,
+        aplicacionID: 1,
+        idAuth0: user.sub,
+        usuarioId: 0
+      })
+      actualizarLocalStorage(pacienteJson)
+      await cargarPacientes()
+    } catch (error) {
+      console.error("Error al guardar Paciente")
+    }
+  }
 
   const PacienteSection = ({ paciente }) => (
     <section className="paciente-section" key={paciente.id}>
@@ -74,16 +126,8 @@ const Pacientes = () => {
   );
   
   const ExcelPacienteSection = ({ listaPacientes = [] }) => {
-    // Check if listaPacientes is an array and not empty
     if (!Array.isArray(listaPacientes) || listaPacientes.length === 0) {
-      return (
-        <section className="paciente-section">
-          <IoPersonCircleOutline className="paciente-logotipo" />
-          <div className="paciente-info">
-            <h2>No hay pacientes disponibles desde Excel</h2>
-          </div>
-        </section>
-      );
+      return 
     }
   
     return (
@@ -93,8 +137,10 @@ const Pacientes = () => {
             <IoPersonCircleOutline className="paciente-logotipo" />
             <div className="paciente-info">
               <h2>
-                {paciente.Nombre || "Nombre no disponible"} {paciente.Apellido || "Apellido no disponible"}
-                <FaSave></FaSave>
+                {paciente.Nombre || "Nombre no disponible"} 
+                {paciente.Apellido || "Apellido no disponible"} 
+                {paciente.fechadenacimiento || "Fecha no disponible"}
+                <FaSave onClick={() => {guardarPacienteExcel(paciente)}}></FaSave>
               </h2>
             </div>
           </section>
@@ -113,7 +159,7 @@ const Pacientes = () => {
       {data && data.length > 0 ? (
         <ExcelPacienteSection listaPacientes={data} />
       ) : (
-        <h2>No hay pacientes cargados desde Excel</h2>
+        null
       )}
     </div>
   );

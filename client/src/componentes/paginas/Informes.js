@@ -38,7 +38,7 @@ const Informes = () => {
       }
     }
     cargarUsuarios();
-  }, [user.sub, isAuthenticated, isLoading]);
+  }, [user, isAuthenticated, isLoading]);
 
   if (loading) {
     return <div>Cargando usuarios...</div>;

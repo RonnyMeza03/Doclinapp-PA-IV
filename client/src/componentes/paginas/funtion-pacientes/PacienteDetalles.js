@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { obtenerPacientePorId } from '../../../api/paciente.api';
 import { MdAddChart, MdEmail, MdLocationOn, MdPerson, MdPhone, MdEvent, MdWc } from 'react-icons/md';
 import '../../css/PacienteDetalles.css';
+import { obtenerAnalisis } from '../../../api/informes.api';
 
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
@@ -16,6 +17,7 @@ function formatearFecha(fechaISO) {
 const PacienteDetalles = () => {
   const { id } = useParams(); // Obtén el id del paciente desde los parámetros de la URL
   const [paciente, setPaciente] = useState(null);
+  const [listaAnalisis, setListaAnalisis] = useState([])
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -23,6 +25,8 @@ const PacienteDetalles = () => {
     async function cargarDetallesPaciente() {
       try {
         const respuesta = await obtenerPacientePorId(id); // Aquí llamas a la API para obtener los detalles del paciente
+        const listaAnalisis = await obtenerAnalisis(id)
+        setListaAnalisis(listaAnalisis.data)
         setPaciente(respuesta.data);
         console.log(respuesta.data);
       } catch (error) {
@@ -90,6 +94,19 @@ const PacienteDetalles = () => {
           </Link>
         </section>
       )}
+       <section>
+        <h1>Analisis Realizados</h1>
+        {listaAnalisis.length > 0 ? (
+          listaAnalisis.map((analisis, index) => (
+            <section key={index}>
+              <p><strong>edad: </strong> {analisis.edad}</p>
+              <p><strong>Fecha:</strong> {formatearFecha(analisis.createdAt)}</p>
+            </section>
+          ))
+        ) : (
+          <h2>No se encontraron analisis</h2>
+        )}
+      </section>
     </>
   );
   
