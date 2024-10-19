@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as XLSX from "xlsx";
+import "../../css/CargarPacienteExcel.css"; // Importa el archivo de estilos CSS
 
 const CargarPacienteExcel = () => {
   const navigate = useNavigate();
@@ -39,16 +40,35 @@ const CargarPacienteExcel = () => {
   };
 
   return (
-    <div>
+    <div className="cargar-paciente-excel">
       <h1>Cargar Paciente desde Excel</h1>
       <input type="file" accept=".xlsx, .xls" onChange={handleFileUpload} />
 
       {jsonData && (
         <div>
           <h2>Previsualización de datos</h2>
-          <pre>{JSON.stringify(jsonData, null, 2)}</pre>
+          <table className="tabla-datos">
+            <thead>
+              <tr>
+                {Object.keys(jsonData[0]).map((key) => (
+                  <th key={key}>{key}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {jsonData.map((row, index) => (
+                <tr key={index}>
+                  {Object.values(row).map((value, i) => (
+                    <td key={i}>{value}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
           {!isConfirmed && (
-            <button onClick={handleConfirm}>Confirmar Carga</button>
+            <button className="btn-confirmar" onClick={handleConfirm}>
+              Confirmar Carga
+            </button>
           )}
         </div>
       )}

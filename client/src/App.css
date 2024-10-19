@@ -171,6 +171,11 @@ header {
     background-color: var(--blue-50);
 }
 
+.sidenav p{
+    color:#ffffff;
+}
+
+
 .sidenav ul li.logout button:hover {
     opacity: 1;
     color: var(--white);

@@ -1,0 +1,102 @@
+.cargar-paciente-excel {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 20px 0;
+}
+
+.tabla-datos {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.tabla-datos th, .tabla-datos td {
+  padding: 8px;
+  text-align: left;
+  border-left: 2px solid #333; 
+  border-top: 2px solid #333;
+  border-bottom:2px solid #333;
+  border-right:2px solid #333;
+}
+
+.tabla-datos th {
+  background-color: #f2f2f2;
+  color: #333;
+  border-left: 2px solid #333; 
+  border-top: 2px solid #333;
+  border-bottom:2px solid #333;
+  border-right:2px solid #333;
+}
+
+.tabla-datos tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tabla-datos tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-confirmar {
+  padding: 10px 20px;
+  background-color: #2831a7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-confirmar:hover {
+  background-color: #672188;
+}
+
+h2 {
+  color: #333;
+}
+
+p {
+  color: #555;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 10px 0;
+  padding: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 9px;
+  transition: background-color 0.3s ease;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+  visibility: hidden;
+}
+
+input[type="file"]::before {
+  content: "Seleccionar archivo";
+  display: inline-block;
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
+
+input[type="file"]:hover::before {
+  background-color: #0056b3;
+}
