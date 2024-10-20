@@ -15,6 +15,9 @@ import Pacientes from './componentes/paginas/Pacientes'
 import PacienteDetalles from './componentes/paginas/funtion-pacientes/PacienteDetalles'
 import FormularioAnalisis from './componentes/paginas/funtion-pacientes/FormularioAnalisis'
 import CargarPacienteExcel from './componentes/paginas/funtion-pacientes/cargarPacienteExcel'
+import Perfil from './componentes/paginas/funtion-configuracion/Perfil'
+import Planes from './componentes/paginas/funtion-configuracion/Planes'
+import Grupo from './componentes/paginas/funtion-configuracion/Grupo'
 
 
 function App() {
@@ -34,6 +37,9 @@ function App() {
           <Route path="/Pacientes/excel" element={<><Information/><main><CargarPacienteExcel/></main></>} />
           <Route path="/estadisticas" element={<><Information/><main><Estadisticas /></main></>} />
           <Route path="/Configuracion" element={<><Information/><main><Configuracion /></main></>} />
+          <Route path="/Configuracion/perfil" element={<><Information/><main><Perfil /></main></>} />
+          <Route path="/Configuracion/premiun" element={<><Information/><main><Planes /></main></>} />
+          <Route path="/Configuracion/grupo" element={<><Information/><main><Grupo /></main></>} />
         </Routes>   
       </Router>
   );
