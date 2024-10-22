@@ -29,7 +29,7 @@ import { GiBodyHeight } from "react-icons/gi";
 
 const Dialogo = ({ personaSeleccionada, onClose }) => {
 
-  const [analisis, setAnalisis] = useState({});
+  const [analisis, setAnalisis] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showInfo, setShowInfo] = useState({
@@ -46,7 +46,7 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
         const respuesta = await obtenerAnalisis(params.id);
         // Si hay datos y no están vacíos, los guardamos
         if (respuesta.data && Object.keys(respuesta.data).length > 0) {
-          setAnalisis(respuesta.data);
+          setAnalisis([respuesta.data]);
           console.log('Análisis cargados:', respuesta.data);
         }
         setLoading(false);
@@ -75,10 +75,9 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
   }
 
   // Una única validación para cuando no hay datos
-  if (!analisis || Object.keys(analisis).length === 0) {
-    return <div>No se encontraron análisis para este paciente.</div>;
+  if (analisis.length === 0 || !analisis[0]) {
+    return <div>No se encontraron datos del análisis.</div>;
   }
-
   return (
     <div className="dialogo-container">
       <div className='name'>
@@ -88,7 +87,7 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
       
       <div className="dialogo-container-child personal-info">
         <b className='title-child'>Información Personal:</b>
-        <p className='input-child'><MdDateRange/> <strong>Edad:</strong> {analisis.edad}</p>
+        <p className='input-child'><MdDateRange/> <strong>Edad:</strong> {analisis[0].edad}</p>
         <p className='input-child'><BsGenderAmbiguous/> <strong>Sexo:</strong> {personaSeleccionada.sexo} </p>
         <p className='input-child'><FaAddressBook/> <strong>Dirección:</strong> {personaSeleccionada.direccion}</p>
         <p className='input-child'><BsFillTelephoneFill/> <strong>Teléfono:</strong> {personaSeleccionada.telefono}</p>
@@ -96,13 +95,13 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
 
       <div className='dialogo-container-child statics'>
         <b className='title-child'>Estadísticas:</b>
-        <p className='input-child'>Probabilidad Coronaria: <strong>{analisis.analisisCoronaria}%</strong></p>
-        <p className='input-child'>Probabilidad Hiperlipidemia: <strong>{analisis.analisisHiperlipidemia}%</strong></p>
-        <p className='input-child'>Probabilidad Hipertension: <strong>{analisis.analisisHipertension}%</strong></p>
-        <p className='input-child'>Probabilidad de Transmitir enfermedad congenita: <strong>{analisis.analisisCongenita}%</strong></p>
-        <p className='input-child'>Probabilidad de enfermedad de cerebrovascular: <strong>{analisis.analisisCerebrovascular}%</strong></p>
-        <p className='input-child'>Probabilidad de Diabetes tipo 2: <strong>{analisis.analisisDiabetes2}%</strong></p>
-        <p className='input-child'>Probabilidad de Enfermedad Arterial Periferica: <strong>{analisis.analisisArterial}%</strong></p>
+        <p className='input-child'>Probabilidad Coronaria: <strong>{analisis[0].analisisCoronaria}%</strong></p>
+        <p className='input-child'>Probabilidad Hiperlipidemia: <strong>{analisis[0].analisisHiperlipidemia}%</strong></p>
+        <p className='input-child'>Probabilidad Hipertension: <strong>{analisis[0].analisisHipertension}%</strong></p>
+        <p className='input-child'>Probabilidad de Transmitir enfermedad congenita: <strong>{analisis[0].analisisCongenita}%</strong></p>
+        <p className='input-child'>Probabilidad de enfermedad de cerebrovascular: <strong>{analisis[0].analisisCerebrovascular}%</strong></p>
+        <p className='input-child'>Probabilidad de Diabetes tipo 2: <strong>{analisis[0].analisisDiabetes2}%</strong></p>
+        <p className='input-child'>Probabilidad de Enfermedad Arterial Periferica: <strong>{analisis[0].analisisArterial}%</strong></p>
       </div>
 
 
@@ -113,14 +112,14 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
         </div>
         {showInfo.medicalHistory && (
           <>
-            <p className='input-child'><FaHandHoldingMedical/>Presión Arterial Sistólica: <strong>{analisis.sistolica}</strong></p>
-            <p className='input-child'><MdOutlineMedicalServices />Presión Arterial Diastólica: <strong>{analisis.diastolica}</strong></p>
-            <p className='input-child'> <GiMedicalDrip />Niveles de Colesterol Total: <strong>{analisis.colesterol}</strong></p>
-            <p className='input-child'><GiMedicalThermometer />Niveles de LDL (Colesterol Malo): <strong>{analisis.ldl}</strong></p>
-            <p className='input-child'><GiMedicalThermometer />Niveles de HDL (Colesterol Bueno): <strong>{analisis.hdl}</strong></p>
-            <p className='input-child'><FaNotesMedical />Niveles de Triglicéridos: <strong>{analisis.triglicerios}</strong></p>
-            <p className='input-child'><MdFamilyRestroom />Historial Familiar de Enfermedades Cardiacas: <strong>{analisis.familiar}</strong></p>
-            <p className='input-child'><MdHistory />Historial de Enfermedades Crónicas (ej: diabetes): <strong>{analisis.enfermedades}</strong></p>
+            <p className='input-child'><FaHandHoldingMedical/>Presión Arterial Sistólica: <strong>{analisis[0].sistolica}</strong></p>
+            <p className='input-child'><MdOutlineMedicalServices />Presión Arterial Diastólica: <strong>{analisis[0].diastolica}</strong></p>
+            <p className='input-child'> <GiMedicalDrip />Niveles de Colesterol Total: <strong>{analisis[0].colesterol}</strong></p>
+            <p className='input-child'><GiMedicalThermometer />Niveles de LDL (Colesterol Malo): <strong>{analisis[0].ldl}</strong></p>
+            <p className='input-child'><GiMedicalThermometer />Niveles de HDL (Colesterol Bueno): <strong>{analisis[0].hdl}</strong></p>
+            <p className='input-child'><FaNotesMedical />Niveles de Triglicéridos: <strong>{analisis[0].triglicerios}</strong></p>
+            <p className='input-child'><MdFamilyRestroom />Historial Familiar de Enfermedades Cardiacas: <strong>{analisis[0].familiar}</strong></p>
+            <p className='input-child'><MdHistory />Historial de Enfermedades Crónicas (ej: diabetes): <strong>{analisis[0].enfermedades}</strong></p>
           </>
         )}
       </div>
@@ -132,10 +131,10 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
       </div>
         {showInfo.lifeStyle && (
           <>
-            <p className='input-child'><MdOutlineSmokeFree />Hábito de Fumar (Si/No): <strong>{analisis.habitoFumar}</strong></p>
-            <p className='input-child'><MdLocalDrink />Frecuencia de Consumo de Alcohol: <strong>{analisis.habitoAlcohol}</strong></p>
-            <p className='input-child'><IoNutrition />Dieta (Alta/Baja en Grasas Saturadas y Colesterol): <strong>{analisis.habitoDieta}</strong></p>
-            <p className='input-child'><BsCalendar2WeekFill />Nivel de Actividad Física (Horas a la Semana): <strong>{analisis.horasActividadSemanal}</strong></p>
+            <p className='input-child'><MdOutlineSmokeFree />Hábito de Fumar (Si/No): <strong>{analisis[0].habitoFumar}</strong></p>
+            <p className='input-child'><MdLocalDrink />Frecuencia de Consumo de Alcohol: <strong>{analisis[0].habitoAlcohol}</strong></p>
+            <p className='input-child'><IoNutrition />Dieta (Alta/Baja en Grasas Saturadas y Colesterol): <strong>{analisis[0].habitoDieta}</strong></p>
+            <p className='input-child'><BsCalendar2WeekFill />Nivel de Actividad Física (Horas a la Semana): <strong>{analisis[0].horasActividadSemanal}</strong></p>
           </>
         )}
       </div>
@@ -147,9 +146,9 @@ const Dialogo = ({ personaSeleccionada, onClose }) => {
         </div>
         {showInfo.riskEvaluation && (
           <>
-            <p className='input-child'><IoBody />Índice de Masa Corporal (IMC): <strong>{analisis.masaCorporalKg}Kg</strong></p>
-            <p className='input-child'><MdBloodtype />Niveles de Glucosa en Sangre: <strong>{analisis.glucosa}</strong></p>
-            <p className='input-child'><GiBodyHeight />Altura: <strong>{analisis.cmAltura}cm</strong></p>
+            <p className='input-child'><IoBody />Índice de Masa Corporal (IMC): <strong>{analisis[0].masaCorporalKg}Kg</strong></p>
+            <p className='input-child'><MdBloodtype />Niveles de Glucosa en Sangre: <strong>{analisis[0].glucosa}</strong></p>
+            <p className='input-child'><GiBodyHeight />Altura: <strong>{analisis[0].cmAltura}cm</strong></p>
           </>
         )}
       </div>

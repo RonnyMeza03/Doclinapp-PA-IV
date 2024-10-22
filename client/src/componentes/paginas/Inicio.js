@@ -2,6 +2,7 @@ import '../css/inicio.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import { obtenerUsuariosRequest, crearUsuarioRequest } from '../../api/usuarios.api';
+import { crearPerfilRequest } from '../../api/perfil.api';
 
 const Inicio = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -31,6 +32,12 @@ const Inicio = () => {
                 sub: user.sub,  // El ID de Auth0
                 aplicacionID: 1
               });
+
+              await crearPerfilRequest({
+                rol: 'doctor',
+                premium: false,
+                idAuth0: user.sub
+              })
             }
 
             // Guardar en localStorage que ya se guardó el usuario
