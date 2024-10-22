@@ -13,3 +13,8 @@ export const crearUsuarioRequest = async (usuario) => {
 export const obtenerUsuarioPacientes = async (idUsuario) => {
   return await axios.get(`http://localhost:4000/usuarios/${idUsuario}/pacientes`)
 }
+
+export const obtenerPerfil = async (idUsuario) => {
+  return await axios.get(`http://localhost:4000/usuarios/${idUsuario}/perfil`)
+}
+  
