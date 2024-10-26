@@ -18,6 +18,7 @@ import CargarPacienteExcel from './componentes/paginas/funtion-pacientes/cargarP
 import Perfil from './componentes/paginas/funtion-configuracion/Perfil'
 import Planes from './componentes/paginas/funtion-configuracion/Planes'
 import Grupo from './componentes/paginas/funtion-configuracion/Grupo'
+import DetallesGrupo from './componentes/paginas/funtion-configuracion/DetallesGrupo'
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route path="/Configuracion/perfil" element={<><Information/><main><Perfil /></main></>} />
           <Route path="/Configuracion/premiun" element={<><Information/><main><Planes /></main></>} />
           <Route path="/Configuracion/grupo" element={<><Information/><main><Grupo /></main></>} />
+          <Route path="/Configuracion/detallesGrupo" element={<><Information/><main><DetallesGrupo /></main></>} />
         </Routes>   
       </Router>
   );

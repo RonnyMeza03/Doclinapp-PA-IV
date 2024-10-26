@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import {useAuth0} from '@auth0/auth0-react'
-import { obtenerPerfil } from '../../../api/usuarios.api';
+import React, { useState, useEffect, useCallback } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { obtenerPerfil } from "../../../api/usuarios.api";
 
 const Perfil = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const [perfil, setPerfil] = useState(null);  // Cambiado a null inicialmente
+  const [perfil, setPerfil] = useState(null); // Cambiado a null inicialmente
   const [error, setError] = useState(null);
-  const [isLoadingPerfil, setIsLoadingPerfil] = useState(true);  // Nuevo estado para carga
+  const [isLoadingPerfil, setIsLoadingPerfil] = useState(true); // Nuevo estado para carga
 
   const cargarPerfil = useCallback(async () => {
     if (!isAuthenticated || isLoading || !user) {
@@ -16,7 +16,7 @@ const Perfil = () => {
     try {
       setIsLoadingPerfil(true);
       const respuesta = await obtenerPerfil(user.sub);
-      setPerfil(respuesta.data);  
+      setPerfil(respuesta.data);
     } catch (error) {
       console.error("Error al cargar perfil:", error);
       setError(error.message);
@@ -28,7 +28,6 @@ const Perfil = () => {
   useEffect(() => {
     cargarPerfil();
   }, [cargarPerfil]);
-
 
   if (isLoading || isLoadingPerfil) {
     return <div>Cargando...</div>;
@@ -47,7 +46,6 @@ const Perfil = () => {
     return <div>Cargando datos del perfil...</div>;
   }
 
-  
   return (
     <div className="perfil-container">
       <img src={user.picture} alt={user.name} />
@@ -57,7 +55,13 @@ const Perfil = () => {
       <p>{user.phone_number}</p>
       {/* Datos del perfil */}
       <p>Rol: {perfil.rol}</p>
-      <p>Premium: {perfil.premium ? 'Sí' : 'No'}</p>
+      <p>Premium: {perfil.premium ? "Sí" : "No"}</p>
+      <p>
+        Grupo de trabajo:{" "}
+        {perfil.usuario.nombreAplicacion.nombre === "Invitado"
+          ? "No estas en ningun grupo"
+          : perfil.usuario.nombreAplicacion.nombre}
+      </p>
     </div>
   );
 };
