@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Persona from "../paginas/function-informes/Persona";
 import Dialogo from "../paginas/function-informes/Dialogo";
+import { obtenerPacientesGrupo } from "../../api/grupo.api";
 import { useAuth0 } from "@auth0/auth0-react";
 import "../css/informes.css";
 
-import { obtenerUsuarioPacientes } from "../../api/usuarios.api";
+import { obtenerPerfil, obtenerUsuarioPacientes } from "../../api/usuarios.api";
 import { useNavigate } from "react-router-dom";
 
 const Informes = () => {
@@ -30,7 +31,42 @@ const Informes = () => {
 
       try {
         const respuesta = await obtenerUsuarioPacientes(user.sub);
-        setUsuarios(respuesta.data);
+        let todosPacientes = Array.isArray(respuesta.data) ? respuesta.data : [];
+        console.log('Pacientes iniciales:', todosPacientes);
+        const perfilData = await obtenerPerfil(user.sub)
+        const perfil =  perfilData.data;
+
+        if (perfil?.usuario?.nombreAplicacion?.id > 1) {
+          try {
+            const pacientesGruposData = await obtenerPacientesGrupo(perfil.usuario.nombreAplicacion.id);
+            console.log('Pacientes del grupo:', pacientesGruposData);
+  
+            // Verificar y procesar pacientes del grupo
+            if (pacientesGruposData?.data) {
+              const pacientesGrupo = Array.isArray(pacientesGruposData.data) 
+                ? pacientesGruposData.data 
+                : [];
+  
+              console.log('Pacientes grupo procesados:', pacientesGrupo);
+  
+              // Crear un Set con los IDs existentes
+              const pacientesIds = new Set(todosPacientes.map(p => p.id));
+  
+              // Agregar pacientes del grupo que no estén duplicados
+              pacientesGrupo.forEach(paciente => {
+                if (paciente.id && !pacientesIds.has(paciente.id)) {
+                  todosPacientes.push(paciente);
+                  pacientesIds.add(paciente.id);
+                }
+              });
+            }
+          } catch (grupoError) {
+            console.error("Error al obtener pacientes del grupo:", grupoError);
+          }
+        }
+  
+        console.log('Todos los pacientes final:', todosPacientes);
+        setUsuarios(todosPacientes);
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -84,11 +120,21 @@ const Informes = () => {
   };
 
   const ordenarPorEdad = (usuarios) => {
-    return usuarios.sort((a, b) => {
+    // Validar que usuarios sea un array y no esté vacío
+    if (!Array.isArray(usuarios) || usuarios.length === 0) {
+      return [];
+    }
+  
+    // Crear una copia del array antes de ordenarlo
+    return [...usuarios].sort((a, b) => {
+      // Validar que los objetos tengan la propiedad edad
+      const edadA = a?.edad || 0;
+      const edadB = b?.edad || 0;
+  
       if (ordenEdad === "ascendente") {
-        return a.edad - b.edad;
+        return edadA - edadB;
       } else {
-        return b.edad - a.edad;
+        return edadB - edadA;
       }
     });
   };

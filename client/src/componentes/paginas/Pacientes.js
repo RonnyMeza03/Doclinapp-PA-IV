@@ -1,31 +1,82 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { IoPersonAddOutline } from "react-icons/io5";
-import {obtenerUsuarioPacientes} from '../../api/usuarios.api';
-import {useAuth0} from '@auth0/auth0-react';
-import { IoPersonCircleOutline } from "react-icons/io5";
+import { IoPersonAddOutline, IoPersonCircleOutline } from "react-icons/io5";
 import { RiFileExcel2Fill } from "react-icons/ri";
 import { FaSave } from 'react-icons/fa';
+import { obtenerPerfil, obtenerUsuarioPacientes } from '../../api/usuarios.api';
 import { crearPacienteRequest } from '../../api/paciente.api';
+import { useAuth0 } from '@auth0/auth0-react';
+import { obtenerPacientesGrupo } from '../../api/grupo.api';
 
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
-
-  const dia = String(fecha.getDate()).padStart(2, '0'); // Asegura que el día tenga 2 dígitos
-  const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses comienzan desde 0, por lo que sumamos 1
-  const anio = fecha.getFullYear(); // Obtiene el año completo
-
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const anio = fecha.getFullYear();
   return `${dia}/${mes}/${anio}`;
 }
 
+const PacienteSection = ({ paciente }) => (
+  <section className="paciente-section" key={paciente.id}>
+    <IoPersonCircleOutline className="paciente-logotipo" />
+    <Link to={`/Pacientes/${paciente.id}`} className="paciente-info">
+      <h2>{paciente.nombre} {paciente.apellido}</h2>
+      {paciente.createdAt && <p>Fecha de creación: {formatearFecha(paciente.createdAt)}</p>}
+    </Link>
+  </section>
+);
+
+const ExcelPacienteSection = ({ listaPacientes, onGuardarPaciente }) => {
+  // Validación de entrada
+  if (!listaPacientes) {
+    console.warn('ExcelPacienteSection: listaPacientes es undefined o null');
+    return null;
+  }
+
+  // Asegurarse de que listaPacientes sea un array
+  const pacientesArray = Array.isArray(listaPacientes) ? listaPacientes : [listaPacientes];
+
+  if (pacientesArray.length === 0) {
+    return null;
+  }
+
+  return (
+    <>
+      {pacientesArray.map((paciente, index) => {
+        // Validación de paciente individual
+        if (!paciente || typeof paciente !== 'object') {
+          console.warn(`Paciente inválido en índice ${index}`);
+          return null;
+        }
+
+        return (
+          <section className="paciente-section" key={index}>
+            <IoPersonCircleOutline className="paciente-logotipo" />
+            <div className="paciente-info">
+              <h2>
+                {paciente.Nombre || paciente.nombre || "Nombre no disponible"}{' '}
+                {paciente.Apellido || paciente.apellido || "Apellido no disponible"}{' '}
+                {paciente.fechadenacimiento || paciente.fechaNacimiento || "Fecha no disponible"}
+                <FaSave 
+                  onClick={() => onGuardarPaciente(paciente)}
+                  style={{ cursor: 'pointer', marginLeft: '10px' }}
+                />
+              </h2>
+            </div>
+          </section>
+        );
+      })}
+    </>
+  );
+};
+
 const Pacientes = () => {
-  const {user, isAuthenticated, isLoading} = useAuth0()
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [pacientes, setPacientes] = useState([]);
-  const [data, setData] = useState()
- 
-  // Datos simulados para pruebas cuando no se tenga base de datos
+  const [data, setData] = useState([]);  // Inicializar como array vacío
+
   const pacientesMock = [
     { id: 1, nombre: 'Juan', apellido: 'Pérez', createdAt: "12/07/2024" },
     { id: 2, nombre: 'María', apellido: 'García', createdAt: "12/07/2024" },
@@ -35,35 +86,88 @@ const Pacientes = () => {
   const actualizarLocalStorage = useCallback((pacienteGuardado) => {
     const storedData = localStorage.getItem('jsonData');
     if (storedData) {
-      let parsedData = JSON.parse(storedData);
-      // Filtramos el paciente que acabamos de guardar
-      parsedData = parsedData.filter(p => 
-        p.Nombre.toLowerCase() !== pacienteGuardado.nombre.toLowerCase() || 
-        p.Apellido.toLowerCase() !== pacienteGuardado.apellido.toLowerCase()
-      );
-      localStorage.setItem('jsonData', JSON.stringify(parsedData));
-      setData(parsedData);
+      try {
+        let parsedData = JSON.parse(storedData);
+        if (!Array.isArray(parsedData)) {
+          console.error('Datos almacenados no son un array válido');
+          return;
+        }
+        parsedData = parsedData.filter(p => 
+          p.Nombre?.toLowerCase() !== pacienteGuardado.nombre?.toLowerCase() || 
+          p.Apellido?.toLowerCase() !== pacienteGuardado.apellido?.toLowerCase()
+        );
+        localStorage.setItem('jsonData', JSON.stringify(parsedData));
+        setData(parsedData);
+      } catch (error) {
+        console.error('Error al procesar datos del localStorage:', error);
+      }
     }
   }, []);
 
   const cargarPacientes = useCallback(async () => {
     if (!isAuthenticated || isLoading || !user) {
+      setLoading(false);
       return;
     }
 
     try {
-      console.log(user.sub);
       const storedData = localStorage.getItem('jsonData');
       if (storedData) {
-        setData(JSON.parse(storedData));
+        try {
+          const parsedData = JSON.parse(storedData);
+          setData(Array.isArray(parsedData) ? parsedData : []);
+        } catch (error) {
+          console.error('Error al parsear datos del localStorage:', error);
+          setData([]);
+        }
       }
+
       const respuesta = await obtenerUsuarioPacientes(user.sub);
-      setPacientes(respuesta.data);
-      setLoading(false);
+      // Asegurarse de que todosPacientes sea siempre un array
+      let todosPacientes = Array.isArray(respuesta.data) ? respuesta.data : [];
+      console.log('Pacientes iniciales:', todosPacientes);
+
+      // Obtener perfil del usuario
+      const perfilData = await obtenerPerfil(user.sub);
+      const perfil = perfilData.data;
+
+      // Verificar si el usuario pertenece a un grupo
+      if (perfil?.usuario?.nombreAplicacion?.id > 1) {
+        try {
+          const pacientesGruposData = await obtenerPacientesGrupo(perfil.usuario.nombreAplicacion.id);
+          console.log('Pacientes del grupo:', pacientesGruposData);
+
+          // Verificar y procesar pacientes del grupo
+          if (pacientesGruposData?.data) {
+            const pacientesGrupo = Array.isArray(pacientesGruposData.data) 
+              ? pacientesGruposData.data 
+              : [];
+
+            console.log('Pacientes grupo procesados:', pacientesGrupo);
+
+            // Crear un Set con los IDs existentes
+            const pacientesIds = new Set(todosPacientes.map(p => p.id));
+
+            // Agregar pacientes del grupo que no estén duplicados
+            pacientesGrupo.forEach(paciente => {
+              if (paciente.id && !pacientesIds.has(paciente.id)) {
+                todosPacientes.push(paciente);
+                pacientesIds.add(paciente.id);
+              }
+            });
+          }
+        } catch (grupoError) {
+          console.error("Error al obtener pacientes del grupo:", grupoError);
+        }
+      }
+
+      console.log('Todos los pacientes final:', todosPacientes);
+      setPacientes(todosPacientes);
     } catch (error) {
       console.error("Error al cargar pacientes:", error);
       setError(error.message);
       setPacientes(pacientesMock);
+    } finally {
       setLoading(false);
     }
   }, [user, isAuthenticated, isLoading]);
@@ -72,30 +176,24 @@ const Pacientes = () => {
     cargarPacientes();
   }, [cargarPacientes]);
 
-  if (loading) {
-    return <div>Cargando pacientes...</div>;
-  }
-
-  console.log(data)
-
-  function limpiarClavesJson(json) {
+  const limpiarClavesJson = (json) => {
     const nuevoJson = {};
-
     for (const clave in json) {
-      const claveLimpia = clave
-        .toLowerCase()
-        .replace(/\s+/g, '')
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "");
-      nuevoJson[claveLimpia] = json[clave];
+      if (Object.prototype.hasOwnProperty.call(json, clave)) {
+        const claveLimpia = clave
+          .toLowerCase()
+          .replace(/\s+/g, '')
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        nuevoJson[claveLimpia] = json[clave];
+      }
     }
     return nuevoJson;
-  }
+  };
 
-
-  async function guardarPacienteExcel(paciente) {
-    const pacienteJson = limpiarClavesJson(paciente)
+  const guardarPacienteExcel = async (paciente) => {
     try {
+      const pacienteJson = limpiarClavesJson(paciente);
       await crearPacienteRequest({
         nombre: pacienteJson.nombre,
         apellido: pacienteJson.apellido,
@@ -107,63 +205,30 @@ const Pacientes = () => {
         aplicacionID: 1,
         idAuth0: user.sub,
         usuarioId: 0
-      })
-      actualizarLocalStorage(pacienteJson)
-      await cargarPacientes()
+      });
+      actualizarLocalStorage(pacienteJson);
+      await cargarPacientes();
     } catch (error) {
-      console.error("Error al guardar Paciente")
+      console.error("Error al guardar Paciente:", error);
     }
+  };
+
+  if (loading) {
+    return <div>Cargando pacientes...</div>;
   }
 
-  const PacienteSection = ({ paciente }) => (
-    <section className="paciente-section" key={paciente.id}>
-      <IoPersonCircleOutline className="paciente-logotipo" />
-      <Link to={`/Pacientes/${paciente.id}`} className="paciente-info">
-        <h2>{paciente.nombre} {paciente.apellido}</h2>
-        {paciente.createdAt && <p>Fecha de creación: {formatearFecha(paciente.createdAt)}</p>}
-      </Link>
-    </section>
-  );
-  
-  const ExcelPacienteSection = ({ listaPacientes = [] }) => {
-    if (!Array.isArray(listaPacientes) || listaPacientes.length === 0) {
-      return 
-    }
-  
-    return (
-      <>
-        {listaPacientes.map((paciente, index) => (
-          <section className="paciente-section" key={index}>
-            <IoPersonCircleOutline className="paciente-logotipo" />
-            <div className="paciente-info">
-              <h2>
-                {paciente.Nombre || "Nombre no disponible"} 
-                {paciente.Apellido || "Apellido no disponible"} 
-                {paciente.fechadenacimiento || "Fecha no disponible"}
-                <FaSave onClick={() => {guardarPacienteExcel(paciente)}}></FaSave>
-              </h2>
-            </div>
-          </section>
-        ))}
-      </>
-    );
-  };
-  
-  
   const renderPacientesList = (listaPacientes) => (
     <div className="lista-pacientes">
-      {listaPacientes.map(paciente => (
+      {Array.isArray(listaPacientes) && listaPacientes.map(paciente => (
         <PacienteSection key={paciente.id} paciente={paciente} />
       ))}
-  
-      {data && data.length > 0 ? (
-        <ExcelPacienteSection listaPacientes={data} />
-      ) : (
-        null
-      )}
+      
+      <ExcelPacienteSection 
+        listaPacientes={data} 
+        onGuardarPaciente={guardarPacienteExcel}
+      />
     </div>
   );
-  
 
   return (
     <div>
@@ -174,18 +239,19 @@ const Pacientes = () => {
           <h2>Mostrando lista de pacientes de prueba:</h2>
           {renderPacientesList(pacientesMock)}
         </div>
-      ) : pacientes.length === 0 ? (
+      ) : pacientes.length === 0 && (!data || data.length === 0) ? (
         <p>No hay pacientes registrados.</p>
       ) : (
         renderPacientesList(pacientes)
       )}
+      
       <div className="nuevo-paciente">
         <Link to={`/Pacientes/crear`}>
           <IoPersonAddOutline />
         </Link>
       </div>
       <div className='nuevo-paciente'>
-        <Link to= {"/Pacientes/excel"}>
+        <Link to="/Pacientes/excel">
           <RiFileExcel2Fill />
         </Link>
       </div>

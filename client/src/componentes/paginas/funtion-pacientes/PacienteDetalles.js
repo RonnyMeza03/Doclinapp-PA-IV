@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { obtenerPacientePorId } from '../../../api/paciente.api';
 import { MdAddChart, MdEmail, MdLocationOn, MdPerson, MdPhone, MdEvent, MdWc } from 'react-icons/md';
 import '../../css/PacienteDetalles.css';
-import { obtenerAnalisis } from '../../../api/informes.api';
+import { listaAnalisisPaciente, obtenerAnalisis } from '../../../api/informes.api';
 
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
@@ -25,10 +25,10 @@ const PacienteDetalles = () => {
     async function cargarDetallesPaciente() {
       try {
         const respuesta = await obtenerPacientePorId(id); // Aquí llamas a la API para obtener los detalles del paciente
-        const listaAnalisis = await obtenerAnalisis(id)
+        const listaAnalisis = await listaAnalisisPaciente(id)
+        console.log(listaAnalisis.data)
         setListaAnalisis(listaAnalisis.data)
         setPaciente(respuesta.data);
-        console.log(respuesta.data);
       } catch (error) {
         setError(error.message);
       } finally {

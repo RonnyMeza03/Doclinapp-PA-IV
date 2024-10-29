@@ -8,4 +8,8 @@ export const generarAnalisisRequest = async (analisis) => {
    await axios.post("http://localhost:4000/analisis", analisis)
 }
 
+export const listaAnalisisPaciente = async (id) => {
+   return  await axios.get(`http://localhost:4000/analisis/${id}`)
+}
+
 

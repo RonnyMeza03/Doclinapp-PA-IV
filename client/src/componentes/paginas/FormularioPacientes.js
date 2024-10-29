@@ -27,7 +27,6 @@ const FormularioPacientes = () => {
           direccion: "",
           telefono: "",
           correo: "",
-          aplicacionID: 1,
           idAuth0: user.sub,
           usuarioID: 0
         }}
