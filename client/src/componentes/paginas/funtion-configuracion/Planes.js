@@ -1,58 +1,75 @@
 import React from "react";
 import "../../css/Planes.css";
-import imgPlanes from "../../imagenes/imgPlanes.jpg";
+import premiunBronce from "../../imagenes/premiunBronce.png";
+import premiunPlata from  "../../imagenes/premiunPlata.png";
+import premiunOro from  "../../imagenes/premiunOro.png";
+
 import { Link } from "react-router-dom";
 
 const Planes = () => {
   return (
     <div>
+      <div className="plan">
+        <h1>
+          ¡Escoge el mejor plan para ti!
+        </h1>
+      </div>
       <div className="container">
         <div className="card">
           <figure>
-            <img src={imgPlanes} alt="imagen planes" />
+            <img src={premiunPlata} alt="imagen planes" />
           </figure>
           <div className="contenido">
-            <h3>Contabilidad</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
-              minima debitis, excepturi hic dolorum eaque! Eius voluptatem dolor
-              reprehenderit aliquid.
+            <h3><strong>Premiun Plata</strong></h3>
+            <p style={{color: '#C0C0C0'}}>
+              <strong>Precio: $25.000 COP/mes</strong>
             </p>
-              <Link to= "/Inicio" className="boton-card">
+            <Link to= "/premiunPlata" className="boton-card">
                 Suscribirse 
-              </Link>
+            </Link>
+            <ul className="benefits-list">
+              <li>Acceso a crear grupos</li>
+              <li>Soporte 24/7</li>
+              <li>Maximo de miembros en el grupo: 25</li>
+            </ul>
           </div>
         </div>
         <div className="card">
           <figure>
-            <img src={imgPlanes} alt="imagen planes" />
+            <img src={premiunBronce} alt="imagen planes" />
           </figure>
           <div className="contenido">
-            <h3>Administracion</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
-              minima debitis, excepturi hic dolorum eaque! Eius voluptatem dolor
-              reprehenderit aliquid.
+            <h3><strong>Premiun Bronce</strong></h3>
+            <p style={{color: '#CD7F32'}}>
+              <strong>Precio: $10.000 COP/mes</strong>
             </p>
-            <Link to= "/Inicio" className="boton-card">
+            <Link to= "/premiunBronce" className="boton-card">
                 Suscribirse 
             </Link>
+            <ul className="benefits-list">
+              <li>Acceso a crear grupos</li>
+              <li>Soporte 24/7</li>
+              <li>Maximo de miembros en el grupo: 10</li>
+            </ul>
           </div>
         </div>
         <div className="card">
           <figure>
-            <img src={imgPlanes} alt="imagen planes" />
+            <img src={premiunOro} alt="imagen planes" />
           </figure>
           <div className="contenido">
-            <h3>Ventas</h3>
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum
-              minima debitis, excepturi hic dolorum eaque! Eius voluptatem dolor
-              reprehenderit aliquid.
+            <h3><strong>Premiun Oro</strong></h3>
+            <p style={{color: '#CDA434'}}>
+              <strong>Precio: $50.000 COP/mes</strong>
             </p>
-            <Link to= "/Inicio" className="boton-card">
-              Suscribirse 
+            <Link to= "/premiunOro" className="boton-card">
+                Suscribirse 
             </Link>
+            <ul className="benefits-list">
+              <li>Acceso a crear grupos</li>
+              <li>Soporte 24/7</li>
+              <li>Maximo de miembros en el grupo: ilimitado</li>
+            </ul>
           </div>
         </div>
       </div>

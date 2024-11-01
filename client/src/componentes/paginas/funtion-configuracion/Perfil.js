@@ -57,7 +57,7 @@ const Perfil = ({ dashboardAbierto }) => {
         <p><FaBirthdayCake /> <span>{user.birthdate}</span></p>
         <p><FaPhone /> <span>{user.phone_number}</span></p>
         <p><FaUserShield /> <span>Rol: {perfil.rol}</span></p>
-        <p><FaStar /> <span>Premium: {perfil.premium ? 'Sí' : 'No'}</span></p>
+        <p><FaStar /> <span>Premium: {perfil.premium === 1 ? 'Sí' : 'No'}</span></p>
       </div>
     </div>
   );

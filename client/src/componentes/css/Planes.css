@@ -52,9 +52,34 @@
     transition: all 400ms ease;
 }
 
-.card .contenido .boton-card {
+.card .contenido .boton-card:hover {
     background: #2fb4cc;
     color: #fff;
 
 }
 
+/* Estilo para el precio */
+.card .contenido p strong {
+    font-size: 1.2em;
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Estilo para la lista de beneficios */
+.card .contenido .benefits-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.card .contenido .benefits-list li {
+    color: #4a4a4a;
+    font-size: 0.9em;
+    line-height: 1.4;
+    padding: 5px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.card .contenido .benefits-list li:last-child {
+    border-bottom: none;
+}

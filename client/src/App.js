@@ -19,6 +19,9 @@ import Perfil from './componentes/paginas/funtion-configuracion/Perfil'
 import Planes from './componentes/paginas/funtion-configuracion/Planes'
 import Grupo from './componentes/paginas/funtion-configuracion/Grupo'
 import DetallesGrupo from './componentes/paginas/funtion-configuracion/DetallesGrupo'
+import { PremiunBronce } from './componentes/paginas/PremiunBronce'
+import { PremiunPlata } from './componentes/paginas/PremiunPlata'
+import { PremiunOro } from './componentes/paginas/PremiunOro'
 
 
 function App() {
@@ -29,6 +32,9 @@ function App() {
           <Route path="/Registro" element={<main><></><Registro/></main>}/>
           <Route path="/login" element={<><Login /></>} />
           <Route path="/Inicio" element={<><Information/><main><Inicio /></main></>} />
+          <Route path="/premiunBronce" element={<><Information/><main><PremiunBronce/></main></>} />
+          <Route path="/premiunPlata" element={<><Information/><main><PremiunPlata/></main></>} />
+          <Route path="/premiunOro" element={<><Information/><main><PremiunOro/></main></>} />
           <Route path="/informes" element={<><Information/><main><Informes /></main></>} />
           <Route path="/informes/:id" element={<><Information/><main><Informes/></main></>} />
           <Route path="/Pacientes" element={<><Information/><main><Pacientes/></main></>} />
