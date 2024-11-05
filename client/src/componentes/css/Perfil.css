@@ -1,52 +1,362 @@
-/* Contenedor principal del perfil */
-.perfil-container {
-    width: 1000px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+:root {
+  --purple: #6461ff;
+  --purple-light: #ffffff;
+  --dark-blue: #012677;
+  --blue: #5c65c0;
+  --skyblue: #00b4fc;
+  --light-blue: #005bc5;
+  --dark-pink: #f64c57;
+  --dark-magenta: #e21b5a;
+  --light-green: #61e2c2;
+  --light-purple: #d9abff;
+}
+
+
+.container {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.profile-card {
+  background: #ffffff;
+  width: 100%;
+  padding: 1.5rem 3rem; /* Reducido el padding superior e inferior */
+  border-radius: 10px;
+  position: sticky;
+  top: 20px;
+  color: #000;
+  margin: 0;
+  display: flex;
+  justify-content: flex-start; /* Cambiado a flex-start para mejor control del espacio */
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  gap: 1rem; /* Añadido gap para controlar el espacio entre elementos */
+}
+
+.profile-card .profile-pic {
+  margin-top: 0;
+  width: 150px;
+  height: 150px;
+  overflow: hidden; /* Importante para mantener el contenido dentro del círculo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 50%;
+  padding: 5px;
+  background: linear-gradient(45deg, var(--purple), var(--skyblue));
+  box-shadow: 
+    0 0 20px rgba(0,0,0,0.2),
+    inset 0 0 10px rgba(255,255,255,0.5);
+  animation: borderRotate 10s linear infinite;
+}
+
+/* Contenedor interno para la imagen */
+.profile-card .profile-pic::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  bottom: 5px;
+  left: 5px;
+  border-radius: 50%;
+  background: white;
+}
+
+.profile-card .profile-pic img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%; /* Asegura que la imagen esté redondeada */
+  object-fit: cover; /* Mantiene las proporciones de la imagen */
+  position: relative;
+  z-index: 1;
+}
+
+/* Si hay un SVG como placeholder */
+.profile-card .profile-pic svg {
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-radius: 50%; /* Cambiado de 10px a 50% */
+  background-color: #f5f5f5;
+}
+
+
+.profile-card .profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  margin-top: 0.5rem; /* Ajustado el margen superior */
+}
+
+.profile-details .intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 70%;
+  margin: 0; /* Asegurar que no hay márgenes adicionales */
+}
+
+.profile-details .intro h2 {
+  margin-top: 20px;
+  color: #000;
+}
+
+.profile-details .intro h4 {
+  background: #2563eb;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 8px;
+}
+
+.profile-details .intro .social {
+  margin-top: 10px;
+  margin-bottom: 25px;
+  display: flex;
+  gap: 10px;
+}
+
+.profile-details .intro .social i {
+  color: #ddd;
+  font-size: 16px;
+  background-color: #222;
+  height: 35px;
+  width: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  transition: transform 0.5s;
+}
+
+.profile-details .intro .social i:hover {
+  transform: scale(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-details .contact-info {
+  background-color: #2563eb;
+  padding: 15px;
+  border-radius: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-details .contact-info .row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 0;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.contact-info .row .icon {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #2563eb;
+  transition: transform 0.5s;
+  margin-right: 15px;
+}
+
+.row .icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.row .icon:hover {
+  transform: scale(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.row .content {
+  min-width: 70%;
+}
+
+.row .content span {
+  font-size: 12px;
+  display: block;
+}
+
+.row .content h5 {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
+.download-btn {
+  background: linear-gradient(45deg, #2563eb, #2563eb);
+  color: #fff;
+  padding: 1rem 3rem;
+  border-radius: 30px;
+  margin-top: 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+}
+
+.about {
+  background-color: #ffffff;
+  padding: 2rem 3rem;
+  border-radius: 10px;
+}
+
+.about h1 {
+  color: #000000;
+  margin-bottom: 1.1rem;
+  position: relative;
+  display: inline-block;
+  font-size: 3.5rem;
+}
+
+.about h1::after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  right: -50%;
+  width: 45%;
+  height: 3px;
+  background: linear-gradient(45deg, var(--dark-pink), var(--dark-magenta));
+}
+
+.about h2 {
+  color: #000000;
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.about p {
+  color: #555;
+  margin: 1.5rem 0;
+  line-height: 1.6;
+}
+
+.about .work {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.work .workbox {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  padding: 1rem;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.work .workbox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.work .workbox .icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.work .workbox .icon svg {
+  width: 30px;
+  height: 30px;
+  color: #2563eb;
+}
+
+.work .workbox .desc {
+  width: 75%;
+  color: #555;
+}
+
+.work .workbox .desc h3 {
+  color: #000000;
+  margin-bottom: 8px;
+}
+
+.work .workbox .desc p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    grid-template-columns: 350px 1fr;
+  }
+}
+
+@media (max-width: 992px) {
+  .container {
+    grid-template-columns: 1fr;
   }
   
- 
-  /* Imagen del usuario */
-  .perfil-container img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 4px solid #48c1d1;
+  .profile-card {
+    position: relative;
+    max-width: 500px;
+    margin: 0 auto;
   }
-  
-  /* Estilo para los íconos */
-  .perfil-container p {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    margin: 10px 0;
-    color: #333;
+
+  .about {
+    max-width: 800px;
+    margin: 0 auto;
   }
-  
-  .perfil-container p svg {
-    margin-right: 10px;
-    color: #48c1d1;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
   }
-  
-  /* Texto del perfil */
-  .perfil-container p span {
-    font-weight: bold;
-    margin-left: 5px;
+
+  .container {
+    padding: 10px;
   }
-  
-  /* Estilo responsive */
-  @media (max-width: 480px) {
-    .perfil-container {
-      width: 90%;
-      margin: 20px auto;
-    }
+
+  .profile-card {
+    padding: 2rem;
   }
-  
+
+  .about {
+    padding: 1.5rem;
+  }
+
+  .about h1 {
+    font-size: 2.2rem;
+  }
+
+  .about .work {
+    grid-template-columns: 1fr;
+  }
+
+  .work .workbox {
+    margin: 0;
+  }
+
+  .about h1::after {
+    width: 30%;
+    right: -35%;
+  }
+}

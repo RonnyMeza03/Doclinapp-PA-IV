@@ -2,13 +2,31 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { obtenerPerfil } from '../../../api/usuarios.api';
 import "../../css/Perfil.css";
-import { FaUser, FaEnvelope, FaBirthdayCake, FaPhone, FaUserShield, FaStar } from 'react-icons/fa';
+import { FaUser } from 'react-icons/fa';
+import { CiLocationOn } from "react-icons/ci";
+import { MdEmail } from "react-icons/md";
+import { MdSmartphone } from "react-icons/md";
+import { FaFacebook } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+import { FaInstagramSquare } from "react-icons/fa";
+
 
 const Perfil = ({ dashboardAbierto }) => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [perfil, setPerfil] = useState(null);
   const [error, setError] = useState(null);
   const [isLoadingPerfil, setIsLoadingPerfil] = useState(true);
+
+  const colors = {
+    blue: '#1877f2',
+    skyblue: '#1da1f2',
+    darkPink: '#ea4c89',
+    lightBlue: '#0077b5',
+    darkMagenta: '#833ab4',
+    lightGreen: '#34a853',
+    lightPurple: '#8e44ad'
+  };  
 
   const cargarPerfil = useCallback(async () => {
     if (!isAuthenticated || isLoading || !user) {
@@ -49,17 +67,112 @@ const Perfil = ({ dashboardAbierto }) => {
   };
 
   return (
-    <div className="perfil-container" style={perfilStyle}>
-      <img src={user.picture} alt={user.name} />
-      <div className="perfil-datos">
-        <p><FaUser /> <span>{user.name}</span></p>
-        <p><FaEnvelope /> <span>{user.email}</span></p>
-        <p><FaBirthdayCake /> <span>{user.birthdate}</span></p>
-        <p><FaPhone /> <span>{user.phone_number}</span></p>
-        <p><FaUserShield /> <span>Rol: {perfil.rol}</span></p>
-        <p><FaStar /> <span>Premium: {perfil.premium === 1 ? 'Sí' : 'No'}</span></p>
+    
+    <div className="container">
+      <div className="profile-card">
+        <div className="profile-pic">
+          <img src={user.picture} alt={user.name}></img>
+        </div>
+
+        <div className="profile-details">
+          <div className="intro">
+            <h2>{user.name}</h2>
+            <h4>{perfil.rol}</h4>
+            <div className="social">
+              <a href="#"><i className="fab fa-facebook" style={{ color: colors.blue }}><FaFacebook></FaFacebook></i></a>
+              <a href="#"><i className="fab fa-twitter" style={{ color: colors.skyblue }}><FaSquareXTwitter></FaSquareXTwitter></i></a>
+              <a href="#"><i className="fab fa-dribbble" style={{}}><FaInstagramSquare /></i></a>
+              <a href="#"><i className="fab fa-linkedin" style={{ color: colors.lightBlue }}><FaLinkedin></FaLinkedin></i></a>
+            </div>
+          </div>
+
+          <div className="contact-info">
+            <div className="row">
+              <div className="icon">
+                <i className="fa fa-phone" style={{ color: colors.darkMagenta }}></i>
+                <MdSmartphone></MdSmartphone>
+              </div>
+              <div className="content">
+                <span>Teléfono</span>
+                <h5>{(!user.phone_number ) ? 'No disponible' : user.phone_number}</h5>
+
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="icon">
+                <i className="fa fa-envelope-open" style={{ color: colors.lightGreen }}></i>
+                <MdEmail></MdEmail>
+              </div>
+              <div className="content">
+                <span>Email</span>
+                <h5>{user.email}</h5>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="icon">
+                <i className="fa fa-map-marker" style={{ color: colors.lightPurple }}></i>
+                <CiLocationOn></CiLocationOn>
+              </div>
+              <div className="content">
+                <span>Location</span>
+                <h5>{(!user.locale ) ? 'No disponible' : user.locale}</h5>
+
+              </div>
+            </div>
+          </div>
+          <button className="download-btn">
+            <i className="fa fa-download"></i> Editar Perfil
+          </button>
+        </div>
+      </div>
+
+      <div className="about">
+        <h1>Sobre Mí</h1>
+        <p>
+          I'm Creative Director and UI/UX Designer from Sydney, Australia,
+          working in web development and print media. I enjoy turning complex problems into simple,
+          beautiful and intuitive designs.
+        </p>
+        <p>
+          My aim is to bring across your message and identity in the most creative way.
+          I created web design for many famous brand companies.
+        </p>
+        <h2>What I Do !!!</h2>
+        <div className="work">
+          {[
+            {
+              title: "UI/UX Designer",
+              description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam euismod volutpat."
+            },
+            {
+              title: "App Development",
+              description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam euismod volutpat."
+            },
+            {
+              title: "API Development",
+              description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam euismod volutpat."
+            },
+            {
+              title: "Web Development",
+              description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam euismod volutpat."
+            }
+          ].map((item, index) => (
+            <div className="workbox" key={index}>
+              <div className="icon">
+              <FaUser></FaUser>
+              </div>
+              <div className="desc">
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
+
   );
 };
 

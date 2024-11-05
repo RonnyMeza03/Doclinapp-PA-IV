@@ -37,7 +37,7 @@ export const PremiunBronce = () => {
   }
 
   return (
-    <div className="premium-bronce-container">
+    <div className="premium-container">
       {mensajeExito && (
         <div className="mensaje-exito">
           <h2>¡Gracias por tu compra!</h2>
