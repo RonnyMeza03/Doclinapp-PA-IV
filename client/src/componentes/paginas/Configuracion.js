@@ -6,6 +6,7 @@ import { FaUsersBetweenLines } from "react-icons/fa6";
 import { obtenerPerfil } from '../../api/usuarios.api';
 import { useAuth0 } from '@auth0/auth0-react';
 import DetallesGrupo from './funtion-configuracion/DetallesGrupo';
+import "../css/Configuracion.css";
 
 const Configuracion = () => {
 
@@ -80,78 +81,42 @@ const Configuracion = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <nav>
-          {menuItems.map((item) => (
-            item.to ? (
-              // Si hay una ruta definida, usar Link
-              <Link
-                key={item.title}
-                style={styles.menuItem}
-                to={item.to}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span style={styles.icon}>
-                  {item.icon}
-                </span>
-                {item.title}
-              </Link>
-            ) : (
-              // Si no hay ruta, usar un div para manejar el onClick
-              <div
-                key={item.title}
-                style={styles.menuItem}
-                onClick={item.onClick}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <span style={styles.icon}>
-                  {item.icon}
-                </span>
-                {item.title}
-              </div>
-            )
-          ))}
-        </nav>
-      </div>
+    <div class="container">
+      <div class="card" onClick={() => navigate('/Configuracion/perfil')}>
+            <div class="imgBx" data-text="Perfil">
+             <ImProfile style={{color:"white", width: "50%" ,height: "50%" }}/>
+            </div>
+            <div class="content">
+                <div>
+                    <h3>Perfil</h3>
+                    <p>Detalles de tu perfil</p>
+                </div>
+            </div>
+        </div>
+        <div class="card" onClick={() => navigate('/Configuracion/premiun')}>
+            <div class="imgBx" data-text="Planes">
+            <MdWorkspacePremium style={{color:"white", width: "50%" ,height: "50%" }}/>
+            </div>
+            <div class="content">
+                <div> 
+                    <h3>Planes</h3>
+                    <p>Suscribase al mejor plan para ti</p>
+                </div>
+            </div>
+        </div>
+        <div class="card" onClick={() => handleGroupNavigation(usuario)}>
+            <div class="imgBx" data-text="Grupos de trabajo">
+              <FaUsersBetweenLines style={{color:"white", width: "50%" ,height: "50%" }}/>
+            </div>
+            <div class="content">
+                <div>
+                    <h3>Grupos de Trabajo</h3>
+                    <p>Detalles de su grupo de trabajo</p>
+                </div>
+            </div>
+        </div>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    minHeight: '100vh',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#f9fafb'
-  },
-  card: {
-    width: '250px',
-    backgroundColor: 'white',
-    borderRadius: '8px',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-    padding: '16px'
-  },
-  menuItem: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '12px 16px',
-    marginBottom: '4px',
-    textDecoration: 'none',
-    color: '#374151',
-    fontSize: '14px',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease'
-  },
-  icon: {
-    marginRight: '12px',
-    fontSize: '20px'
-  }
 };
 
 export default Configuracion;

@@ -1,0 +1,214 @@
+.detalles-container {
+    padding: 2rem;
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    min-height: 100vh;
+    border-radius: 40px;
+  }
+  
+  .detalles-card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    border: 1px solid #f0f0f0;
+    width: 100%;
+  }
+  
+  .detalles-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f3f4f6;
+    text-align: center;
+  }
+  
+  .details-container {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    background-color: #f9fafb;
+    padding: 2rem;
+    border-radius: 12px;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .detail-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+  
+  .detail-label {
+    font-weight: 600;
+    color: #374151;
+    min-width: 200px;
+    font-size: 1.1rem;
+  }
+  
+  .detail-value {
+    color: #111827;
+    font-size: 1.1rem;
+  }
+  
+  .miembros-section {
+    margin-top: 3rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .miembros-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f3f4f6;
+  }
+  
+  .miembros-subtitle {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+  }
+  
+  .add-button {
+    background-color: #2563eb;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .add-button:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+  }
+  
+  .add-button:active {
+    transform: translateY(0);
+  }
+  
+  .miembros-list {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .miembro-item {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  
+  .miembro-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: #2563eb;
+  }
+  
+  .miembro-nombre {
+    font-weight: 600;
+    color: #111827;
+    font-size: 1.2rem;
+  }
+  
+  .miembro-email {
+    color: #4b5563;
+    font-size: 1rem;
+  }
+  
+  .loading {
+    text-align: center;
+    color: #6b7280;
+    padding: 3rem;
+    font-size: 1.2rem;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 2px dashed #e5e7eb;
+  }
+  
+  .no-miembros {
+    text-align: center;
+    color: #6b7280;
+    padding: 3rem;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    font-style: italic;
+    border: 2px dashed #e5e7eb;
+    font-size: 1.1rem;
+  }
+  
+  .error-message {
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #dc2626;
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .detalles-container {
+      padding: 1rem;
+    }
+  
+    .detalles-card {
+      padding: 1.5rem;
+    }
+  
+    .detail-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  
+    .detail-label {
+      min-width: auto;
+    }
+  
+    .miembros-header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+    }
+  
+    .add-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }

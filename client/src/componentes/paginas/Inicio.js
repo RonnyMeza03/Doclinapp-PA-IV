@@ -1,8 +1,8 @@
-import '../css/inicio.css';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useEffect } from 'react';
 import { obtenerUsuariosRequest, crearUsuarioRequest } from '../../api/usuarios.api';
 import { crearPerfilRequest } from '../../api/perfil.api';
+import "../css/Inicio.css";
 
 const Inicio = () => {
   const { user, isAuthenticated } = useAuth0();

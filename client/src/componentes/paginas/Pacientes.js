@@ -7,6 +7,8 @@ import { obtenerPerfil, obtenerUsuarioPacientes } from '../../api/usuarios.api';
 import { crearPacienteRequest } from '../../api/paciente.api';
 import { useAuth0 } from '@auth0/auth0-react';
 import { obtenerPacientesGrupo } from '../../api/grupo.api';
+import { FiInfo } from "react-icons/fi";
+import "../css/Pacientes.css";
 
 function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
@@ -18,10 +20,27 @@ function formatearFecha(fechaISO) {
 
 const PacienteSection = ({ paciente }) => (
   <section className="paciente-section" key={paciente.id}>
-    <IoPersonCircleOutline className="paciente-logotipo" />
-    <Link to={`/Pacientes/${paciente.id}`} className="paciente-info">
-      <h2>{paciente.nombre} {paciente.apellido}</h2>
-      {paciente.createdAt && <p>Fecha de creación: {formatearFecha(paciente.createdAt)}</p>}
+    <div className="paciente-encabezado">
+      <img 
+        src={`https://ui-avatars.com/api/?name=${paciente.nombre} ${paciente.apellido}&background=random`} 
+        alt={paciente.nombre}
+        className='paciente-avatar'
+      />
+      <h2 className='paciente-titulo' title={paciente.nombre + " " + paciente.apellido}>{paciente.nombre} {paciente.apellido}</h2>
+    </div>
+    <p className='paciente-descripcion'>
+      {paciente.createdAt ? (
+        <>Fecha de creación: {formatearFecha(paciente.createdAt)}</>
+      ) : (
+        <>Sin información</>
+      )}
+    </p>
+    <Link 
+      to={`/Pacientes/${paciente.id}`} 
+      className="paciente-boton"
+    >
+      Ver mas información
+      <FiInfo size={16} />
     </Link>
   </section>
 );
@@ -81,6 +100,11 @@ const Pacientes = () => {
     { id: 1, nombre: 'Juan', apellido: 'Pérez', createdAt: "12/07/2024" },
     { id: 2, nombre: 'María', apellido: 'García', createdAt: "12/07/2024" },
     { id: 3, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
+    { id: 4, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
+    { id: 5, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
+    { id: 6, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
+    { id: 7, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
+    { id: 8, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
   ];
 
   const actualizarLocalStorage = useCallback((pacienteGuardado) => {
@@ -105,10 +129,10 @@ const Pacientes = () => {
   }, []);
 
   const cargarPacientes = useCallback(async () => {
-    if (!isAuthenticated || isLoading || !user) {
-      setLoading(false);
-      return;
-    }
+    // if (!isAuthenticated || isLoading || !user) {
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       const storedData = localStorage.getItem('jsonData');
@@ -231,8 +255,25 @@ const Pacientes = () => {
   );
 
   return (
-    <div>
-      <h1>Lista de Pacientes</h1>
+    <div style={{width: '100%'}}>
+        <h3 style={{
+          textAlign: 'left',
+          color: '#fff',
+          fontSize: '2.5rem',
+          fontWeight: '600',
+          marginBottom: '2rem',
+          paddingLeft: '1rem'
+      }}>Lista de Pacientes</h3>
+      <div className="nuevo-paciente">
+        <Link to={`/Pacientes/crear`}>
+          <IoPersonAddOutline />
+        </Link>
+      </div>
+      <div className='nuevo-paciente-excel'>
+        <Link to="/Pacientes/excel">
+          <RiFileExcel2Fill />
+        </Link>
+      </div>
       {error ? (
         <div>
           <p>Error al cargar pacientes: {error}</p>
@@ -245,16 +286,7 @@ const Pacientes = () => {
         renderPacientesList(pacientes)
       )}
       
-      <div className="nuevo-paciente">
-        <Link to={`/Pacientes/crear`}>
-          <IoPersonAddOutline />
-        </Link>
-      </div>
-      <div className='nuevo-paciente'>
-        <Link to="/Pacientes/excel">
-          <RiFileExcel2Fill />
-        </Link>
-      </div>
+      
     </div>
   );
 };

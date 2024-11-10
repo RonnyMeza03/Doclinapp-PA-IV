@@ -79,17 +79,16 @@ const Perfil = ({ dashboardAbierto }) => {
             <h2>{user.name}</h2>
             <h4>{perfil.rol}</h4>
             <div className="social">
-              <a href="#"><i className="fab fa-facebook" style={{ color: colors.blue }}><FaFacebook></FaFacebook></i></a>
-              <a href="#"><i className="fab fa-twitter" style={{ color: colors.skyblue }}><FaSquareXTwitter></FaSquareXTwitter></i></a>
-              <a href="#"><i className="fab fa-dribbble" style={{}}><FaInstagramSquare /></i></a>
-              <a href="#"><i className="fab fa-linkedin" style={{ color: colors.lightBlue }}><FaLinkedin></FaLinkedin></i></a>
+              <a href="#"><i style={{ color: colors.blue }}><FaFacebook></FaFacebook></i></a>
+              <a href="#"><i style={{ color: colors.skyblue }}><FaSquareXTwitter></FaSquareXTwitter></i></a>
+              <a href="#"><i style={{}}><FaInstagramSquare /></i></a>
+              <a href="#"><i style={{ color: colors.lightBlue }}><FaLinkedin></FaLinkedin></i></a>
             </div>
           </div>
 
           <div className="contact-info">
             <div className="row">
               <div className="icon">
-                <i className="fa fa-phone" style={{ color: colors.darkMagenta }}></i>
                 <MdSmartphone></MdSmartphone>
               </div>
               <div className="content">
@@ -101,7 +100,6 @@ const Perfil = ({ dashboardAbierto }) => {
 
             <div className="row">
               <div className="icon">
-                <i className="fa fa-envelope-open" style={{ color: colors.lightGreen }}></i>
                 <MdEmail></MdEmail>
               </div>
               <div className="content">
@@ -112,7 +110,6 @@ const Perfil = ({ dashboardAbierto }) => {
 
             <div className="row">
               <div className="icon">
-                <i className="fa fa-map-marker" style={{ color: colors.lightPurple }}></i>
                 <CiLocationOn></CiLocationOn>
               </div>
               <div className="content">
