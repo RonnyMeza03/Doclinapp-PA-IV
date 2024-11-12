@@ -5,6 +5,7 @@ import { obtenerMiembros } from '../../../api/grupo.api';
 import Modal from './grupo-componentes/Modal';
 import AgregarMiembroForm from './grupo-componentes/AgregarMIembrosForm';
 import '../../css/DetallesGrupo.css';
+import { formatearFecha } from '../funtion-pacientes/PacienteDetalles';
 
 const DetallesGrupo = () => {
   const location = useLocation();
@@ -81,7 +82,7 @@ const DetallesGrupo = () => {
               </div>
               <div className="detail-item">
                 <span className="detail-label">Fecha de creación:</span>
-                <span className="detail-value">{grupo.usuario.nombreAplicacion.createdAt}</span>
+                <span className="detail-value">{formatearFecha(grupo.usuario.nombreAplicacion.createdAt)}</span>
               </div>
             </>
           )}

@@ -35,6 +35,7 @@ const Inicio = () => {
 
               await crearPerfilRequest({
                 rol: 'doctor',
+                acercaDe: "",
                 premium: false,
                 idAuth0: user.sub
               })

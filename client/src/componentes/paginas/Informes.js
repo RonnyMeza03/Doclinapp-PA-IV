@@ -7,6 +7,7 @@ import "../css/informes.css";
 
 import { obtenerPerfil, obtenerUsuarioPacientes } from "../../api/usuarios.api";
 import { useNavigate } from "react-router-dom";
+import { formatearFecha } from "./funtion-pacientes/PacienteDetalles";
 
 const Informes = () => {
   const [dialogoVisible, setDialogoVisible] = useState(false);
@@ -203,7 +204,7 @@ const Informes = () => {
                     nombre={usuario.nombre}
                     apellido={usuario.apellido}
                     edad={usuario.edad}
-                    creado={new Date(usuario.createAt).toLocaleString()}
+                    creado={formatearFecha(new Date(usuario.createdAt))}
                     onClick={() => abrirDialogo(usuario.id)}
                   />
                 )

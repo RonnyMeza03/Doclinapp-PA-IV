@@ -5,7 +5,7 @@ import { MdAddChart, MdEmail, MdLocationOn, MdPerson, MdPhone, MdEvent, MdWc } f
 import '../../css/PacienteDetalles.css';
 import { listaAnalisisPaciente, obtenerAnalisis } from '../../../api/informes.api';
 
-function formatearFecha(fechaISO) {
+export function formatearFecha(fechaISO) {
   const fecha = new Date(fechaISO);
   const dia = String(fecha.getDate()).padStart(2, '0'); // Asegura que el día tenga 2 dígitos
   const mes = String(fecha.getMonth() + 1).padStart(2, '0'); // Los meses comienzan desde 0, por lo que sumamos 1
