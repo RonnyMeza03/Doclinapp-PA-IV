@@ -83,12 +83,11 @@ const Principal = () => {
               Acerca de <span>Doclinapp</span>
             </h2>
             <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum
-              dolores laudantium ducimus. Necessitatibus recusandae maiores,
-              impedit in dignissimos perferendis obcaecati distinctio
-              consequuntur est ea aliquid molestias ex? Excepturi deleniti natus
-              veritatis fugit, molestias nisi voluptate sit culpa tenetur
-              corrupti nostrum eaque ipsum recusandae, iste consectetur aut!
+            Doclin APP es un aplicativo web para pequeñas IPS con misión a crecer, 
+            en ella podrán gestionar los datos de cada uno de sus pacientes, además de poder contar con análisis
+             estadísticos de las diferentes patologías, rangos de edades y promedios. Esta aplicación tiene 
+             como objetivo facilitar el análisis de datos que manejan los doctores en sus consultorios, 
+             para que así puedan optimizar la calidad de sus servicios de una manera más organizada.
             </p>
             <button className="about-btn">Leer más</button>
           </div>
@@ -168,20 +167,19 @@ const Principal = () => {
       </div>
       <div id="service-section">
         <h2>Servicios</h2>
-        <p id="parrafo">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-          facilis maiores tempore, minus illo laboriosam provident id. Commodi,
-          porro nostrum?
-        </p>
+        <h3 id="parrafo">
+          A continuacion te mostrare los servicios que ofrece DoclinApp
+        </h3>
         <div className="services-cards">
           <div className="service-card">
             <IoMdAnalytics className="imgService"/>
             <div className="service-content">
               <h3>Analisis de Riesgo</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-                sit quis repellat praesentium officiis. Alias saepe voluptatum
-                harum eveniet aperiam.
+              "Doclin APP permite identificar y evaluar posibles riesgos en la salud de los pacientes 
+              mediante herramientas avanzadas de análisis. Los doctores pueden detectar patrones de enfermedades, 
+              analizar factores críticos según la edad, género y patologías, y tomar decisiones proactivas 
+              para minimizar complicaciones futuras."
               </p>
             </div>
           </div>
@@ -190,9 +188,10 @@ const Principal = () => {
             <div className="service-content">
               <h3>Trabajo en equipo</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-                sit quis repellat praesentium officiis. Alias saepe voluptatum
-                harum eveniet aperiam.
+              "La plataforma fomenta la colaboración entre profesionales de la salud a través 
+              de un sistema centralizado y seguro. Con funciones de asignación de roles,
+               gestión compartida de pacientes y comunicación interna, 
+               Doclin APP asegura que todos los integrantes de la IPS trabajen de manera coordinada y eficiente."
               </p>
             </div>
           </div>
@@ -201,9 +200,10 @@ const Principal = () => {
               <FaBrain className="imgService"/>
               <h3>IA</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-                sit quis repellat praesentium officiis. Alias saepe voluptatum
-                harum eveniet aperiam.
+              "Con tecnología de Inteligencia Artificial integrada, Doclin APP optimiza
+               la gestión médica mediante el análisis de grandes volúmenes de datos.Predice tendencias, 
+              recomienda planes de acción y ayuda a los doctores a personalizar 
+              tratamientos basados en los antecedentes y necesidades específicas de los pacientes."
               </p>
             </div>
           </div>
@@ -213,7 +213,7 @@ const Principal = () => {
         <div className="container">
           <div className="row">
             <div className="footer-col">
-              <h4>company</h4>
+              <h4>Company</h4>
               <ul>
                 <li><Link>Acerca de</Link></li>
                 <li><Link>Servicios</Link></li>
@@ -222,13 +222,14 @@ const Principal = () => {
               </ul>
             </div>
             <div className="footer-col">
-              <h4>get help</h4>
+              <h4>Obtener Ayuda</h4>
               <ul>
-                <li><Link>FAQ</Link></li>
-                <li><Link>shipping</Link></li>
+                <li><Link>Preguntas</Link></li>
+                <li><Link>Compras</Link></li>
                 <li><Link>returns</Link></li>
                 <li><Link>order status</Link></li>
-                <li><Link>payment options</Link></li>
+                <li><Link>Opciones de Pago</Link></li>
+                <li><Link></Link></li>
               </ul>
             </div>
             <div class="footer-col">
@@ -237,11 +238,11 @@ const Principal = () => {
                 <li><Link>watch</Link></li>
                 <li><Link>bag</Link></li>
                 <li><Link>shoes</Link></li>
-                <li><Link>dress</Link></li>
+                <li><a href="https://app.powerbi.com/view?r=eyJrIjoiOGRkZjk2YzQtYmM3Mi00ZmQ4LWE0NjEtNDY0MWQzMDU3NjEzIiwidCI6IjlkMTJiZjNmLWU0ZjYtNDdhYi05MTJmLTFhMmYwZmM0OGFhNCIsImMiOjR9">Other topics</a></li>
               </ul>
             </div>
             <div class="footer-col">
-              <h4>follow us</h4>
+              <h4>Redes Sociales</h4>
               <div class="social-links">
                 <Link><i class="fab fa-facebook-f"></i></Link>
                 <Link><i class="fab fa-twitter"></i></Link>

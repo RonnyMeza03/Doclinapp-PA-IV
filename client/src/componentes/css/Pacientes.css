@@ -278,6 +278,137 @@
     color: #6b7280;
 }
 
+/*estilos de filtro*/
+.filtro-content {
+    gap: .5rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.filtro-content .filtro {
+    gap: .5rem;
+    width: 100;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: end;
+}
+
+.filtro-content .filtro input:nth-child(1) {
+    width: 100%;
+}
+
+.filtro-content .filtro input, .filtro-content .filtro select {
+    width: auto;
+    outline: none;
+    color: #111827;
+    font-size: .875rem;
+    padding: .5rem .75rem;
+    line-height: 1.25rem;
+    border-radius: .25rem;
+    border: 1px solid #e5e7eb;
+    background-color: #f3f4f6;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.filtro-content .filtro .input {
+    gap: 1rem;
+    width: auto;
+    align-items: center;
+    display: inline-flex;
+}
+
+.content-filtro ul {
+    gap: 1rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    overflow: visible;
+    align-items: center;
+    justify-content: start;
+}
+
+.content-filtro ul li.info-persona {
+    gap: .5rem;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: .5rem;
+    background-color: white;
+    border: 1px solid #f3f4f6;
+    transition: all ease-out .2s;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.content-filtro ul li.info-persona:hover {
+    cursor: pointer;
+    background-color: #dbeafe;
+}
+
+.content-filtro ul li.info-persona img {
+    width: 40%;
+    margin: 0 30%;
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.content-filtro ul li.info-persona .person-text {
+    gap: .5rem;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+}
+
+.content-filtro ul li.info-persona .person-text .person-text-left, .content-filtro li.info-persona .person-text .person-text-right {
+    overflow: hidden;
+    flex-wrap: wrap;
+    width: calc(50% - .25rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-filtro ul li.info-persona .person-text .person-text-left .name-person, .content-filtro ul li.info-persona .person-text .person-text-left .age-person {
+    width: 100%;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.content-filtro ul li.info-persona .person-text .person-text-left .name-person {
+    color: var(--gray-950);
+}
+
+.content-filtro ul li.info-persona .person-text .person-text-left .age-person {
+    color: #9ca3af;
+}
+
+.content-filtro ul li.info-persona .person-text .person-text-right .fecha-creacion {
+    width: 100%;
+    font-size: .875rem;
+    line-height: 1.25rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: end;
+}
+
+
 /* Estilos para el botón de añadir paciente */
 .nuevo-paciente {
     margin-top: 2rem;

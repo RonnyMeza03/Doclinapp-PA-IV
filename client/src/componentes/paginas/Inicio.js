@@ -60,7 +60,20 @@ const Inicio = () => {
           <img src={user.picture} alt={user.name} />
           <p>Bienvenido {user.name}</p>
           <p>Nombre de Usuario: {user.nickname}</p>
+          <div class="linea"></div>
+      <h3 className="caracteristicas">¡Nuevas Caracteristicas de nuestra Version 2.0 de DoclinApp!</h3> 
+      
+      <ul className="texto-inicio">
+  <li>Módulo de Configuración ⚙</li>
+  <li>Módulo de Pago 💵</li>
+  <li>Compras a través de PayPal 💲</li>
+  <li>Podrás Trabajar en Equipo 💻</li>
+</ul>
+
+          
+          
         </div>
+        
       </div>
     )
   );

@@ -1,42 +1,70 @@
 .inicio-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: top;
     min-height: 80vh;
-    background-color: #f0f2f5; /* Un gris claro para el fondo */
+    min-width:180vh;
+    background-color: #ffffff; /* Un gris claro para el fondo */
     padding: 2rem;
     border-radius: 40px;
+    font-size: 20px;
   }
   
-  .nota {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil para darle profundidad */
-    padding: 2rem;
-    max-width: 350px;
-    text-align: center;
+  
+  .nota p {
+    font-size: 20px;
+    color: #333;
+    margin: 0.5rem 0;
+    position: relative;
+    left: 150px;
+    bottom: 110px;
   }
+  
+  
   
   .nota img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%; /* Imagen circular */
     margin-bottom: 1rem;
     border: 2px solid #007bff; /* Borde en color primario */
   }
   
-  .nota p {
-    font-size: 1.1rem;
-    color: #333;
-    margin: 0.5rem 0;
-  }
-  
+ 
   .nota p:first-of-type {
     font-weight: bold;
     font-size: 1.3rem;
     color: #007bff; /* Color primario */
   }
-  
+
+
+  .texto-inicio{
+    color: rgb(0, 0, 0);
+    position: relative;
+    bottom: 40px;
+    left: 30px;
+    list-style-type: upper-roman;
+  }
+  .texto-inicio li::marker {
+    font-weight: bold;
+  }
+
+  .caracteristicas{
+    position: relative;
+    color: rgb(26, 25, 25);
+    bottom: 60px;
+    left: 7px
+   
+  }
+
+  .linea{
+
+    border-top: 2px solid rgb(6, 30, 161);
+  height: 2px;
+  width: 1100px;
+  padding: 0;
+  margin: 20px auto 0 auto;
+  position: relative ;
+  bottom: 70px;
+  left: 1px;
+  }

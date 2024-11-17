@@ -78,7 +78,7 @@ const Informes = () => {
   }, [user, isAuthenticated, isLoading]);
 
   if (loading) {
-    return <div>Cargando usuarios...</div>;
+    return <div>Cargando Informes...</div>;
   }
 
   if (error) {

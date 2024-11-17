@@ -1,6 +1,6 @@
 import "../../css/Pacientes.css";
 import React from "react";
-import {Formik} from "formik";
+import { Formik } from "formik";
 import { generarAnalisisRequest } from "../../../api/informes.api";
 import { BsJournalMedical } from "react-icons/bs";
 import { GiLifeInTheBalance } from "react-icons/gi";
@@ -19,33 +19,35 @@ import { BsCalendar2WeekFill } from "react-icons/bs";
 import { IoBody } from "react-icons/io5";
 import { MdBloodtype } from "react-icons/md";
 import { GiBodyHeight } from "react-icons/gi";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 
 const FormularioAnalisis = () => {
-    const {id} = useParams()
-    console.log(id)
+  const { id } = useParams();
+  const currentPath = window.location.pathname; // Obtén la ruta actual
+  const newPath = currentPath.replace("/crearAnalisis", ""); // Elimina "crearAnalisis"
+  const navigate = useNavigate();
+  console.log(id);
   return (
     <div className="usuario-container">
       <h1>REGISTRO DE DATOS PARA ANALISIS </h1>
       <Formik
         initialValues={{
-             sistolica: "",
-             ldl: "",
-             hdl: "",
-             triglicerios: "" ,
-             familiar: "",
-             enfermedades: [""],
-             habitoFumar: "",
-             habitoAlcohol: "",
-             habitoDieta: "",
-             horasActividadSemanal: "", 
-             masaCorporalKg: "",
-             glucosa: "",
-             colesterol: "",
-             diastolica: "",
-             cmAltura: "",
-             pacienteID: id
+          sistolica: "",
+          ldl: "",
+          hdl: "",
+          triglicerios: "",
+          familiar: "",
+          enfermedades: [""],
+          habitoFumar: "",
+          habitoAlcohol: "",
+          habitoDieta: "",
+          horasActividadSemanal: "",
+          masaCorporalKg: "",
+          glucosa: "",
+          colesterol: "",
+          diastolica: "",
+          cmAltura: "",
+          pacienteID: id,
         }}
         onSubmit={async (values, actions) => {
           console.log(values);
@@ -53,6 +55,7 @@ const FormularioAnalisis = () => {
             const respuesta = await generarAnalisisRequest(values);
             console.log(respuesta);
             actions.resetForm();
+            navigate(newPath);
           } catch (error) {
             console.error(error);
           }
@@ -60,31 +63,33 @@ const FormularioAnalisis = () => {
       >
         {({ handleChange, handleSubmit, values, isSubmitting }) => (
           <form onSubmit={handleSubmit}>
-            
             <div className="container-form medical-history">
-              <h5 className="title"><b>Antecedentes Médicos</b><BsJournalMedical /></h5>
+              <h5 className="title">
+                <b>Antecedentes Médicos</b>
+                <BsJournalMedical />
+              </h5>
               <div className="input">
-                  <p>
-                    <strong>Presion Arterial Sistólica</strong>{" "}
-                  </p>
-                  <div className="relative">
-                    <input 
-                      type="number"
-                      id="sistolica"
-                      name="sistolica"
-                      placeholder="mmgHg"
-                      onChange={handleChange}
-                      value={values.sistolica}
-                    />
-                    <FaHandHoldingMedical />
-                  </div>
+                <p>
+                  <strong>Presion Arterial Sistólica</strong>{" "}
+                </p>
+                <div className="relative">
+                  <input
+                    type="number"
+                    id="sistolica"
+                    name="sistolica"
+                    placeholder="mmgHg"
+                    onChange={handleChange}
+                    value={values.sistolica}
+                  />
+                  <FaHandHoldingMedical />
+                </div>
               </div>
               <div className="input">
                 <p>
                   <strong>Niveles de Colesterol Total</strong>{" "}
                 </p>
                 <div className="relative">
-                  <input 
+                  <input
                     type="number"
                     id="colesterol"
                     name="colesterol"
@@ -100,7 +105,7 @@ const FormularioAnalisis = () => {
                   <strong>Niveles de LDL (Colesterol Malo)</strong>{" "}
                 </p>
                 <div className="relative">
-                  <input 
+                  <input
                     type="number"
                     id="ldl"
                     name="ldl"
@@ -116,7 +121,7 @@ const FormularioAnalisis = () => {
                   <strong>Niveles de HDL (Colesterol Bueno)</strong>{" "}
                 </p>
                 <div className="relative">
-                  <input 
+                  <input
                     type="number"
                     id="hdl"
                     name="hdl"
@@ -128,30 +133,36 @@ const FormularioAnalisis = () => {
                 </div>
               </div>
               <div className="input">
-                  <p>
-                    <strong>Niveles de Triglicéridos</strong>{" "}
-                  </p>
-                  <div className="relative">
-                    <input 
-                      type="number"
-                      id="triglicerios"
-                      name="triglicerios"
-                      placeholder="mg/dL"
-                      onChange={handleChange}
-                      value={values.triglicerios}
-                    />
-                    <FaNotesMedical />
-                  </div>
+                <p>
+                  <strong>Niveles de Triglicéridos</strong>{" "}
+                </p>
+                <div className="relative">
+                  <input
+                    type="number"
+                    id="triglicerios"
+                    name="triglicerios"
+                    placeholder="mg/dL"
+                    onChange={handleChange}
+                    value={values.triglicerios}
+                  />
+                  <FaNotesMedical />
+                </div>
               </div>
               <div className="input">
                 <p>
-                  <strong>
-                    Historial Familiar de Enfermedades Cardiacas
-                  </strong>
+                  <strong>Historial Familiar de Enfermedades Cardiacas</strong>
                 </p>
                 <div className="relative">
-                  <select name="familiar" id="familiar" onChange={handleChange} value={values.familiar}  required>
-                    <option value="" disabled selected hidden>Seleccione una opcion</option>
+                  <select
+                    name="familiar"
+                    id="familiar"
+                    onChange={handleChange}
+                    value={values.familiar}
+                    required
+                  >
+                    <option value="" disabled selected hidden>
+                      Seleccione una opcion
+                    </option>
                     <option value="Abuelos">Abuelos</option>
                     <option value="Padres">Padres</option>
                     <option value="Tios">Tios</option>
@@ -161,11 +172,11 @@ const FormularioAnalisis = () => {
                 </div>
               </div>
               <div className="input">
-                  <p>
-                    <strong>Presion Arterial Diastolica</strong>{" "}
-                  </p>
-                  <div className="relative">
-                  <input 
+                <p>
+                  <strong>Presion Arterial Diastolica</strong>{" "}
+                </p>
+                <div className="relative">
+                  <input
                     type="number"
                     id="diastolica"
                     name="diastolica"
@@ -174,7 +185,7 @@ const FormularioAnalisis = () => {
                     value={values.diastolica}
                   />
                   <MdOutlineMedicalServices />
-                  </div>
+                </div>
               </div>
               <div className="input">
                 <p>
@@ -183,7 +194,7 @@ const FormularioAnalisis = () => {
                   </strong>{" "}
                 </p>
                 <div className="relative">
-                  <input 
+                  <input
                     type="text"
                     id="enfermedades"
                     name="enfermedades"
@@ -197,28 +208,47 @@ const FormularioAnalisis = () => {
             </div>
 
             <div className="container-form life-style">
-            <h5 className="title"><b>Estilo de Vida</b><GiLifeInTheBalance /></h5>
+              <h5 className="title">
+                <b>Estilo de Vida</b>
+                <GiLifeInTheBalance />
+              </h5>
               <div className="input">
-                  <p>
-                    <strong>Hábito de Fumar (Si/No):</strong>{" "}
-                  </p>
-                  <div className="relative">
-                    <select name="habitoFumar" id="habitoFumar" onChange={handleChange} value={values.habitoFumar} required>
-                      <option value="" disabled selected hidden>Selecciona una opción</option>
-                      <option value="Activo">Activo</option>
-                      <option value="Medio">Medio</option>
-                      <option value="Nada">Nada</option>
-                    </select>
-                    <MdOutlineSmokeFree />
-                  </div>
+                <p>
+                  <strong>Hábito de Fumar (Si/No):</strong>{" "}
+                </p>
+                <div className="relative">
+                  <select
+                    name="habitoFumar"
+                    id="habitoFumar"
+                    onChange={handleChange}
+                    value={values.habitoFumar}
+                    required
+                  >
+                    <option value="" disabled selected hidden>
+                      Selecciona una opción
+                    </option>
+                    <option value="Activo">Activo</option>
+                    <option value="Medio">Medio</option>
+                    <option value="Nada">Nada</option>
+                  </select>
+                  <MdOutlineSmokeFree />
+                </div>
               </div>
               <div className="input">
                 <p>
                   <strong>Frecuencia de Consumo de Alcohol:</strong>{" "}
                 </p>
                 <div className="relative">
-                  <select name="habitoAlcohol" id="habitoAlcohol"  onChange={handleChange} value={values.habitoAlcohol} required>
-                    <option value="" disabled selected hidden>Selecciona una opción</option>
+                  <select
+                    name="habitoAlcohol"
+                    id="habitoAlcohol"
+                    onChange={handleChange}
+                    value={values.habitoAlcohol}
+                    required
+                  >
+                    <option value="" disabled selected hidden>
+                      Selecciona una opción
+                    </option>
                     <option value="Ninguna">Ninguna</option>
                     <option value="Baja">Baja</option>
                     <option value="Moderada">Moderada</option>
@@ -228,21 +258,21 @@ const FormularioAnalisis = () => {
                 </div>
               </div>
               <div className="input">
-                  <p>
-                    <strong>
-                      Dieta (Alta/Baja en Grasas Saturadas y Colesterol):
-                    </strong>{" "}
-                  </p>
-                  <div className="relative">
-                    <input 
-                      type="text"
-                      id="habitoDieta"
-                      name="habitoDieta"
-                      onChange={handleChange}
-                      value={values.habitoDieta}
-                    />
-                    <IoNutrition />
-                  </div>
+                <p>
+                  <strong>
+                    Dieta (Alta/Baja en Grasas Saturadas y Colesterol):
+                  </strong>{" "}
+                </p>
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="habitoDieta"
+                    name="habitoDieta"
+                    onChange={handleChange}
+                    value={values.habitoDieta}
+                  />
+                  <IoNutrition />
+                </div>
               </div>
               <div className="input">
                 <p>
@@ -251,7 +281,7 @@ const FormularioAnalisis = () => {
                   </strong>{" "}
                 </p>
                 <div className="relative">
-                  <input  
+                  <input
                     type="number"
                     id="horasActividadSemanal"
                     name="horasActividadSemanal"
@@ -265,30 +295,31 @@ const FormularioAnalisis = () => {
             </div>
 
             <div className="container-form risk-evaluation">
-              <h5 className="title"><b>Evaluación de Riesgo</b> <PiHeartHalf /></h5>
+              <h5 className="title">
+                <b>Evaluación de Riesgo</b> <PiHeartHalf />
+              </h5>
               <div className="input">
-                  <p>
-                    <strong>Índice de Masa Corporal (IMC):</strong>{" "}
-                  </p>
-                  <div className="relative">
-                    <input 
-                      type="number"
-                      id="masaCorporalKg"
-                      name="masaCorporalKg"
-                      placeholder="Kg"
-                      onChange={handleChange}
-                      value={values.masaCorporalKg}
-                    />
-                    <IoBody />
-                  </div>
-                  
+                <p>
+                  <strong>Índice de Masa Corporal (IMC):</strong>{" "}
+                </p>
+                <div className="relative">
+                  <input
+                    type="number"
+                    id="masaCorporalKg"
+                    name="masaCorporalKg"
+                    placeholder="Kg"
+                    onChange={handleChange}
+                    value={values.masaCorporalKg}
+                  />
+                  <IoBody />
+                </div>
               </div>
               <div className="input">
                 <p>
                   <strong>Niveles de Glucosa en Sangre:</strong>{" "}
                 </p>
                 <div className="relative">
-                  <input 
+                  <input
                     type="number"
                     id="glucosa"
                     name="glucosa"
@@ -304,7 +335,7 @@ const FormularioAnalisis = () => {
                   <strong>Altura:</strong>{" "}
                 </p>
                 <div className="relative">
-                  <input 
+                  <input
                     type="number"
                     id="cmAltura"
                     name="cmAltura"
@@ -316,7 +347,11 @@ const FormularioAnalisis = () => {
                 </div>
               </div>
             </div>
-            <button className="button-blue-rounded" type="submit" disabled={isSubmitting}>
+            <button
+              className="button-blue-rounded"
+              type="submit"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? "Registrando..." : "Registrar"}
             </button>
           </form>

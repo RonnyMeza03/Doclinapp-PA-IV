@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ImProfile } from "react-icons/im";
 import { MdWorkspacePremium } from "react-icons/md";
 import { FaUsersBetweenLines } from "react-icons/fa6";
@@ -36,7 +36,7 @@ const Configuracion = () => {
   },[user,  isAuthenticated, isLoading])
 
   if (loading) {
-    return <div>Cargando Configuarion...</div>;
+    return <div>Cargando Configuracion...</div>;
   }
 
   if (error) {
@@ -69,16 +69,6 @@ const Configuracion = () => {
       onClick: () => handleGroupNavigation(usuario)
     }
   ];
-
-  const handleMouseEnter = (e) => {
-    e.currentTarget.style.backgroundColor = '#3b82f6';
-    e.currentTarget.style.color = 'white';
-  };
-
-  const handleMouseLeave = (e) => {
-    e.currentTarget.style.backgroundColor = 'transparent';
-    e.currentTarget.style.color = '#374151';
-  };
 
   return (
     <div class="container">

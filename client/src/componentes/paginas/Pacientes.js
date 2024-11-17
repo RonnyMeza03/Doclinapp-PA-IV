@@ -95,6 +95,11 @@ const Pacientes = () => {
   const [error, setError] = useState(null);
   const [pacientes, setPacientes] = useState([]);
   const [data, setData] = useState([]);  // Inicializar como array vacío
+  const [busqueda, setBusqueda] = useState("");
+  const [ordenEdad, setOrdenEdad] = useState("ascendente");
+  const [sexo, setSexo] = useState("todos");
+  const [filtradorVisible, setFiltradorVisible] = useState(true);
+  const [mostrarLista, setMostrarLista] = useState(true);
 
   const pacientesMock = [
     { id: 1, nombre: 'Juan', apellido: 'Pérez', createdAt: "12/07/2024" },
@@ -106,6 +111,47 @@ const Pacientes = () => {
     { id: 7, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
     { id: 8, nombre: 'Carlos', apellido: 'Lopez', createdAt: "12/07/2024" },
   ];
+
+  const filtrarPorNombre = () => {
+    const busquedaSinEspacios = busqueda.trim();
+    if (busquedaSinEspacios === "") {
+      return pacientes;
+    } else {
+      return pacientes.filter((Paciente) => {
+        const nombreCompleto =
+          `${Paciente.nombre} ${Paciente.apellido}`.toLowerCase();
+        return nombreCompleto.includes(busquedaSinEspacios.toLowerCase());
+      });
+    }
+  };
+  
+  const ordenarPorEdad = (Pacientes) => {
+    // Validar que usuarios sea un array y no esté vacío
+    if (!Array.isArray(pacientes) || Pacientes.length === 0) {
+      return [];
+    }
+  
+    // Crear una copia del array antes de ordenarlo
+    return [...pacientes].sort((a, b) => {
+      // Validar que los objetos tengan la propiedad edad
+      const edadA = a?.edad || 0;
+      const edadB = b?.edad || 0;
+  
+      if (ordenEdad === "ascendente") {
+        return edadA - edadB;
+      } else {
+        return edadB - edadA;
+      }
+    });
+  };
+  
+  const filtrarPorSexo = (pacientes) => {
+    if (sexo === "todos") {
+      return pacientes;
+    } else {
+      return pacientes.filter((Paciente) => Paciente.sexo === sexo);
+    }
+  };
 
   const actualizarLocalStorage = useCallback((pacienteGuardado) => {
     const storedData = localStorage.getItem('jsonData');
@@ -242,8 +288,9 @@ const Pacientes = () => {
   }
 
   const renderPacientesList = (listaPacientes) => (
+
     <div className="lista-pacientes">
-      {Array.isArray(listaPacientes) && listaPacientes.map(paciente => (
+      {Array.isArray(listaPacientes) && filtrarPorSexo(filtrarPorNombre()).map(paciente => (
         <PacienteSection key={paciente.id} paciente={paciente} />
       ))}
       
@@ -255,7 +302,7 @@ const Pacientes = () => {
   );
 
   return (
-    <div style={{width: '100%'}}>
+    <div className='content-filtro' style={{width: '100%'}}>
         <h3 style={{
           textAlign: 'left',
           color: '#fff',
@@ -264,6 +311,54 @@ const Pacientes = () => {
           marginBottom: '2rem',
           paddingLeft: '1rem'
       }}>Lista de Pacientes</h3>
+       
+       {filtradorVisible && (
+        <>
+          {" "}
+          <section className="filtro-content">
+            <div className="filtro">
+              <input
+                id="busqueda"
+                type="text"
+                placeholder="Buscar por nombre"
+                value={busqueda}
+                onChange={(e) => setBusqueda(e.target.value)}
+              />
+
+              <div className="input">
+                <label htmlFor="ordenEdad" className="label-small">
+                  {" "}
+                  Ordenar por edad:
+                </label>
+                <select
+                  id="ordenEdad"
+                  value={ordenEdad}
+                  onChange={(e) => setOrdenEdad(e.target.value)}
+                >
+                  <option value="ascendente">Ascendente</option>
+                  <option value="descendente">Descendente</option>
+                </select>
+              </div>
+              <div className="input">
+                <label htmlFor="sexo" className="label-small">
+                  {" "}
+                  Filtrar por genero:
+                </label>
+                <select
+                  id="sexo"
+                  value={sexo}
+                  onChange={(e) => setSexo(e.target.value)}
+                >
+                  <option value="todos">Todos</option>
+                  <option value="masculino">Masculino</option>
+                  <option value="femenino">Femenino</option>
+                </select>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+
       <div className="nuevo-paciente">
         <Link to={`/Pacientes/crear`}>
           <IoPersonAddOutline />
@@ -283,7 +378,7 @@ const Pacientes = () => {
       ) : pacientes.length === 0 && (!data || data.length === 0) ? (
         <p>No hay pacientes registrados.</p>
       ) : (
-        renderPacientesList(pacientes)
+        renderPacientesList(pacientes) 
       )}
       
       
